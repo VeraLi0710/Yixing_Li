@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yixing Li (Vera) | Urban Data Science</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Tokens ───────────────────────────────────────────── */
+    :root {
+      --bg:       #07070d;
+      --bg-s:     #0d0d16;
+      --text:     #eeeef5;
+      --muted:    #80809a;
+      --dim:      #48486a;
+      --blue:     #5585f0;
+      --purple:   #9068e4;
+      --amber:    #d4a84b;
+      --glow-b:   rgba(85,133,240,.2);
+      --glow-p:   rgba(144,104,228,.18);
+      --glass:    rgba(255,255,255,.035);
+      --glass-b:  rgba(255,255,255,.07);
+      --nav-h:    58px;
+      --serif: 'Cormorant Garant', Georgia, serif;
+      --sans:  'DM Sans', system-ui, sans-serif;
+      --mono:  'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Navigation ───────────────────────────────────────── */
+    .site-nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: var(--nav-h);
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      background: rgba(7,7,13,.8);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: .02em;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .82rem;
+      font-weight: 400;
+      padding: .45rem 1rem;
+      letter-spacing: .03em;
+      transition: color .18s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 6px; left: 1rem; right: 1rem;
+      height: 1px;
+      background: var(--text);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .2s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .nav-links .nav-cta {
+      margin-left: .75rem;
+      padding: .38rem .9rem;
+      border: 1px solid var(--glass-b);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: .8rem;
+    }
+    .nav-links .nav-cta::after { display: none; }
+    .nav-links .nav-cta:hover {
+      border-color: rgba(255,255,255,.2);
+      background: rgba(255,255,255,.05);
+    }
+
+    /* ── Hero ─────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      padding-top: var(--nav-h);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ambient glow — very subtle */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 50% at 60% 0%, rgba(144,104,228,.14), transparent 55%),
+        radial-gradient(ellipse 40% 35% at 5% 80%,  rgba(85,133,240,.1),  transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 4rem 2.5rem 3rem;
+      gap: 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Hero Text ──────────────────────────────────────── */
+    .hero-text { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      font-family: var(--mono);
+      font-size: .65rem;
+      color: var(--dim);
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .hero-eyebrow::before {
+      content: "";
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--dim);
+    }
+
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 6.5vw, 5rem);
+      font-weight: 300;
+      letter-spacing: -.01em;
+      line-height: 1.02;
+      color: var(--text);
+    }
+
+    .hero-name .serif {
+      display: block;
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(2.4rem, 5.2vw, 4rem);
+      color: var(--muted);
+      background: none;
+      -webkit-text-fill-color: unset;
+      letter-spacing: .01em;
+    }
+
+    .hero-tagline {
+      font-family: var(--sans);
+      font-size: clamp(.82rem, 1.3vw, .92rem);
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+      min-height: 1.5em;
+    }
+
+    .hero-tagline .t-cursor {
+      display: inline-block;
+      width: 1px;
+      height: .9em;
+      background: var(--muted);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink .9s step-end infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* stat tags — minimal, no blobs */
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .28rem .75rem;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,.08);
+      font-size: .73rem;
+      font-weight: 400;
+      color: var(--muted);
+      background: transparent;
+      letter-spacing: .02em;
+    }
+
+    .pill .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--dim);
+      flex-shrink: 0;
+    }
+
+    .pill.award .dot { background: var(--amber); }
+
+    /* contact icons */
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .6rem;
+      padding-top: .25rem;
+    }
+
+    .c-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.09);
+      color: var(--dim);
+      text-decoration: none;
+      transition: color .18s, border-color .18s, background .18s;
+    }
+
+    .c-link:hover {
+      color: var(--text);
+      border-color: rgba(255,255,255,.2);
+      background: rgba(255,255,255,.04);
+    }
+
+    .c-link.wide {
+      width: auto;
+      padding: 0 13px;
+      gap: 6px;
+      font-size: .75rem;
+      font-family: var(--sans);
+      font-weight: 400;
+      letter-spacing: .01em;
+    }
+
+    .c-link svg { width: 18px; height: 18px; }
+
+    /* ── Hero Visual ──────────────────────────────────────── */
+    .hero-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .avatar-stage {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* no spinning ring — clean portrait */
+    .avatar-stage::before { display: none; }
+
+    .avatar-stage::after {
+      content: "";
+      position: absolute;
+      inset: 8%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(144,104,228,.18), transparent 70%);
+      filter: blur(28px);
+      z-index: -1;
+    }
+
+    .avatar {
+      display: block;
+      width: 250px;
+      height: 310px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.09);
+      box-shadow: 0 20px 50px rgba(0,0,0,.45);
+    }
+
+    /* ── Scroll indicator ─────────────────────────────────── */
+    .scroll-hint {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 1.2rem 0 2rem;
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+    }
+
+    .scroll-hint span {
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .scroll-arrow {
+      width: 18px; height: 18px;
+      color: var(--dim);
+      animation: bounce .3s ease-in-out infinite alternate;
+    }
+
+    @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(5px); } }
+
+    /* ── Divider ──────────────────────────────────────────── */
+    .section-divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.07), transparent);
+    }
+
+    /* ── Projects wrapper ─────────────────────────────────── */
+    .projects-section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 5rem 2.5rem 7rem;
+    }
+
+    #projects-root { width: 100%; }
+
+    /* ── Responsive ───────────────────────────────────────── */
+    @media (max-width: 820px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 3rem 1.5rem 2rem;
+        text-align: center;
+      }
+      .hero-text { align-items: center; }
+      .hero-eyebrow { justify-content: center; }
+      .hero-visual { order: -1; }
+      .avatar { width: 180px; height: 220px; }
+      .nav-links .nav-cta span { display: none; }
+      .c-link.wide span { display: none; }
+      .c-link.wide { width: 44px; padding: 0; gap: 0; }
+    }
+
+    @media (max-width: 500px) {
+      .site-nav { padding: 0 1.25rem; }
+      .projects-section { padding: 3rem 1.25rem 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAV ═══════════════════════════════════════════════ -->
+  <nav class="site-nav" aria-label="Site navigation">
+    <a href="#" class="nav-logo">Vera.</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li>
+        <a href="#" class="nav-cta">Resume&nbsp;↗</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ══ HERO ══════════════════════════════════════════════ -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+
+      <!-- text column -->
+      <div class="hero-text">
+        <span class="hero-eyebrow">Portfolio · 2025</span>
+
+        <h1 class="hero-name">
+          Yixing Li
+          <span class="serif">Vera.</span>
+        </h1>
+
+        <p class="hero-tagline" aria-live="polite">
+          <span id="intro-text"></span><span class="t-cursor" id="t-cursor"></span>
+        </p>
+
+        <div class="hero-pills">
+          <span class="pill"><span class="dot"></span>MSc Urban Data Science</span>
+          <span class="pill"><span class="dot"></span>UCL · London</span>
+          <span class="pill award"><span class="dot"></span>Award Winner</span>
+        </div>
+
+        <nav class="contact-row" aria-label="Contact links">
+          <!-- LinkedIn -->
+          <a class="c-link" href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <!-- GitHub -->
+          <a class="c-link" href="https://github.com/your-username" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <!-- Email -->
+          <a class="c-link wide" href="mailto:Yixing.Verali@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>Yixing.Verali@gmail.com</span>
+          </a>
+          <!-- Phone -->
+          <a class="c-link wide" href="tel:+447437950046" aria-label="Phone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+44 7437 950046</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- visual column -->
+      <div class="hero-visual">
+        <div class="avatar-stage">
+          <img class="avatar" src="/photo/me.jpg" alt="Yixing Li (Vera)" />
+        </div>
+      </div>
+
+    </div><!-- /hero-inner -->
+
+    <!-- scroll indicator -->
+    <div class="scroll-hint">
+      <span>scroll</span>
+      <svg class="scroll-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══ PROJECTS ══════════════════════════════════════════ -->
+  <section class="projects-section" id="projects">
+    <div id="projects-root"></div>
+  </section>
+
+  <!-- ══ Scripts ═══════════════════════════════════════════ -->
+  <script>
+    (function () {
+      var text = "MSc Urban Data Science @ UCL  ·  Data Product & Spatial Analysis";
+      var el = document.getElementById("intro-text");
+      var cur = document.getElementById("t-cursor");
+      if (!el || !cur) return;
+      var i = 0;
+      function tick() {
+        if (i < text.length) { el.textContent += text[i++]; setTimeout(tick, 52); }
+        else { cur.style.display = "none"; }
+      }
+      setTimeout(tick, 600);
+    })();
+  </script>
+  <script src="/static/js/projects.js"></script>
+</body>
+</html>
