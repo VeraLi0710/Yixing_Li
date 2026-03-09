@@ -9,98 +9,118 @@
   /* coverBg = layered CSS background for the card cover art    */
   var CATEGORIES = [
     {
-      num: "01", name: "Visualization",
-      desc: "Interactive maps, dashboards & data-driven storytelling.",
+      num: "01",
+      name: "AI & Predictive Analytics",
+      desc: "Empowering business decisions and urban sustainability through machine learning and large-scale algorithms.",
       projects: [
         {
-          id: "flood2021",
-          title: "Central European Flood 2021",
-          sub: "Interactive Analysis",
-          cat: "Visualization",
-          award: false, accent: "#38bdf8",
+          id: "cdrc-virgin",
+          title: "Predictive Intelligence x Virgin Media O2",
+          sub: "A 100M+ record ML pipeline for telecom network optimization.",
+          tag: "Machine Learning / Big Data",
+          cat: "AI & Predictive Analytics",
+          award: false, accent: "#22d3ee",
           coverBg: [
-            "radial-gradient(ellipse 90% 80% at 25% 65%, rgba(56,189,248,.55) 0%, transparent 55%)",
-            "radial-gradient(ellipse 60% 50% at 75% 25%, rgba(14,80,180,.4) 0%, transparent 50%)",
-            "repeating-linear-gradient(0deg,   rgba(56,189,248,.07) 0, rgba(56,189,248,.07) 1px, transparent 1px, transparent 32px)",
-            "repeating-linear-gradient(90deg,  rgba(56,189,248,.07) 0, rgba(56,189,248,.07) 1px, transparent 1px, transparent 32px)",
-            "linear-gradient(160deg, #04111e 0%, #083558 55%, #094a72 100%)"
+            /* diagonal circuit-trace lines */
+            "repeating-linear-gradient(120deg, rgba(34,211,238,.06) 0, rgba(34,211,238,.06) 1px, transparent 1px, transparent 42px)",
+            "repeating-linear-gradient(30deg,  rgba(34,211,238,.04) 0, rgba(34,211,238,.04) 1px, transparent 1px, transparent 42px)",
+            /* glow cores */
+            "radial-gradient(ellipse 75% 60% at 70% 30%, rgba(34,211,238,.45) 0%, transparent 55%)",
+            "radial-gradient(ellipse 50% 70% at 20% 75%, rgba(14,116,144,.35) 0%, transparent 50%)",
+            "linear-gradient(155deg, #010d12 0%, #032030 50%, #043545 100%)"
           ].join(","),
-          detail: "An interactive analysis of the catastrophic 2021 Central European floods, exploring spatial patterns of inundation, affected populations and critical infrastructure through dynamic choropleth maps and time-series charts.",
-          embed: "https://alteregoyishan.github.io/groupwork_0025/"
+          coverBgSize: "auto, auto, auto, auto, auto",
+          detail: "A research collaboration with CDRC and Virgin Media O2 to engineer predictive ML pipelines on 100M+ broadband records. Spatial features from MSOA-level census, retail gravity models and network topology were fused to forecast telecom infrastructure demand and optimize field service routing.",
+          pdfUrl: "https://geods.ac.uk/wp-content/uploads/2025/10/Yixing-Li.pdf"
         },
         {
-          id: "brexit-viz",
-          title: "Brexit Data Visualization",
-          sub: "",
-          cat: "Visualization",
-          award: false, accent: "#a78bfa",
+          id: "cusp-dive",
+          title: "EV-olution at CUSP London",
+          sub: "Award-winning spatial-temporal modelling for urban EV infrastructure.",
+          tag: "Spatial-Temporal AI / Policy",
+          cat: "AI & Predictive Analytics",
+          award: true, awardLabel: "Best Overall Award 🏆",
+          accent: "#a78bfa",
           coverBg: [
-            "radial-gradient(ellipse 80% 70% at 65% 35%, rgba(139,92,246,.6) 0%, transparent 55%)",
-            "radial-gradient(ellipse 50% 60% at 20% 75%, rgba(59,30,160,.4) 0%, transparent 50%)",
-            "repeating-linear-gradient(-45deg, rgba(167,139,250,.1) 0, rgba(167,139,250,.1) 1px, transparent 1px, transparent 18px)",
-            "linear-gradient(160deg, #0c0520 0%, #1e0d5a 50%, #2a1880 100%)"
+            /* radial pulse rings */
+            "radial-gradient(circle at 50% 45%, transparent 18%, rgba(167,139,250,.08) 20%, transparent 22%, rgba(167,139,250,.06) 32%, transparent 34%, rgba(167,139,250,.05) 46%, transparent 48%)",
+            /* conic scan lines */
+            "conic-gradient(from 200deg at 50% 42%, transparent 0deg, rgba(167,139,250,.1) 18deg, transparent 36deg, rgba(167,139,250,.07) 72deg, transparent 90deg, rgba(167,139,250,.05) 180deg, transparent 220deg, rgba(167,139,250,.1) 270deg, transparent 310deg, rgba(167,139,250,.07) 340deg, transparent 360deg)",
+            /* glow */
+            "radial-gradient(ellipse 70% 60% at 50% 40%, rgba(167,139,250,.55) 0%, transparent 55%)",
+            "linear-gradient(155deg, #0a0218 0%, #28085e 55%, #42088a 100%)"
           ].join(","),
-          detail: "A rich multi-layered visualization of the 2016 Brexit referendum — dissecting voting patterns, demographic correlations and regional economic sentiment using D3.js interactive graphics and scrollytelling.",
-          embed: "https://cihshee.github.io/CASA0003_minnni_project/"
-        },
-        {
-          id: "brexit-edu",
-          title: "Brexit & Education",
-          sub: "Web Visualization",
-          tag: "Individual Project",
-          cat: "Visualization",
-          award: false, accent: "#2dd4bf",
-          coverBg: [
-            "radial-gradient(ellipse 85% 75% at 55% 45%, rgba(45,212,191,.5) 0%, transparent 55%)",
-            "radial-gradient(ellipse 55% 45% at 15% 80%, rgba(13,100,90,.45) 0%, transparent 50%)",
-            "radial-gradient(rgba(45,212,191,.18) 1.5px, transparent 1.5px)",
-            "linear-gradient(160deg, #04181a 0%, #083d38 50%, #0b5448 100%)"
-          ].join(","),
-          coverBgSize: "auto, auto, 22px 22px, auto",
-          detail: "A personal independent project mapping the relationship between educational attainment across UK local authorities and their Brexit vote share, featuring interactive choropleth maps, scatter plots and dynamic filter controls.",
-          embed: "https://verali0710.github.io/03Viz-Brexit-Edu/",
-          buttons: [
-            { label: "GitHub Source", icon: "github", url: "https://github.com/VeraLi0710/03Viz-Brexit-Edu", primary: false }
-          ]
+          detail: "Awarded Best Overall at the CUSP London Data Dive. Modelled EV charging demand using spatial-temporal regression across London's LSOA network, forecasting infrastructure gaps to inform TfL and local authority investment strategy for the 2030 ZEV mandate.",
+          photo: "/cusp/winnnersphoto.png",
+          embed: "https://verali0710.github.io/CUSP_project001/interactive_map_with_all_variables.html",
+          kclUrl: "https://www.kcl.ac.uk/news/students-from-around-the-world-develop-solutions-for-greener-cities-in-data-competition"
         }
       ]
     },
     {
-      num: "02", name: "Spatial Analysis",
-      desc: "Predictive modelling, spatial-temporal inference & GIS.",
+      num: "02",
+      name: "Data Products & Interactive Experiences",
+      desc: "Transforming complex datasets into intuitive, user-facing web applications and visual narratives.",
       projects: [
         {
-          id: "cusp-dive",
-          title: "CUSP London Data Dive",
-          sub: "Spatial-Temporal Modelling",
-          cat: "Spatial Analysis",
-          award: true, awardLabel: "Won 'Best Overall Award' 🏆",
-          accent: "#c084fc",
+          id: "flood2021",
+          title: "Watershed: 2021 Central Europe Flood",
+          sub: "An interactive spatial data product evaluating disaster resilience and socio-economic impact.",
+          tag: "Web GIS / Interactive App",
+          cat: "Data Products & Interactive Experiences",
+          award: false, accent: "#38bdf8",
           coverBg: [
-            "conic-gradient(from 0deg at 50% 42%, transparent 0deg, rgba(192,132,252,.12) 22deg, transparent 44deg, rgba(192,132,252,.12) 66deg, transparent 88deg, rgba(192,132,252,.12) 110deg, transparent 132deg, rgba(192,132,252,.12) 154deg, transparent 176deg, rgba(192,132,252,.12) 198deg, transparent 220deg, rgba(192,132,252,.12) 242deg, transparent 264deg, rgba(192,132,252,.12) 286deg, transparent 308deg, rgba(192,132,252,.12) 330deg, transparent 352deg, rgba(192,132,252,.12) 360deg)",
-            "radial-gradient(ellipse 75% 65% at 50% 42%, rgba(192,132,252,.55) 0%, transparent 55%)",
-            "linear-gradient(160deg, #10022a 0%, #3a0870 50%, #580fa0 100%)"
+            /* grid */
+            "repeating-linear-gradient(0deg,  rgba(56,189,248,.055) 0, rgba(56,189,248,.055) 1px, transparent 1px, transparent 36px)",
+            "repeating-linear-gradient(90deg, rgba(56,189,248,.055) 0, rgba(56,189,248,.055) 1px, transparent 1px, transparent 36px)",
+            /* glows */
+            "radial-gradient(ellipse 80% 70% at 30% 60%, rgba(56,189,248,.5) 0%, transparent 52%)",
+            "radial-gradient(ellipse 55% 45% at 80% 20%, rgba(14,80,180,.4) 0%, transparent 50%)",
+            "linear-gradient(158deg, #03111e 0%, #072d50 55%, #083f68 100%)"
           ].join(","),
-          detail: "Analysed urban pedestrian flow and footfall anomalies across London to surface actionable insights for city planners, leveraging geographically weighted regression and spatial-temporal decomposition across LSOA-level sensor networks.",
-          photo: "/cusp/winnnersphoto.png",
-          embed: "https://verali0710.github.io/CUSP_project001/interactive_map_with_all_variables.html",
-          kclUrl: "https://www.kcl.ac.uk/news/students-from-around-the-world-develop-solutions-for-greener-cities-in-data-competition"
+          detail: "A full-stack interactive web data product mapping the catastrophic 2021 Central European floods. Layers spatial inundation patterns, affected population density and critical infrastructure vulnerability across flood-hit regions, enabling exploratory analysis of disaster resilience.",
+          embed: "https://alteregoyishan.github.io/groupwork_0025/"
         },
         {
-          id: "cdrc-virgin",
-          title: "CDRC – Virgin Project",
-          sub: "Predictive Modelling for Telecom",
-          cat: "Spatial Analysis",
-          award: false, accent: "#fb923c",
+          id: "brexit-edu",
+          title: "Navigating New Horizons: Brexit & Education",
+          sub: "A custom React-based web mapping product tracking international student demographic shifts.",
+          tag: "React / UI/UX",
+          cat: "Data Products & Interactive Experiences",
+          award: false, accent: "#f59e0b",
           coverBg: [
-            "radial-gradient(ellipse 80% 70% at 60% 40%, rgba(251,146,60,.5) 0%, transparent 55%)",
-            "radial-gradient(ellipse 50% 60% at 20% 70%, rgba(180,50,10,.35) 0%, transparent 50%)",
-            "linear-gradient(rgba(251,146,60,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(251,146,60,.1) 1px, transparent 1px)",
-            "linear-gradient(160deg, #160300 0%, #600e03 50%, #801808 100%)"
+            /* dot grid */
+            "radial-gradient(circle, rgba(245,158,11,.22) 1.5px, transparent 1.5px)",
+            /* glows */
+            "radial-gradient(ellipse 80% 65% at 60% 40%, rgba(245,158,11,.45) 0%, transparent 52%)",
+            "radial-gradient(ellipse 50% 60% at 15% 75%, rgba(180,90,10,.3) 0%, transparent 50%)",
+            "linear-gradient(158deg, #120900 0%, #3a1800 52%, #521f00 100%)"
           ].join(","),
-          coverBgSize: "auto, auto, 28px 28px, 28px 28px, auto",
-          detail: "A research collaboration with CDRC and Virgin Media O2 to build predictive machine-learning models for residential broadband demand. Spatial features from MSOA-level census and retail data were combined with network topology to forecast telecom infrastructure uptake.",
-          pdfUrl: "https://geods.ac.uk/wp-content/uploads/2025/10/Yixing-Li.pdf"
+          coverBgSize: "24px 24px, auto, auto, auto",
+          detail: "An independent React web-mapping application tracking the post-Brexit shift in UK university international student demographics. Combines choropleth mapping, scatter plot analysis and dynamic filters to surface how Brexit reshuffled educational migration flows across UK local authorities.",
+          embed: "https://verali0710.github.io/03Viz-Brexit-Edu/",
+          buttons: [
+            { label: "GitHub Source", icon: "github", url: "https://github.com/VeraLi0710/03Viz-Brexit-Edu", primary: false }
+          ]
+        },
+        {
+          id: "brexit-viz",
+          title: "The Brexit Trade Network",
+          sub: "Data-driven storytelling decoding macro-economic shifts through interactive network topography.",
+          tag: "Network Analysis / D3.js",
+          cat: "Data Products & Interactive Experiences",
+          award: false, accent: "#818cf8",
+          coverBg: [
+            /* node-to-node dot pattern */
+            "radial-gradient(circle, rgba(129,140,248,.2) 1.5px, transparent 1.5px)",
+            /* glows */
+            "radial-gradient(ellipse 75% 65% at 65% 35%, rgba(99,102,241,.55) 0%, transparent 52%)",
+            "radial-gradient(ellipse 45% 60% at 20% 72%, rgba(55,30,160,.38) 0%, transparent 50%)",
+            "linear-gradient(158deg, #08051c 0%, #180d4a 52%, #221070 100%)"
+          ].join(","),
+          coverBgSize: "26px 26px, auto, auto, auto",
+          detail: "A D3.js scrollytelling experience dissecting the 2016 Brexit referendum through network analysis of trade dependency, regional voting coalitions and demographic correlations. Interactive force-directed graphs reveal the macro-economic tensions encoded in the vote.",
+          embed: "https://cihshee.github.io/CASA0003_minnni_project/"
         }
       ]
     }
@@ -112,26 +132,25 @@
     .cat-block { margin-bottom: 5rem; }
 
     .cat-header {
-      display: flex; align-items: baseline; gap: 1.4rem;
-      margin-bottom: 2rem;
-    }
-    .cat-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .62rem; color: #48486a;
-      letter-spacing: .18em; flex-shrink: 0;
+      display: flex; align-items: center; gap: 2rem;
+      margin-bottom: 2.2rem;
+      padding-bottom: 1.6rem;
+      border-bottom: 1px solid rgba(255,255,255,.06);
     }
     .cat-title-wrap { flex: 1; }
     .cat-name {
       font-family: 'Cormorant Garant', Georgia, serif;
-      font-size: clamp(1.7rem,3.2vw,2.5rem); font-weight: 400;
-      letter-spacing: -.01em; color: #eeeef5; line-height: 1;
+      font-size: clamp(1.8rem, 3.4vw, 2.8rem); font-weight: 400;
+      letter-spacing: -.01em; line-height: 1;
+      background: linear-gradient(110deg, #eeeef8 0%, #b0b0d8 65%, #8888c0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    .cat-desc { margin-top: .3rem; font-size: .78rem; color: #60607a; font-weight: 300; }
-    .cat-rule {
-      flex: 1; height: 1px;
-      background: rgba(255,255,255,.06);
-      align-self: center;
-    }
+    .cat-desc { margin-top: .5rem; font-size: .8rem; color: #55556e; font-weight: 300; line-height: 1.65; max-width: 56ch; }
+
+    /* subtle accent accent mark to the left of the title */
+    .cat-rule { display: none; }
 
     /* ── Card row: horizontal scroll ─────────────────────── */
     .card-row-wrap {
@@ -200,7 +219,23 @@
     /* bottom vignette on cover */
     .p-cover-vignette {
       position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background: linear-gradient(180deg, transparent 50%, rgba(13,13,20,.95) 100%);
+      background: linear-gradient(180deg, transparent 45%, rgba(13,13,22,.95) 100%);
+    }
+
+    /* tech stack tag chip — glassmorphism, top-left corner */
+    .p-tag {
+      position: absolute; top: 12px; left: 12px; z-index: 10;
+      padding: .22rem .6rem;
+      border-radius: 5px;
+      background: rgba(7,7,18,.55);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.14);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .58rem; font-weight: 400;
+      color: rgba(220,220,245,.75);
+      letter-spacing: .06em;
+      white-space: nowrap;
+      pointer-events: none;
     }
 
     /* info panel – bottom 40% */
@@ -222,8 +257,9 @@
       letter-spacing: -.01em; line-height: 1.3; margin: 0;
     }
     .p-sub {
-      margin: .25rem 0 0; font-size: .72rem;
-      color: #60607a; font-weight: 300; letter-spacing: .01em;
+      margin: .3rem 0 0; font-size: .71rem;
+      color: #5a5a78; font-weight: 300; letter-spacing: .005em;
+      line-height: 1.55;
     }
     .p-open-hint {
       margin-top: .7rem;
@@ -548,10 +584,18 @@
     }
     .kcl-card:hover .kcl-card-cta { background: rgba(160,0,26,.1); border-color: rgba(160,0,26,.4); }
 
+    /* accent-tinted rule at bottom of hero */
+    .pm-hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--pm-accent, #5585f0), transparent 80%);
+      opacity: .5;
+    }
+
     /* responsive */
     @media(max-width:640px){
       .p-card, .p-card.award { width: calc(80vw) !important; height: 420px; }
-      .pm-hero { flex: 0 0 180px; }
+      .pm-hero { flex: 0 0 175px; }
       .pm-hero-title { font-size: 1.4rem; }
       .cusp-header { grid-template-columns: 1fr; }
       .embed-wrap { min-height: 400px; height: 65svh; }
@@ -568,7 +612,6 @@
     /* header */
     var hdr = el("div", "cat-header");
     hdr.innerHTML =
-      '<span class="cat-num">' + cat.num + "</span>" +
       '<div class="cat-title-wrap">' +
         '<h2 class="cat-name">' + cat.name + "</h2>" +
         '<p class="cat-desc">' + cat.desc + "</p>" +
@@ -648,7 +691,7 @@
     if (p.coverBgSize) pmHeroBg.style.backgroundSize = p.coverBgSize;
     else               pmHeroBg.style.backgroundSize = "";
 
-    pmTbCat.textContent     = p.cat || "";
+    pmTbCat.textContent     = p.tag || p.cat || "";
     pmHeroTitle.textContent = p.title;
     pmHeroSub.textContent   = p.sub  || "";
 
@@ -657,6 +700,9 @@
 
     /* body content */
     pmBody.innerHTML = buildModalBody(p);
+    /* tint the titlebar with a faint accent */
+    var pmBox2 = pmWrap.querySelector(".pm-box");
+    pmBox2.style.setProperty("--pm-accent", p.accent || "#5585f0");
     pmWrap.classList.add("open");
     document.body.style.overflow = "hidden";
     pmBack.focus();
@@ -826,10 +872,17 @@
     cover.appendChild(shimmer);
     cover.appendChild(vignette);
 
+    /* tech stack tag chip */
+    if (p.tag) {
+      var tagChip = el("span", "p-tag");
+      tagChip.textContent = p.tag;
+      cover.appendChild(tagChip);
+    }
+
     var infoHtml =
       (p.award ? '<p class="p-award-badge">🏆 ' + esc(p.awardLabel || "Award Winning") + "</p>" : "") +
       '<h3 class="p-title">' + esc(p.title) + "</h3>" +
-      (p.sub ? '<p class="p-sub" style="color:' + p.accent + '">' + esc(p.sub) + "</p>" : "") +
+      (p.sub ? '<p class="p-sub">' + esc(p.sub) + "</p>" : "") +
       '<span class="p-open-hint">View project →</span>';
 
     var info = el("div", "p-info");
