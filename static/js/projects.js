@@ -20,7 +20,7 @@
           tag: "Predictive ML / 100M+ Pipeline",
           cat: "AI & Predictive Analytics",
           award: false, accent: "#22d3ee",
-          image: "/photo/VMO2cover.png",
+          image: "https://raw.githubusercontent.com/VeraLi0710/Yixing_Li/main/photo/VMO2cover.png",
           imagePos: "center top",
           coverBg: [
             /* diagonal circuit-trace lines */
@@ -43,7 +43,7 @@
           cat: "AI & Predictive Analytics",
           award: true, awardLabel: "Best Overall Award 🏆",
           accent: "#a78bfa",
-          image: "/photo/CUSP.png",
+          image: "https://raw.githubusercontent.com/VeraLi0710/Yixing_Li/main/photo/CUSP.png",
           imagePos: "center center",
           coverBg: [
             /* radial pulse rings */
@@ -73,7 +73,7 @@
           tag: "Graph Analytics / D3.js",
           cat: "Data Products & Interactive Experiences",
           award: false, accent: "#818cf8",
-          image: "/photo/Brexit_trade.png",
+          image: "https://raw.githubusercontent.com/VeraLi0710/Yixing_Li/main/photo/Brexit_trade.png",
           imagePos: "center center",
           coverBg: [
             /* node-to-node dot pattern */
@@ -94,7 +94,7 @@
           tag: "Data Storytelling / React",
           cat: "Data Products & Interactive Experiences",
           award: false, accent: "#f59e0b",
-          image: "/photo/Brexit_edu.png",
+          image: "https://raw.githubusercontent.com/VeraLi0710/Yixing_Li/main/photo/Brexit_edu.png",
           imagePos: "center center",
           coverBg: [
             /* dot grid */
@@ -118,7 +118,7 @@
           tag: "Geospatial Product / Mapbox",
           cat: "Data Products & Interactive Experiences",
           award: false, accent: "#38bdf8",
-          image: "/photo/2021 Central Europe Flood.png",
+          image: "https://raw.githubusercontent.com/VeraLi0710/Yixing_Li/main/photo/2021 Central Europe Flood.png",
           imagePos: "center top",
           coverBg: [
             /* grid */
