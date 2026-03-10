@@ -821,7 +821,8 @@
   }
 
   function buildCusp(p) {
-    var pdfUrl = "https://raw.githubusercontent.com/VeraLi0710/Yixing_Li/main/CUSP/CUSP_Group_7.pdf";
+    var pdfRaw = "https://raw.githubusercontent.com/VeraLi0710/Yixing_Li/main/CUSP/CUSP_Group_7.pdf";
+    var pdfUrl = "https://docs.google.com/viewer?url=" + encodeURIComponent(pdfRaw) + "&embedded=true";
     var kclUrl = p.kclUrl || "#";
     var h = "";
 
@@ -875,7 +876,7 @@
            '</div>' +
          '</div>';
     h += '<div class="btn-row" style="margin-top:.75rem">' +
-           '<a class="pm-btn cusp-pdf-btn" href="' + pdfUrl + '" target="_blank" rel="noopener">' +
+           '<a class="pm-btn cusp-pdf-btn" href="' + pdfRaw + '" target="_blank" rel="noopener">' +
              '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' +
              'Open PDF Full Screen' +
            '</a>' +
