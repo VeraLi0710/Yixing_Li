@@ -76,10 +76,10 @@
     .nav-links a {
       color: var(--muted);
       text-decoration: none;
-      font-size: .82rem;
+      font-size: .9rem;
       font-weight: 400;
       padding: .45rem 1rem;
-      letter-spacing: .03em;
+      letter-spacing: .02em;
       transition: color .18s;
       position: relative;
     }
@@ -104,7 +104,7 @@
       border: 1px solid var(--glass-b);
       border-radius: 6px;
       color: var(--text);
-      font-size: .8rem;
+      font-size: .9rem;
     }
     .nav-links .nav-cta::after { display: none; }
     .nav-links .nav-cta:hover {
@@ -172,54 +172,23 @@
 
     .hero-tagline {
       font-family: var(--sans);
-      font-size: clamp(.82rem, 1.3vw, .92rem);
+      font-size: clamp(1rem, 1.6vw, 1.1rem);
       font-weight: 300;
       color: var(--muted);
       line-height: 1.7;
-      min-height: 1.5em;
     }
 
-    .hero-tagline .t-cursor {
-      display: inline-block;
-      width: 1px;
-      height: .9em;
-      background: var(--muted);
-      margin-left: 2px;
-      vertical-align: text-bottom;
-      animation: blink .9s step-end infinite;
-    }
-
-    @keyframes blink { 50% { opacity: 0; } }
-
-    /* stat tags — minimal, no blobs */
-    .hero-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: .45rem;
-      padding: .28rem .75rem;
-      border-radius: 4px;
-      border: 1px solid rgba(255,255,255,.08);
-      font-size: .73rem;
-      font-weight: 400;
+    .hero-motto {
+      font-family: var(--sans);
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      font-weight: 300;
+      font-style: italic;
       color: var(--muted);
-      background: transparent;
-      letter-spacing: .02em;
+      line-height: 1.65;
+      padding-left: 1rem;
+      border-left: 1.5px solid rgba(212,168,75,.35);
+      margin-top: -.4rem;
     }
-
-    .pill .dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--dim);
-      flex-shrink: 0;
-    }
-
-    .pill.award .dot { background: var(--amber); }
 
     /* contact icons */
     .contact-row {
@@ -253,7 +222,7 @@
       width: auto;
       padding: 0 13px;
       gap: 6px;
-      font-size: .75rem;
+      font-size: .9rem;
       font-family: var(--sans);
       font-weight: 400;
       letter-spacing: .01em;
@@ -272,30 +241,78 @@
     .avatar-stage {
       position: relative;
       display: inline-block;
+      overflow: visible;
     }
 
-    /* no spinning ring — clean portrait */
     .avatar-stage::before { display: none; }
 
+    /* ambient glow behind the fan */
     .avatar-stage::after {
       content: "";
       position: absolute;
-      inset: 8%;
+      inset: 5%;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(144,104,228,.18), transparent 70%);
-      filter: blur(28px);
-      z-index: -1;
+      background: radial-gradient(circle, rgba(144,104,228,.2), transparent 70%);
+      filter: blur(32px);
+      z-index: 0;
+      transition: opacity .5s;
+    }
+    .avatar-fan:hover ~ .avatar-stage::after,
+    .avatar-stage:hover::after { opacity: 1.4; }
+
+    /* fan container — overflow visible so the second card can slide out */
+    .avatar-fan {
+      position: relative;
+      width: 250px; height: 310px;
+      cursor: pointer;
     }
 
-    .avatar {
-      display: block;
-      width: 250px;
-      height: 310px;
+    .avatar-fan img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 250px; height: 310px;
       object-fit: cover;
       object-position: center top;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,.09);
-      box-shadow: 0 20px 50px rgba(0,0,0,.45);
+      border-radius: 18px;
+      /* soft inset ring instead of hard border */
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.07),
+                  0 22px 55px rgba(0,0,0,.55);
+      transition: transform .6s cubic-bezier(.22,1,.36,1),
+                  filter .45s ease,
+                  opacity .45s ease,
+                  mask-position .6s cubic-bezier(.22,1,.36,1),
+                  -webkit-mask-position .6s cubic-bezier(.22,1,.36,1);
+      will-change: transform, filter;
+    }
+
+    /* back card: slightly tilted, soft right edge via mask, dark silhouette */
+    .av-back {
+      transform: translateX(14px) rotate(-6deg);
+      transform-origin: bottom center;
+      z-index: 1;
+      filter: brightness(.3) saturate(.05);
+      /* soft right-edge fade so the peek doesn't look hard-cut */
+      -webkit-mask-image: linear-gradient(to right, black 70%, transparent 100%);
+      mask-image: linear-gradient(to right, black 70%, transparent 100%);
+    }
+
+    /* front card: straight */
+    .av-front {
+      transform: translateX(0) rotate(0deg);
+      z-index: 2;
+    }
+
+    /* fan open */
+    .avatar-fan:hover .av-front {
+      transform: translateX(-12px) rotate(0deg);
+      filter: brightness(.88);
+    }
+    .avatar-fan:hover .av-back {
+      transform: translateX(220px) rotate(0deg) scale(1);
+      filter: brightness(.96) saturate(1);
+      /* remove the edge mask once fully revealed */
+      -webkit-mask-image: linear-gradient(to right, black 92%, transparent 100%);
+      mask-image: linear-gradient(to right, black 92%, transparent 100%);
     }
 
     /* ── Scroll indicator ─────────────────────────────────── */
@@ -308,8 +325,8 @@
 
     .scroll-hint span {
       font-family: var(--mono);
-      font-size: .62rem;
-      letter-spacing: .16em;
+      font-size: .82rem;
+      letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--dim);
     }
@@ -348,7 +365,7 @@
       .hero-text { align-items: center; }
       .hero-eyebrow { justify-content: center; }
       .hero-visual { order: -1; }
-      .avatar { width: 180px; height: 220px; }
+      .avatar-fan { width: 180px; height: 220px; }
       .nav-links .nav-cta span { display: none; }
       .c-link.wide span { display: none; }
       .c-link.wide { width: 44px; padding: 0; gap: 0; }
@@ -386,15 +403,9 @@
           <span class="serif">Vera.</span>
         </h1>
 
-        <p class="hero-tagline" aria-live="polite">
-          <span id="intro-text"></span><span class="t-cursor" id="t-cursor"></span>
-        </p>
+        <p class="hero-tagline">AI &amp; Data Product &nbsp;·&nbsp; Data Scientist</p>
 
-        <div class="hero-pills">
-          <span class="pill"><span class="dot"></span>MSc Urban Data Science</span>
-          <span class="pill"><span class="dot"></span>UCL · London</span>
-          <span class="pill award"><span class="dot"></span>Award Winner</span>
-        </div>
+        <p class="hero-motto">"Architecting intelligent systems where deep tech meets radical empathy."</p>
 
         <nav class="contact-row" aria-label="Contact links">
           <!-- LinkedIn -->
@@ -421,7 +432,10 @@
       <!-- visual column -->
       <div class="hero-visual">
         <div class="avatar-stage">
-          <img class="avatar" src="/photo/me.jpg" alt="Yixing Li (Vera)" />
+          <div class="avatar-fan">
+            <img class="av-back"  src="/photo/me2.jpg" alt="" />
+            <img class="av-front" src="/photo/me1.jpg" alt="Yixing Li (Vera)" />
+          </div>
         </div>
       </div>
 
@@ -444,20 +458,6 @@
   </section>
 
   <!-- ══ Scripts ═══════════════════════════════════════════ -->
-  <script>
-    (function () {
-      var text = "MSc Urban Data Science @ UCL  ·  Data Product & Spatial Analysis";
-      var el = document.getElementById("intro-text");
-      var cur = document.getElementById("t-cursor");
-      if (!el || !cur) return;
-      var i = 0;
-      function tick() {
-        if (i < text.length) { el.textContent += text[i++]; setTimeout(tick, 52); }
-        else { cur.style.display = "none"; }
-      }
-      setTimeout(tick, 600);
-    })();
-  </script>
   <script src="/static/js/projects.js"></script>
 </body>
 </html>

@@ -16,10 +16,12 @@
         {
           id: "cdrc-virgin",
           title: "Predictive Intelligence x Virgin Media O2",
-          sub: "A 100M+ record ML pipeline for telecom network optimization.",
-          tag: "Machine Learning / Big Data",
+          sub: "A 100M+ record ML pipeline for telecom network optimisation.",
+          tag: "Predictive ML / 100M+ Pipeline",
           cat: "AI & Predictive Analytics",
           award: false, accent: "#22d3ee",
+          image: "/photo/VMO2cover.png",
+          imagePos: "center top",
           coverBg: [
             /* diagonal circuit-trace lines */
             "repeating-linear-gradient(120deg, rgba(34,211,238,.06) 0, rgba(34,211,238,.06) 1px, transparent 1px, transparent 42px)",
@@ -30,17 +32,19 @@
             "linear-gradient(155deg, #010d12 0%, #032030 50%, #043545 100%)"
           ].join(","),
           coverBgSize: "auto, auto, auto, auto, auto",
-          detail: "A research collaboration with CDRC and Virgin Media O2 to engineer predictive ML pipelines on 100M+ broadband records. Spatial features from MSOA-level census, retail gravity models and network topology were fused to forecast telecom infrastructure demand and optimize field service routing.",
+          detail: "A research collaboration with CDRC and Virgin Media O2 to engineer predictive ML pipelines on 100M+ broadband records. Spatial features from MSOA-level census, retail gravity models and network topology were fused to forecast telecom infrastructure demand and optimise field service routing.",
           pdfUrl: "https://geods.ac.uk/wp-content/uploads/2025/10/Yixing-Li.pdf"
         },
         {
           id: "cusp-dive",
-          title: "EV-olution at CUSP London",
-          sub: "Award-winning spatial-temporal modelling for urban EV infrastructure.",
-          tag: "Spatial-Temporal AI / Policy",
+          title: "Spatial AI for Fuel Poverty & Energy",
+          sub: "Optimising urban resource allocation and energy efficiency through high-resolution spatial-temporal modelling.",
+          tag: "Spatial AI / Resource Optimisation",
           cat: "AI & Predictive Analytics",
           award: true, awardLabel: "Best Overall Award 🏆",
           accent: "#a78bfa",
+          image: "/photo/CUSP.png",
+          imagePos: "center center",
           coverBg: [
             /* radial pulse rings */
             "radial-gradient(circle at 50% 45%, transparent 18%, rgba(167,139,250,.08) 20%, transparent 22%, rgba(167,139,250,.06) 32%, transparent 34%, rgba(167,139,250,.05) 46%, transparent 48%)",
@@ -50,7 +54,7 @@
             "radial-gradient(ellipse 70% 60% at 50% 40%, rgba(167,139,250,.55) 0%, transparent 55%)",
             "linear-gradient(155deg, #0a0218 0%, #28085e 55%, #42088a 100%)"
           ].join(","),
-          detail: "Awarded Best Overall at the CUSP London Data Dive. Modelled EV charging demand using spatial-temporal regression across London's LSOA network, forecasting infrastructure gaps to inform TfL and local authority investment strategy for the 2030 ZEV mandate.",
+          detail: "As Team Lead at the CUSP London Data Dive (2025), I architected advanced spatial models — including Geographically Weighted Regression (GWR) and diffusion analysis — to combat urban fuel poverty. This project focused on generating a high-resolution vulnerability index to identify neighbourhoods requiring urgent energy support and carbon-efficient interventions.\n\nOur spatial-temporal approach successfully optimised government resource allocation efficiency by 15%, ensuring precise, targeted support for fuel-poor areas. This data-driven strategy not only addresses immediate community needs but also aligns with broader urban energy and carbon reduction goals. The project won the 'Best Overall Award' and was selected for presentation at the Urban Future Symposium (ETH Empa).",
           photo: "/cusp/winnnersphoto.png",
           embed: "https://verali0710.github.io/CUSP_project001/interactive_map_with_all_variables.html",
           kclUrl: "https://www.kcl.ac.uk/news/students-from-around-the-world-develop-solutions-for-greener-cities-in-data-competition"
@@ -63,31 +67,35 @@
       desc: "Transforming complex datasets into intuitive, user-facing web applications and visual narratives.",
       projects: [
         {
-          id: "flood2021",
-          title: "Watershed: 2021 Central Europe Flood",
-          sub: "An interactive spatial data product evaluating disaster resilience and socio-economic impact.",
-          tag: "Web GIS / Interactive App",
+          id: "brexit-viz",
+          title: "The Brexit Trade Network",
+          sub: "Data-driven storytelling decoding macro-economic shifts through interactive network topography.",
+          tag: "Graph Analytics / D3.js",
           cat: "Data Products & Interactive Experiences",
-          award: false, accent: "#38bdf8",
+          award: false, accent: "#818cf8",
+          image: "/photo/Brexit_trade.png",
+          imagePos: "center center",
           coverBg: [
-            /* grid */
-            "repeating-linear-gradient(0deg,  rgba(56,189,248,.055) 0, rgba(56,189,248,.055) 1px, transparent 1px, transparent 36px)",
-            "repeating-linear-gradient(90deg, rgba(56,189,248,.055) 0, rgba(56,189,248,.055) 1px, transparent 1px, transparent 36px)",
+            /* node-to-node dot pattern */
+            "radial-gradient(circle, rgba(129,140,248,.2) 1.5px, transparent 1.5px)",
             /* glows */
-            "radial-gradient(ellipse 80% 70% at 30% 60%, rgba(56,189,248,.5) 0%, transparent 52%)",
-            "radial-gradient(ellipse 55% 45% at 80% 20%, rgba(14,80,180,.4) 0%, transparent 50%)",
-            "linear-gradient(158deg, #03111e 0%, #072d50 55%, #083f68 100%)"
+            "radial-gradient(ellipse 75% 65% at 65% 35%, rgba(99,102,241,.55) 0%, transparent 52%)",
+            "radial-gradient(ellipse 45% 60% at 20% 72%, rgba(55,30,160,.38) 0%, transparent 50%)",
+            "linear-gradient(158deg, #08051c 0%, #180d4a 52%, #221070 100%)"
           ].join(","),
-          detail: "A full-stack interactive web data product mapping the catastrophic 2021 Central European floods. Layers spatial inundation patterns, affected population density and critical infrastructure vulnerability across flood-hit regions, enabling exploratory analysis of disaster resilience.",
-          embed: "https://alteregoyishan.github.io/groupwork_0025/"
+          coverBgSize: "26px 26px, auto, auto, auto",
+          detail: "A D3.js scrollytelling experience dissecting the 2016 Brexit referendum through network analysis of trade dependency, regional voting coalitions and demographic correlations. Interactive force-directed graphs reveal the macro-economic tensions encoded in the vote.",
+          embed: "https://cihshee.github.io/CASA0003_minnni_project/"
         },
         {
           id: "brexit-edu",
           title: "Navigating New Horizons: Brexit & Education",
           sub: "A custom React-based web mapping product tracking international student demographic shifts.",
-          tag: "React / UI/UX",
+          tag: "Data Storytelling / React",
           cat: "Data Products & Interactive Experiences",
           award: false, accent: "#f59e0b",
+          image: "/photo/Brexit_edu.png",
+          imagePos: "center center",
           coverBg: [
             /* dot grid */
             "radial-gradient(circle, rgba(245,158,11,.22) 1.5px, transparent 1.5px)",
@@ -104,23 +112,25 @@
           ]
         },
         {
-          id: "brexit-viz",
-          title: "The Brexit Trade Network",
-          sub: "Data-driven storytelling decoding macro-economic shifts through interactive network topography.",
-          tag: "Network Analysis / D3.js",
+          id: "flood2021",
+          title: "Watershed: 2021 Central Europe Flood",
+          sub: "An interactive spatial data product evaluating disaster resilience and socio-economic impact.",
+          tag: "Geospatial Product / Mapbox",
           cat: "Data Products & Interactive Experiences",
-          award: false, accent: "#818cf8",
+          award: false, accent: "#38bdf8",
+          image: "/photo/2021 Central Europe Flood.png",
+          imagePos: "center top",
           coverBg: [
-            /* node-to-node dot pattern */
-            "radial-gradient(circle, rgba(129,140,248,.2) 1.5px, transparent 1.5px)",
+            /* grid */
+            "repeating-linear-gradient(0deg,  rgba(56,189,248,.055) 0, rgba(56,189,248,.055) 1px, transparent 1px, transparent 36px)",
+            "repeating-linear-gradient(90deg, rgba(56,189,248,.055) 0, rgba(56,189,248,.055) 1px, transparent 1px, transparent 36px)",
             /* glows */
-            "radial-gradient(ellipse 75% 65% at 65% 35%, rgba(99,102,241,.55) 0%, transparent 52%)",
-            "radial-gradient(ellipse 45% 60% at 20% 72%, rgba(55,30,160,.38) 0%, transparent 50%)",
-            "linear-gradient(158deg, #08051c 0%, #180d4a 52%, #221070 100%)"
+            "radial-gradient(ellipse 80% 70% at 30% 60%, rgba(56,189,248,.5) 0%, transparent 52%)",
+            "radial-gradient(ellipse 55% 45% at 80% 20%, rgba(14,80,180,.4) 0%, transparent 50%)",
+            "linear-gradient(158deg, #03111e 0%, #072d50 55%, #083f68 100%)"
           ].join(","),
-          coverBgSize: "26px 26px, auto, auto, auto",
-          detail: "A D3.js scrollytelling experience dissecting the 2016 Brexit referendum through network analysis of trade dependency, regional voting coalitions and demographic correlations. Interactive force-directed graphs reveal the macro-economic tensions encoded in the vote.",
-          embed: "https://cihshee.github.io/CASA0003_minnni_project/"
+          detail: "A full-stack interactive web data product mapping the catastrophic 2021 Central European floods. Layers spatial inundation patterns, affected population density and critical infrastructure vulnerability across flood-hit regions, enabling exploratory analysis of disaster resilience.",
+          embed: "https://alteregoyishan.github.io/groupwork_0025/"
         }
       ]
     }
@@ -147,7 +157,7 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .cat-desc { margin-top: .5rem; font-size: .8rem; color: #55556e; font-weight: 300; line-height: 1.65; max-width: 56ch; }
+    .cat-desc { margin-top: .55rem; font-size: .95rem; color: #55556e; font-weight: 300; line-height: 1.65; max-width: 56ch; }
 
     /* subtle accent accent mark to the left of the title */
     .cat-rule { display: none; }
@@ -156,13 +166,7 @@
     .card-row-wrap {
       position: relative;
     }
-    /* right-edge fade hint */
-    .card-row-wrap::after {
-      content: '';
-      position: absolute; right: 0; top: 0; bottom: 16px;
-      width: 72px; pointer-events: none; z-index: 5;
-      background: linear-gradient(90deg, transparent, #07070d);
-    }
+    /* right-edge fade is handled by .scroll-hint-btn */
     .card-row {
       display: flex; gap: 1.1rem;
       overflow-x: auto;
@@ -180,10 +184,10 @@
     /* ── Individual card ──────────────────────────────────── */
     .p-card {
       flex: 0 0 auto;
-      width: 295px; height: 490px;
+      width: 400px; height: 460px;
       border-radius: 14px; overflow: hidden;
       cursor: pointer;
-      border: 1px solid rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.08);
       background: #0d0d16;
       scroll-snap-align: start;
       display: flex; flex-direction: column;
@@ -193,22 +197,59 @@
         opacity .55s ease, transform .55s cubic-bezier(.2,.8,.4,1),
         box-shadow .3s ease, border-color .3s ease;
     }
-    .p-card.award { width: 350px; }
+    .p-card.award { width: 400px; }
+
+    /* ── Scroll-right hint button ──────────────────────────── */
+    .scroll-hint-btn {
+      position: absolute; right: 0; top: 0; bottom: 16px;
+      width: 88px; z-index: 6;
+      display: flex; align-items: center; justify-content: flex-end;
+      padding-right: 14px;
+      background: linear-gradient(90deg, transparent, #07070d 60%);
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+    .scroll-hint-btn.hidden { opacity: 0; pointer-events: none; }
+    .scroll-hint-arrow {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.7);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; pointer-events: all;
+      transition: background .18s, border-color .18s, transform .18s;
+      flex-shrink: 0;
+    }
+    .scroll-hint-arrow:hover {
+      background: rgba(255,255,255,.15);
+      border-color: rgba(255,255,255,.28);
+      transform: translateX(2px);
+    }
+    .scroll-hint-arrow svg { width: 15px; height: 15px; }
     .p-card.revealed { opacity:1; transform:translateY(0); }
     .p-card:hover {
-      border-color: rgba(255,255,255,.13);
-      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      border-color: rgba(255,255,255,.14);
+      box-shadow: 0 16px 48px rgba(0,0,0,.55);
     }
 
     /* cover – top 60% */
     .p-cover {
       flex: 0 0 60%; position: relative; overflow: hidden;
     }
+    /* 2px accent strip at top of each card */
+    .p-cover::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--card-accent, rgba(255,255,255,.15));
+      z-index: 12;
+    }
     .p-cover-inner {
       position: absolute; inset: 0;
-      transition: transform .55s cubic-bezier(.25,.8,.25,1);
+      transition: transform .6s cubic-bezier(.25,.8,.25,1);
+      background-size: cover;
     }
-    .p-card:hover .p-cover-inner { transform: scale(1.06); }
+    .p-card:hover .p-cover-inner { transform: scale(1.04); }
 
     /* shimmer (mouse-following) */
     .p-shimmer {
@@ -231,9 +272,9 @@
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(255,255,255,.14);
       font-family: 'JetBrains Mono', monospace;
-      font-size: .58rem; font-weight: 400;
-      color: rgba(220,220,245,.75);
-      letter-spacing: .06em;
+      font-size: .8rem; font-weight: 400;
+      color: rgba(220,220,245,.85);
+      letter-spacing: .03em;
       white-space: nowrap;
       pointer-events: none;
     }
@@ -246,25 +287,25 @@
       border-top: 1px solid rgba(255,255,255,.05);
     }
     .p-award-badge {
-      font-size: .63rem; font-weight: 400; color: #d4a84b;
-      letter-spacing: .06em; margin-bottom: .4rem;
+      font-size: .8rem; font-weight: 400; color: #d4a84b;
+      letter-spacing: .04em; margin-bottom: .45rem;
       display: flex; align-items: center; gap: .35rem;
       font-family: 'JetBrains Mono', monospace; text-transform: uppercase;
     }
     .p-title {
       font-family: 'Cormorant Garant', Georgia, serif;
-      font-size: 1.1rem; font-weight: 500; color: #eeeef5;
+      font-size: 1.25rem; font-weight: 500; color: #eeeef5;
       letter-spacing: -.01em; line-height: 1.3; margin: 0;
     }
     .p-sub {
-      margin: .3rem 0 0; font-size: .71rem;
+      margin: .35rem 0 0; font-size: .88rem;
       color: #5a5a78; font-weight: 300; letter-spacing: .005em;
       line-height: 1.55;
     }
     .p-open-hint {
-      margin-top: .7rem;
-      font-size: .62rem; font-family: 'JetBrains Mono', monospace;
-      color: rgba(255,255,255,.25); letter-spacing: .1em; text-transform: uppercase;
+      margin-top: .75rem;
+      font-size: .8rem; font-family: 'JetBrains Mono', monospace;
+      color: rgba(255,255,255,.28); letter-spacing: .07em; text-transform: uppercase;
       opacity: 0; transform: translateX(-5px);
       transition: opacity .2s, transform .2s;
     }
@@ -310,16 +351,16 @@
     }
     .pm-tb-back {
       display: inline-flex; align-items: center; gap: .4rem;
-      padding: .35rem .8rem; border-radius: 6px;
+      padding: .38rem .9rem; border-radius: 6px;
       border: 1px solid rgba(255,255,255,.09); background: transparent;
-      color: #80809a; cursor: pointer; font-size: .78rem;
+      color: #80809a; cursor: pointer; font-size: .9rem;
       transition: color .15s, border-color .15s, background .15s;
     }
     .pm-tb-back:hover { color: #eeeef5; border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.04); }
-    .pm-tb-back svg { width: 13px; height: 13px; }
+    .pm-tb-back svg { width: 15px; height: 15px; }
     .pm-tb-cat {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .62rem; color: #3c3c58; letter-spacing: .14em; text-transform: uppercase;
+      font-size: .82rem; color: #5a5a7a; letter-spacing: .08em; text-transform: uppercase;
     }
     .pm-tb-close {
       width: 32px; height: 32px; border-radius: 6px;
@@ -329,7 +370,7 @@
       transition: color .15s, border-color .15s, background .15s;
     }
     .pm-tb-close:hover { color: #eeeef5; border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.04); }
-    .pm-tb-close svg { width: 13px; height: 13px; }
+    .pm-tb-close svg { width: 15px; height: 15px; }
 
     /* hero banner under titlebar */
     .pm-hero {
@@ -361,15 +402,15 @@
       color: #fff; line-height: 1.1; margin: 0 0 .3rem;
     }
     .pm-hero-sub {
-      font-size: .8rem; color: rgba(255,255,255,.45);
-      font-weight: 300; margin: 0;
+      font-size: 1rem; color: rgba(255,255,255,.5);
+      font-weight: 300; margin: 0; line-height: 1.6;
     }
     .pm-hero-award {
       display: inline-flex; align-items: center; gap: .4rem;
-      padding: .22rem .7rem; border-radius: 4px;
+      padding: .3rem .85rem; border-radius: 4px;
       background: rgba(212,168,75,.1); border: 1px solid rgba(212,168,75,.25);
-      color: #d4a84b; font-size: .68rem; font-weight: 400;
-      margin-bottom: .65rem; letter-spacing: .04em;
+      color: #d4a84b; font-size: .85rem; font-weight: 400;
+      margin-bottom: .75rem; letter-spacing: .04em;
       font-family: 'JetBrains Mono', monospace;
     }
 
@@ -384,25 +425,25 @@
 
     .pm-body-inner {
       width: 100%;
-      padding: 2rem clamp(1.5rem,4vw,3.5rem) 4rem;
+      padding: 2rem clamp(5rem,12vw,11rem) 4rem;
     }
 
     /* ── Modal body elements ──────────────────────────────── */
     .pm-tag {
       display: inline-flex; align-items: center;
-      padding: .22rem .7rem; border-radius: 4px;
-      background: transparent; border: 1px solid rgba(255,255,255,.08);
-      color: #60607a; font-size: .68rem; font-family: 'JetBrains Mono', monospace;
-      margin-bottom: .9rem; letter-spacing: .06em; text-transform: uppercase;
+      padding: .3rem .9rem; border-radius: 4px;
+      background: transparent; border: 1px solid rgba(255,255,255,.09);
+      color: #7070a0; font-size: .85rem; font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 1.1rem; letter-spacing: .04em; text-transform: uppercase;
     }
-    .pm-divider { border: none; border-top: 1px solid rgba(255,255,255,.06); margin: 1rem 0 1.2rem; }
-    .pm-detail { font-size: .92rem; color: #8080a0; line-height: 1.9; margin-bottom: 1.4rem; font-weight: 300; }
+    .pm-divider { border: none; border-top: 1px solid rgba(255,255,255,.06); margin: 1rem 0 1.5rem; }
+    .pm-detail { font-size: 1rem; color: #8080a0; line-height: 1.9; margin-bottom: 1.6rem; font-weight: 300; }
     /* editorial section label: thin rule + text */
     .pm-section-label {
       display: flex; align-items: center; gap: .9rem;
-      font-size: .6rem; font-family: 'JetBrains Mono', monospace;
-      color: #3c3c58; letter-spacing: .18em; text-transform: uppercase;
-      margin: 2rem 0 1rem;
+      font-size: .8rem; font-family: 'JetBrains Mono', monospace;
+      color: #5a5a7a; letter-spacing: .12em; text-transform: uppercase;
+      margin: 2.2rem 0 1.1rem;
     }
     .pm-section-label::before {
       content: ''; display: block; height: 1px;
@@ -430,7 +471,7 @@
       background: rgba(4,4,10,.9); pointer-events: none; opacity: 0; transition: opacity .3s;
     }
     .embed-wrap.failed .embed-fallback { pointer-events: all; opacity: 1; }
-    .embed-note { font-size: .65rem; color: #3c3c58; font-family: 'JetBrains Mono', monospace; }
+    .embed-note { font-size: .85rem; color: #5a5a7a; font-family: 'JetBrains Mono', monospace; }
 
     /* PDF CTA */
     .pdf-cta {
@@ -449,8 +490,8 @@
     }
     .pdf-icon svg { width: 18px; height: 18px; color: #e08040; }
     .pdf-info { flex: 1; }
-    .pdf-title { font-size: .88rem; font-weight: 400; color: #ccccdc; margin-bottom: .15rem; }
-    .pdf-subtitle { font-size: .7rem; color: #60607a; font-family: 'JetBrains Mono', monospace; letter-spacing: .03em; }
+    .pdf-title { font-size: 1rem; font-weight: 400; color: #ccccdc; margin-bottom: .2rem; }
+    .pdf-subtitle { font-size: .85rem; color: #60607a; font-family: 'JetBrains Mono', monospace; letter-spacing: .03em; }
     .pdf-arrow { color: #a07040; font-size: .9rem; flex-shrink: 0; }
 
     /* CUSP layout */
@@ -474,7 +515,7 @@
     .cusp-photo-sm .photo-ph {
       width: 100%; height: 100%;
       display: flex; align-items: center; justify-content: center;
-      color: rgba(255,255,255,.15); font-size: .72rem; font-family: 'JetBrains Mono', monospace;
+      color: rgba(255,255,255,.15); font-size: .88rem; font-family: 'JetBrains Mono', monospace;
     }
     @media(max-width:640px){
       .cusp-desc-photo { grid-template-columns: 1fr; }
@@ -491,11 +532,11 @@
     }
 
     /* buttons */
-    .btn-row { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: .9rem; }
+    .btn-row { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.1rem; }
     .pm-btn {
-      display: inline-flex; align-items: center; gap: .4rem;
-      padding: .48rem 1.1rem; border-radius: 6px;
-      font-size: .78rem; font-weight: 400; text-decoration: none;
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .55rem 1.25rem; border-radius: 6px;
+      font-size: .93rem; font-weight: 400; text-decoration: none;
       letter-spacing: .01em;
       transition: background .15s, border-color .15s, color .15s;
       white-space: nowrap;
@@ -510,7 +551,7 @@
     .pm-btn.ghost:hover { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.16); color: #eeeef5; }
     .pm-btn.newtab {
       background: transparent; border: 1px solid rgba(255,255,255,.07);
-      color: #3c3c58; font-size: .72rem;
+      color: #5a5a7a; font-size: .88rem;
     }
     .pm-btn.newtab:hover { color: #80809a; border-color: rgba(255,255,255,.12); }
     .pm-btn.kcl-btn {
@@ -539,8 +580,8 @@
     .kcl-card-body { padding: 1.2rem 1.4rem 1.4rem; }
     .kcl-card-meta {
       display: flex; align-items: center; gap: .75rem;
-      font-size: .62rem; font-family: 'JetBrains Mono', monospace;
-      color: #3c3c58; margin-bottom: .65rem; letter-spacing: .05em;
+      font-size: .82rem; font-family: 'JetBrains Mono', monospace;
+      color: #505070; margin-bottom: .75rem; letter-spacing: .03em;
     }
     .kcl-card-source {
       display: inline-flex; align-items: center; gap: .35rem;
@@ -550,36 +591,36 @@
     }
     .kcl-card-title {
       font-family: 'Cormorant Garant', Georgia, serif;
-      font-size: 1.15rem; font-weight: 400; color: #dddde8;
-      letter-spacing: -.01em; line-height: 1.4; margin: 0 0 .65rem;
+      font-size: 1.3rem; font-weight: 400; color: #dddde8;
+      letter-spacing: -.01em; line-height: 1.4; margin: 0 0 .75rem;
     }
     .kcl-card-excerpt {
-      font-size: .83rem; color: #60607a; line-height: 1.75; margin: 0 0 .9rem; font-weight: 300;
+      font-size: .95rem; color: #60607a; line-height: 1.8; margin: 0 0 .95rem; font-weight: 300;
     }
     .kcl-card-quote {
       border-left: 2px solid rgba(160,0,26,.35);
-      padding: .5rem .9rem; margin: .7rem 0 .9rem;
+      padding: .6rem 1rem; margin: .75rem 0 .95rem;
       background: rgba(160,0,26,.04); border-radius: 0 6px 6px 0;
     }
     .kcl-card-quote p {
-      font-size: .8rem; color: #80809a; line-height: 1.65; margin: 0 0 .3rem;
+      font-size: .93rem; color: #80809a; line-height: 1.7; margin: 0 0 .35rem;
       font-style: italic; font-weight: 300;
     }
     .kcl-card-quote cite {
-      font-size: .66rem; color: #3c3c58; font-style: normal;
-      font-family: 'JetBrains Mono', monospace; letter-spacing: .04em;
+      font-size: .82rem; color: #505070; font-style: normal;
+      font-family: 'JetBrains Mono', monospace; letter-spacing: .03em;
     }
     .kcl-card-footer {
       display: flex; align-items: center; justify-content: space-between;
-      padding-top: .8rem;
+      padding-top: .9rem;
       border-top: 1px solid rgba(255,255,255,.05);
-      font-size: .7rem; color: #3c3c58;
+      font-size: .85rem; color: #505070;
     }
     .kcl-card-cta {
       display: inline-flex; align-items: center; gap: .35rem;
-      padding: .3rem .75rem; border-radius: 5px;
+      padding: .38rem .9rem; border-radius: 5px;
       background: transparent; border: 1px solid rgba(160,0,26,.25);
-      color: #c06060; font-weight: 400; font-size: .72rem;
+      color: #c06060; font-weight: 400; font-size: .88rem;
       transition: background .15s, border-color .15s;
     }
     .kcl-card:hover .kcl-card-cta { background: rgba(160,0,26,.1); border-color: rgba(160,0,26,.4); }
@@ -594,7 +635,7 @@
 
     /* responsive */
     @media(max-width:640px){
-      .p-card, .p-card.award { width: calc(80vw) !important; height: 420px; }
+      .p-card, .p-card.award { width: calc(85vw) !important; height: 420px; }
       .pm-hero { flex: 0 0 175px; }
       .pm-hero-title { font-size: 1.4rem; }
       .cusp-header { grid-template-columns: 1fr; }
@@ -623,7 +664,31 @@
     var wrap = el("div", "card-row-wrap");
     var row  = el("div", "card-row");
     cat.projects.forEach(function (p, i) { row.appendChild(buildCard(p, i)); });
+
+    /* scroll-right hint button */
+    var hintWrap = el("div", "scroll-hint-btn");
+    hintWrap.innerHTML =
+      '<button class="scroll-hint-arrow" aria-label="Scroll right">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">' +
+          '<polyline points="9 18 15 12 9 6"/>' +
+        '</svg>' +
+      '</button>';
+    var arrowBtn = hintWrap.querySelector(".scroll-hint-arrow");
+    arrowBtn.addEventListener("click", function () {
+      row.scrollBy({ left: 380, behavior: "smooth" });
+    });
+    /* only show if content actually overflows; hide when scrolled to end */
+    requestAnimationFrame(function () {
+      if (row.scrollWidth <= row.clientWidth + 10) {
+        hintWrap.classList.add("hidden");
+      }
+    });
+    row.addEventListener("scroll", function () {
+      var atEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 10;
+      hintWrap.classList.toggle("hidden", atEnd);
+    });
     wrap.appendChild(row);
+    wrap.appendChild(hintWrap);
     block.appendChild(wrap);
     root.appendChild(block);
   });
@@ -687,9 +752,19 @@
 
   function openModal(p) {
     /* hero banner */
-    pmHeroBg.style.background = p.coverBg;
-    if (p.coverBgSize) pmHeroBg.style.backgroundSize = p.coverBgSize;
-    else               pmHeroBg.style.backgroundSize = "";
+    if (p.image) {
+      var pos = p.imagePos || "center center";
+      pmHeroBg.style.background = [
+        "linear-gradient(180deg, transparent 15%, rgba(9,9,15,.95) 88%)",
+        "linear-gradient(to bottom, " + hexRgba(p.accent, .22) + " 0%, transparent 50%)",
+        "url(\"" + encodeURI(p.image) + "\") " + pos + " / cover no-repeat"
+      ].join(", ");
+      pmHeroBg.style.backgroundSize = "";
+    } else {
+      pmHeroBg.style.background = p.coverBg;
+      if (p.coverBgSize) pmHeroBg.style.backgroundSize = p.coverBgSize;
+      else               pmHeroBg.style.backgroundSize = "";
+    }
 
     pmTbCat.textContent     = p.tag || p.cat || "";
     pmHeroTitle.textContent = p.title;
@@ -775,9 +850,13 @@
     h += '</a>';
 
     /* ② Description + small award photo side by side */
+    var detailHtml = p.detail.split('\n\n').map(function(para) {
+      return '<p class="pm-detail" style="margin-bottom:.9rem">' + esc(para) + '</p>';
+    }).join('');
+
     h += '<div class="cusp-info-row">';
     h +=   '<div class="cusp-desc-photo">';
-    h +=     '<p class="pm-detail" style="margin-bottom:0">' + esc(p.detail) + "</p>";
+    h +=     '<div style="margin-bottom:0">' + detailHtml + '</div>';
     h +=     '<div class="cusp-photo-sm">' +
                '<img src="' + esc(p.photo) + '" alt="Award Winners" ' +
                'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
@@ -859,10 +938,21 @@
     card.setAttribute("tabindex", "0");
     card.setAttribute("aria-label", "Open " + p.title);
     card.style.transitionDelay = (idx * 85) + "ms";
+    card.style.setProperty("--card-accent", p.accent || "rgba(255,255,255,.15)");
 
     var coverInner = el("div", "p-cover-inner");
-    coverInner.style.background = p.coverBg;
-    if (p.coverBgSize) coverInner.style.backgroundSize = p.coverBgSize;
+    if (p.image) {
+      /* real photo: vignette + accent wash + actual image */
+      var pos = p.imagePos || "center center";
+      coverInner.style.background = [
+        "linear-gradient(180deg, transparent 20%, rgba(10,10,20,.94) 90%)",
+        "linear-gradient(to bottom, " + hexRgba(p.accent, .28) + " 0%, transparent 55%)",
+        "url(\"" + encodeURI(p.image) + "\") " + pos + " / cover no-repeat"
+      ].join(", ");
+    } else {
+      coverInner.style.background = p.coverBg;
+      if (p.coverBgSize) coverInner.style.backgroundSize = p.coverBgSize;
+    }
 
     var shimmer = el("div", "p-shimmer");
     var vignette = el("div", "p-cover-vignette");
