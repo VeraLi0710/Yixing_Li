@@ -345,6 +345,157 @@
       background: linear-gradient(90deg, transparent, rgba(255,255,255,.07), transparent);
     }
 
+    /* ── Experience & Education Timeline (center-axis) ───── */
+    .exp-section {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 6rem 2.5rem 5rem;
+    }
+
+    .exp-heading {
+      font-family: var(--sans);
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-align: center;
+      margin-bottom: 3.8rem;
+    }
+
+    /* wrapper holds the center vertical spine */
+    .tl-wrap {
+      position: relative;
+    }
+    .tl-wrap::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(255,255,255,.12) 6%,
+        rgba(255,255,255,.12) 94%,
+        transparent
+      );
+    }
+
+    /* each row: left-col | node-col | right-col */
+    .tl-row {
+      display: grid;
+      grid-template-columns: 1fr 52px 1fr;
+      align-items: flex-start;
+      margin-bottom: 2.8rem;
+      gap: 0;
+    }
+
+    /* centre node column */
+    .tl-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 2px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* logo chip */
+    .tl-logo {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid rgba(255,255,255,.18);
+      padding: 4px;
+      box-shadow: 0 0 0 4px var(--bg), 0 4px 18px rgba(0,0,0,.45);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .tl-logo img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+      display: block;
+    }
+
+    /* left column — edu, right-aligned */
+    .tl-left {
+      padding-right: 1.8rem;
+      text-align: right;
+    }
+
+    /* right column — exp, left-aligned */
+    .tl-right {
+      padding-left: 1.8rem;
+      text-align: left;
+    }
+
+    .tl-meta {
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--dim);
+      letter-spacing: .06em;
+      margin-bottom: .4rem;
+    }
+
+    .tl-title {
+      font-family: var(--sans);
+      font-size: .97rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.35;
+      margin-bottom: .5rem;
+    }
+
+    .tl-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .3rem;
+      margin-bottom: .55rem;
+    }
+    .tl-left .tl-tags { justify-content: flex-end; }
+    .tl-right .tl-tags { justify-content: flex-start; }
+
+    .tl-tag {
+      display: inline-block;
+      font-size: .7rem;
+      font-family: var(--mono);
+      color: var(--muted);
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 4px;
+      padding: .15rem .5rem;
+    }
+
+    .tl-desc {
+      font-size: .88rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* ── Mobile: collapse to single left-aligned column ──── */
+    @media (max-width: 640px) {
+      .tl-wrap::before { left: 24px; transform: none; }
+      .tl-row {
+        grid-template-columns: 52px 1fr;
+        grid-template-areas: "node content";
+      }
+      .tl-left, .tl-right {
+        grid-area: content;
+        text-align: left;
+        padding-left: 1.2rem;
+        padding-right: 0;
+      }
+      .tl-node { grid-area: node; }
+      .tl-left .tl-tags, .tl-right .tl-tags { justify-content: flex-start; }
+      /* hide empty placeholder columns */
+      .tl-row > .tl-left:empty,
+      .tl-row > .tl-right:empty { display: none; }
+    }
+
     /* ── Projects wrapper ─────────────────────────────────── */
     .projects-section {
       max-width: 1180px;
@@ -383,8 +534,8 @@
   <nav class="site-nav" aria-label="Site navigation">
     <a href="#" class="nav-logo">Vera.</a>
     <ul class="nav-links">
+      <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
-      <li><a href="#about">About</a></li>
       <li>
         <a href="#" class="nav-cta">Resume&nbsp;↗</a>
       </li>
@@ -447,6 +598,101 @@
       <svg class="scroll-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <polyline points="6 9 12 15 18 9"/>
       </svg>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ══ EXPERIENCE & EDUCATION ════════════════════════════ -->
+  <section class="exp-section" id="experience">
+    <p class="exp-heading">Experience &amp; Education</p>
+    <div class="tl-wrap">
+
+      <!-- Node 1 · Experience (right) · Tencent -->
+      <div class="tl-row">
+        <div class="tl-left"></div>
+        <div class="tl-node">
+          <div class="tl-logo"><img src="/photo/tencentglobal_logo.jpg" alt="Tencent" /></div>
+        </div>
+        <div class="tl-right">
+          <p class="tl-meta">06/2025 – Present</p>
+          <p class="tl-title">Data Product Intern @ Tencent</p>
+          <div class="tl-tags">
+            <span class="tl-tag">📍 London, UK</span>
+            <span class="tl-tag">AI &amp; GenAI Platform</span>
+          </div>
+          <p class="tl-desc">Managed global analytics platform for 40+ studios, boosting European user engagement by 20%.</p>
+        </div>
+      </div>
+
+      <!-- Node 2 · Education (left) · UCL -->
+      <div class="tl-row">
+        <div class="tl-left">
+          <p class="tl-meta">09/2024 – 12/2025</p>
+          <p class="tl-title">MSc Urban Data Science @ UCL</p>
+          <div class="tl-tags">
+            <span class="tl-tag">📍 London, UK</span>
+            <span class="tl-tag">🎓 Distinction</span>
+          </div>
+          <p class="tl-desc">Engineered a 100M+ record ML pipeline with Virgin Media O2 (Funded Dissertation).</p>
+        </div>
+        <div class="tl-node">
+          <div class="tl-logo"><img src="/photo/university_college_london_logo.jpg" alt="UCL" /></div>
+        </div>
+        <div class="tl-right"></div>
+      </div>
+
+      <!-- Node 3 · Education (left) · Dundee -->
+      <div class="tl-row">
+        <div class="tl-left">
+          <p class="tl-meta">09/2023 – 06/2024</p>
+          <p class="tl-title">BEng Architecture (Dual Degree) @ Univ. of Dundee</p>
+          <div class="tl-tags">
+            <span class="tl-tag">📍 Dundee, UK</span>
+            <span class="tl-tag">🎓 First Class (Top 5%)</span>
+          </div>
+          <p class="tl-desc">Final year of dual degree. Awarded 2024 DIA Best Group Project.</p>
+        </div>
+        <div class="tl-node">
+          <div class="tl-logo"><img src="/photo/universityofdundee_logo.jpg" alt="Univ. of Dundee" /></div>
+        </div>
+        <div class="tl-right"></div>
+      </div>
+
+      <!-- Node 4 · Experience (right) · NetEase Games -->
+      <div class="tl-row">
+        <div class="tl-left"></div>
+        <div class="tl-node">
+          <div class="tl-logo"><img src="/photo/netease_games_logo.jpg" alt="NetEase Games" /></div>
+        </div>
+        <div class="tl-right">
+          <p class="tl-meta">06/2023 – 09/2023</p>
+          <p class="tl-title">Project Management Intern @ NetEase Games</p>
+          <div class="tl-tags">
+            <span class="tl-tag">📍 Hangzhou, China</span>
+            <span class="tl-tag">Data-driven PM</span>
+          </div>
+          <p class="tl-desc">Built automated Power BI dashboards for 50+ KPIs, optimising workflows for a 200-member team.</p>
+        </div>
+      </div>
+
+      <!-- Node 5 · Education (left) · Wuhan University -->
+      <div class="tl-row">
+        <div class="tl-left">
+          <p class="tl-meta">09/2019 – 06/2023</p>
+          <p class="tl-title">BEng Architecture @ Wuhan University</p>
+          <div class="tl-tags">
+            <span class="tl-tag">📍 Wuhan, China</span>
+            <span class="tl-tag">🎓 Outstanding Scholarship</span>
+          </div>
+          <p class="tl-desc">Built a solid analytical foundation in smart city systems, probability theory, and programming.</p>
+        </div>
+        <div class="tl-node">
+          <div class="tl-logo"><img src="/photo/wuhan_university_logo.jpg" alt="Wuhan University" /></div>
+        </div>
+        <div class="tl-right"></div>
+      </div>
+
     </div>
   </section>
 
