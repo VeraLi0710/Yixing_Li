@@ -345,11 +345,11 @@
       background: linear-gradient(90deg, transparent, rgba(255,255,255,.07), transparent);
     }
 
-    /* ── Experience & Education Timeline (center-axis) ───── */
+    /* ── Experience & Education Timeline ─────────────────── */
     .exp-section {
-      max-width: 980px;
+      max-width: 820px;
       margin: 0 auto;
-      padding: 6rem 2.5rem 5rem;
+      padding: 5rem 2.5rem 4rem;
     }
 
     .exp-heading {
@@ -359,141 +359,118 @@
       letter-spacing: .16em;
       text-transform: uppercase;
       color: var(--dim);
-      text-align: center;
-      margin-bottom: 3.8rem;
-    }
-
-    /* wrapper holds the center vertical spine */
-    .tl-wrap {
-      position: relative;
-    }
-    .tl-wrap::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 0; bottom: 0;
-      width: 1px;
-      background: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(255,255,255,.12) 6%,
-        rgba(255,255,255,.12) 94%,
-        transparent
-      );
-    }
-
-    /* each row: left-col | node-col | right-col */
-    .tl-row {
-      display: grid;
-      grid-template-columns: 1fr 52px 1fr;
-      align-items: flex-start;
       margin-bottom: 2.8rem;
+    }
+
+    /* grid: [date 110px] [spine 48px] [content 1fr] */
+    .tl-wrap {
+      display: flex;
+      flex-direction: column;
       gap: 0;
     }
 
-    /* centre node column */
-    .tl-node {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 2px;
+    .tl-row {
+      display: grid;
+      grid-template-columns: 110px 48px 1fr;
+      align-items: flex-start;
       position: relative;
-      z-index: 2;
     }
 
-    /* logo chip */
+    /* vertical spine drawn via each row's node column */
+    .tl-row::before {
+      content: '';
+      position: absolute;
+      left: calc(110px + 24px);   /* centre of node col */
+      top: 0; bottom: 0;
+      width: 1px;
+      background: rgba(255,255,255,.08);
+      z-index: 0;
+    }
+    .tl-row:first-child::before { top: 50%; }
+    .tl-row:last-child::before  { bottom: 50%; }
+
+    /* date column */
+    .tl-date {
+      padding-top: 11px;
+      padding-right: 1rem;
+      text-align: right;
+      font-family: var(--mono);
+      font-size: .75rem;
+      line-height: 1.4;
+      color: var(--dim);
+      letter-spacing: .03em;
+    }
+
+    /* node column */
+    .tl-node {
+      display: flex;
+      justify-content: center;
+      padding-top: 6px;
+      position: relative;
+      z-index: 1;
+    }
+
     .tl-logo {
-      width: 48px; height: 48px;
-      border-radius: 50%;
+      width: 36px; height: 36px;
+      border-radius: 9px;
       background: #fff;
-      border: 1px solid rgba(255,255,255,.18);
-      padding: 4px;
-      box-shadow: 0 0 0 4px var(--bg), 0 4px 18px rgba(0,0,0,.45);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 3px;
+      box-shadow: 0 0 0 3px var(--bg), 0 2px 10px rgba(0,0,0,.4);
       overflow: hidden;
       flex-shrink: 0;
     }
     .tl-logo img {
       width: 100%; height: 100%;
       object-fit: contain;
-      border-radius: 50%;
+      border-radius: 6px;
       display: block;
     }
 
-    /* left column — edu, right-aligned */
-    .tl-left {
-      padding-right: 1.8rem;
-      text-align: right;
+    /* content column */
+    .tl-content {
+      padding: 8px 0 2.2rem 1.2rem;
     }
 
-    /* right column — exp, left-aligned */
-    .tl-right {
-      padding-left: 1.8rem;
-      text-align: left;
-    }
-
-    .tl-meta {
+    .tl-type {
       font-family: var(--mono);
       font-size: .72rem;
-      color: var(--dim);
-      letter-spacing: .06em;
-      margin-bottom: .4rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: .3rem;
     }
+    .tl-type.work { color: var(--blue); }
+    .tl-type.edu  { color: var(--amber); }
 
     .tl-title {
       font-family: var(--sans);
-      font-size: .97rem;
+      font-size: 1rem;
       font-weight: 500;
       color: var(--text);
       line-height: 1.35;
-      margin-bottom: .5rem;
+      margin-bottom: .45rem;
     }
 
     .tl-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: .3rem;
-      margin-bottom: .55rem;
+      gap: .28rem;
     }
-    .tl-left .tl-tags { justify-content: flex-end; }
-    .tl-right .tl-tags { justify-content: flex-start; }
 
     .tl-tag {
-      display: inline-block;
-      font-size: .7rem;
+      font-size: .75rem;
       font-family: var(--mono);
       color: var(--muted);
       background: rgba(255,255,255,.04);
       border: 1px solid rgba(255,255,255,.07);
       border-radius: 4px;
-      padding: .15rem .5rem;
+      padding: .14rem .5rem;
     }
 
-    .tl-desc {
-      font-size: .88rem;
-      font-weight: 300;
-      color: var(--muted);
-      line-height: 1.75;
-    }
-
-    /* ── Mobile: collapse to single left-aligned column ──── */
-    @media (max-width: 640px) {
-      .tl-wrap::before { left: 24px; transform: none; }
-      .tl-row {
-        grid-template-columns: 52px 1fr;
-        grid-template-areas: "node content";
-      }
-      .tl-left, .tl-right {
-        grid-area: content;
-        text-align: left;
-        padding-left: 1.2rem;
-        padding-right: 0;
-      }
-      .tl-node { grid-area: node; }
-      .tl-left .tl-tags, .tl-right .tl-tags { justify-content: flex-start; }
-      /* hide empty placeholder columns */
-      .tl-row > .tl-left:empty,
-      .tl-row > .tl-right:empty { display: none; }
+    @media (max-width: 580px) {
+      .tl-row { grid-template-columns: 48px 1fr; }
+      .tl-date { display: none; }
+      .tl-row::before { left: 24px; }
     }
 
     /* ── Projects wrapper ─────────────────────────────────── */
@@ -608,89 +585,84 @@
     <p class="exp-heading">Experience &amp; Education</p>
     <div class="tl-wrap">
 
-      <!-- Node 1 · Experience (right) · Tencent -->
+      <!-- Tencent · Work -->
       <div class="tl-row">
-        <div class="tl-left"></div>
+        <div class="tl-date">06/2025<br>Present</div>
         <div class="tl-node">
           <div class="tl-logo"><img src="/photo/tencentglobal_logo.jpg" alt="Tencent" /></div>
         </div>
-        <div class="tl-right">
-          <p class="tl-meta">06/2025 – Present</p>
+        <div class="tl-content">
+          <p class="tl-type work">Work</p>
           <p class="tl-title">Data Product Intern @ Tencent</p>
           <div class="tl-tags">
             <span class="tl-tag">📍 London, UK</span>
             <span class="tl-tag">AI &amp; GenAI Platform</span>
           </div>
-          <p class="tl-desc">Managed global analytics platform for 40+ studios, boosting European user engagement by 20%.</p>
         </div>
       </div>
 
-      <!-- Node 2 · Education (left) · UCL -->
+      <!-- UCL · Education -->
       <div class="tl-row">
-        <div class="tl-left">
-          <p class="tl-meta">09/2024 – 12/2025</p>
+        <div class="tl-date">09/2024<br>12/2025</div>
+        <div class="tl-node">
+          <div class="tl-logo"><img src="/photo/university_college_london_logo.jpg" alt="UCL" /></div>
+        </div>
+        <div class="tl-content">
+          <p class="tl-type edu">Education</p>
           <p class="tl-title">MSc Urban Data Science @ UCL</p>
           <div class="tl-tags">
             <span class="tl-tag">📍 London, UK</span>
             <span class="tl-tag">🎓 Distinction</span>
           </div>
-          <p class="tl-desc">Engineered a 100M+ record ML pipeline with Virgin Media O2 (Funded Dissertation).</p>
         </div>
-        <div class="tl-node">
-          <div class="tl-logo"><img src="/photo/university_college_london_logo.jpg" alt="UCL" /></div>
-        </div>
-        <div class="tl-right"></div>
       </div>
 
-      <!-- Node 3 · Education (left) · Dundee -->
+      <!-- Dundee · Education -->
       <div class="tl-row">
-        <div class="tl-left">
-          <p class="tl-meta">09/2023 – 06/2024</p>
+        <div class="tl-date">09/2023<br>06/2024</div>
+        <div class="tl-node">
+          <div class="tl-logo"><img src="/photo/universityofdundee_logo.jpg" alt="Univ. of Dundee" /></div>
+        </div>
+        <div class="tl-content">
+          <p class="tl-type edu">Education</p>
           <p class="tl-title">BEng Architecture (Dual Degree) @ Univ. of Dundee</p>
           <div class="tl-tags">
             <span class="tl-tag">📍 Dundee, UK</span>
             <span class="tl-tag">🎓 First Class (Top 5%)</span>
           </div>
-          <p class="tl-desc">Final year of dual degree. Awarded 2024 DIA Best Group Project.</p>
         </div>
-        <div class="tl-node">
-          <div class="tl-logo"><img src="/photo/universityofdundee_logo.jpg" alt="Univ. of Dundee" /></div>
-        </div>
-        <div class="tl-right"></div>
       </div>
 
-      <!-- Node 4 · Experience (right) · NetEase Games -->
+      <!-- NetEase Games · Work -->
       <div class="tl-row">
-        <div class="tl-left"></div>
+        <div class="tl-date">06/2023<br>09/2023</div>
         <div class="tl-node">
           <div class="tl-logo"><img src="/photo/netease_games_logo.jpg" alt="NetEase Games" /></div>
         </div>
-        <div class="tl-right">
-          <p class="tl-meta">06/2023 – 09/2023</p>
+        <div class="tl-content">
+          <p class="tl-type work">Work</p>
           <p class="tl-title">Project Management Intern @ NetEase Games</p>
           <div class="tl-tags">
             <span class="tl-tag">📍 Hangzhou, China</span>
             <span class="tl-tag">Data-driven PM</span>
           </div>
-          <p class="tl-desc">Built automated Power BI dashboards for 50+ KPIs, optimising workflows for a 200-member team.</p>
         </div>
       </div>
 
-      <!-- Node 5 · Education (left) · Wuhan University -->
+      <!-- Wuhan University · Education -->
       <div class="tl-row">
-        <div class="tl-left">
-          <p class="tl-meta">09/2019 – 06/2023</p>
+        <div class="tl-date">09/2019<br>06/2023</div>
+        <div class="tl-node">
+          <div class="tl-logo"><img src="/photo/wuhan_university_logo.jpg" alt="Wuhan University" /></div>
+        </div>
+        <div class="tl-content">
+          <p class="tl-type edu">Education</p>
           <p class="tl-title">BEng Architecture @ Wuhan University</p>
           <div class="tl-tags">
             <span class="tl-tag">📍 Wuhan, China</span>
             <span class="tl-tag">🎓 Outstanding Scholarship</span>
           </div>
-          <p class="tl-desc">Built a solid analytical foundation in smart city systems, probability theory, and programming.</p>
         </div>
-        <div class="tl-node">
-          <div class="tl-logo"><img src="/photo/wuhan_university_logo.jpg" alt="Wuhan University" /></div>
-        </div>
-        <div class="tl-right"></div>
       </div>
 
     </div>
