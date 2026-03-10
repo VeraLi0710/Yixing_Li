@@ -55,7 +55,7 @@
             "linear-gradient(155deg, #0a0218 0%, #28085e 55%, #42088a 100%)"
           ].join(","),
           detail: "As Team Lead at the CUSP London Data Dive (2025), I architected advanced spatial models — including Geographically Weighted Regression (GWR) and diffusion analysis — to combat urban fuel poverty. This project focused on generating a high-resolution vulnerability index to identify neighbourhoods requiring urgent energy support and carbon-efficient interventions.\n\nOur spatial-temporal approach successfully optimised government resource allocation efficiency by 15%, ensuring precise, targeted support for fuel-poor areas. This data-driven strategy not only addresses immediate community needs but also aligns with broader urban energy and carbon reduction goals. The project won the 'Best Overall Award' and was selected for presentation at the Urban Future Symposium (ETH Empa).",
-          photo: "/CUSP/winnnersphoto.png",
+          photo: "https://raw.githubusercontent.com/VeraLi0710/Yixing_Li/main/CUSP/winnnersphoto.png",
           embed: "https://verali0710.github.io/CUSP_project001/interactive_map_with_all_variables.html",
           kclUrl: "https://www.kcl.ac.uk/news/students-from-around-the-world-develop-solutions-for-greener-cities-in-data-competition"
         }
@@ -821,7 +821,7 @@
   }
 
   function buildCusp(p) {
-    var pdfUrl = "/CUSP/CUSP_Group_7.pdf";
+    var pdfUrl = "https://raw.githubusercontent.com/VeraLi0710/Yixing_Li/main/CUSP/CUSP_Group_7.pdf";
     var kclUrl = p.kclUrl || "#";
     var h = "";
 
