@@ -20,7 +20,7 @@
           tag: "Predictive ML / 100M+ Pipeline",
           cat: "AI & Predictive Analytics",
           award: false, accent: "#22d3ee",
-          image: "https://raw.githubusercontent.com/VeraLi0710/Yixing_Li/main/photo/VMO2cover.png",
+          image: "photo/VMO2cover.png",
           imagePos: "center top",
           coverBg: [
             /* diagonal circuit-trace lines */
@@ -33,7 +33,16 @@
           ].join(","),
           coverBgSize: "auto, auto, auto, auto, auto",
           detail: "A research collaboration with CDRC and Virgin Media O2 to engineer predictive ML pipelines on 100M+ broadband records. Spatial features from MSOA-level census, retail gravity models and network topology were fused to forecast telecom infrastructure demand and optimise field service routing.",
-          pdfUrl: "https://geods.ac.uk/wp-content/uploads/2025/10/Yixing-Li.pdf"
+          pdfUrl: "https://geods.ac.uk/wp-content/uploads/2025/10/Yixing-Li.pdf",
+          featured: {
+            src: "photo/vmo2 oxford conference.jpg",
+            caption: "Oxford conference · with Virgin Media O2 partner",
+            wide: true
+          },
+          gallery: [
+            { src: "photo/vmo2 oxford conference 2.jpg", caption: "Presentation day" },
+            { src: "photo/vmo2 oxford conference 3.jpg", caption: "With fellow presenters at the conference" }
+          ]
         },
         {
           id: "cusp-dive",
@@ -41,9 +50,9 @@
           sub: "Optimising urban resource allocation and energy efficiency through high-resolution spatial-temporal modelling.",
           tag: "Spatial AI / Resource Optimisation",
           cat: "AI & Predictive Analytics",
-          award: true, awardLabel: "Best Overall Award 🏆",
+          award: true, awardLabel: "Best Overall Award",
           accent: "#a78bfa",
-          image: "https://raw.githubusercontent.com/VeraLi0710/Yixing_Li/main/photo/CUSP.png",
+          image: "photo/CUSP.png",
           imagePos: "center center",
           coverBg: [
             /* radial pulse rings */
@@ -55,9 +64,18 @@
             "linear-gradient(155deg, #0a0218 0%, #28085e 55%, #42088a 100%)"
           ].join(","),
           detail: "As Team Lead at the CUSP London Data Dive (2025), I architected advanced spatial models — including Geographically Weighted Regression (GWR) and diffusion analysis — to combat urban fuel poverty. This project focused on generating a high-resolution vulnerability index to identify neighbourhoods requiring urgent energy support and carbon-efficient interventions.\n\nOur spatial-temporal approach successfully optimised government resource allocation efficiency by 15%, ensuring precise, targeted support for fuel-poor areas. This data-driven strategy not only addresses immediate community needs but also aligns with broader urban energy and carbon reduction goals. The project won the 'Best Overall Award' and was selected for presentation at the Urban Future Symposium (ETH Empa).",
-          photo: "https://raw.githubusercontent.com/VeraLi0710/Yixing_Li/main/CUSP/winnnersphoto.png",
+          photo: "CUSP/winnnersphoto.png",
           embed: "https://verali0710.github.io/CUSP_project001/interactive_map_with_all_variables.html",
-          kclUrl: "https://www.kcl.ac.uk/news/students-from-around-the-world-develop-solutions-for-greener-cities-in-data-competition"
+          kclUrl: "https://www.kcl.ac.uk/news/students-from-around-the-world-develop-solutions-for-greener-cities-in-data-competition",
+          symposium: {
+            logo: "photo/empa logo.png",
+            label: "Presented at",
+            name: "Urban Future Symposium",
+            org: "ETH Empa · Materials Science and Technology",
+            url: "https://urban-futures.empa.ch/",
+            photo: "photo/empa poster photo.jpg",
+            caption: "Poster session · with fellow presenters"
+          }
         }
       ]
     },
@@ -73,7 +91,7 @@
           tag: "Graph Analytics / D3.js",
           cat: "Data Products & Interactive Experiences",
           award: false, accent: "#818cf8",
-          image: "https://raw.githubusercontent.com/VeraLi0710/Yixing_Li/main/photo/Brexit_trade.png",
+          image: "photo/Brexit_trade.png",
           imagePos: "center center",
           coverBg: [
             /* node-to-node dot pattern */
@@ -94,7 +112,7 @@
           tag: "Data Storytelling / React",
           cat: "Data Products & Interactive Experiences",
           award: false, accent: "#f59e0b",
-          image: "https://raw.githubusercontent.com/VeraLi0710/Yixing_Li/main/photo/Brexit_edu.png",
+          image: "photo/Brexit_edu.png",
           imagePos: "center center",
           coverBg: [
             /* dot grid */
@@ -118,7 +136,7 @@
           tag: "Geospatial Product / Mapbox",
           cat: "Data Products & Interactive Experiences",
           award: false, accent: "#38bdf8",
-          image: "https://raw.githubusercontent.com/VeraLi0710/Yixing_Li/main/photo/2021 Central Europe Flood.png",
+          image: "photo/2021 Central Europe Flood.png",
           imagePos: "center top",
           coverBg: [
             /* grid */
@@ -185,19 +203,28 @@
     .p-card {
       flex: 0 0 auto;
       width: 400px; height: 460px;
-      border-radius: 14px; overflow: hidden;
+      border-radius: 16px; overflow: hidden;
       cursor: pointer;
+      position: relative;
       border: 1px solid rgba(255,255,255,.08);
       background: #0d0d16;
       scroll-snap-align: start;
       display: flex; flex-direction: column;
       transform-style: preserve-3d; will-change: transform;
-      opacity: 0; transform: translateY(28px);
+      opacity: 0; transform: translateY(36px) scale(.97);
       transition:
-        opacity .55s ease, transform .55s cubic-bezier(.2,.8,.4,1),
-        box-shadow .3s ease, border-color .3s ease;
+        opacity .65s cubic-bezier(.16,1,.3,1),
+        transform .65s cubic-bezier(.16,1,.3,1),
+        box-shadow .35s ease, border-color .35s ease;
     }
     .p-card.award { width: 400px; }
+    .p-card.award::after {
+      content: "";
+      position: absolute; inset: 0; pointer-events: none; z-index: 5;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px rgba(212,168,75,.22);
+      opacity: .7;
+    }
 
     /* ── Scroll-right hint button ──────────────────────────── */
     .scroll-hint-btn {
@@ -227,10 +254,10 @@
       transform: translateX(2px);
     }
     .scroll-hint-arrow svg { width: 15px; height: 15px; }
-    .p-card.revealed { opacity:1; transform:translateY(0); }
+    .p-card.revealed { opacity:1; transform:translateY(0) scale(1); }
     .p-card:hover {
-      border-color: rgba(255,255,255,.14);
-      box-shadow: 0 16px 48px rgba(0,0,0,.55);
+      border-color: rgba(255,255,255,.16);
+      box-shadow: 0 22px 60px rgba(0,0,0,.6);
     }
 
     /* cover – top 60% */
@@ -243,18 +270,23 @@
       position: absolute; top: 0; left: 0; right: 0; height: 2px;
       background: var(--card-accent, rgba(255,255,255,.15));
       z-index: 12;
+      transform: scaleX(.35);
+      transform-origin: left;
+      transition: transform .55s cubic-bezier(.16,1,.3,1);
     }
+    .p-card:hover .p-cover::before { transform: scaleX(1); }
     .p-cover-inner {
       position: absolute; inset: 0;
-      transition: transform .6s cubic-bezier(.25,.8,.25,1);
+      transition: transform .85s cubic-bezier(.16,1,.3,1);
       background-size: cover;
     }
-    .p-card:hover .p-cover-inner { transform: scale(1.04); }
+    .p-card:hover .p-cover-inner { transform: scale(1.1); }
 
     /* shimmer (mouse-following) */
     .p-shimmer {
       position: absolute; inset: 0; z-index: 2;
-      pointer-events: none; opacity: 0; transition: opacity .2s;
+      pointer-events: none; opacity: 0; transition: opacity .25s;
+      mix-blend-mode: soft-light;
     }
 
     /* bottom vignette on cover */
@@ -289,9 +321,11 @@
     .p-award-badge {
       font-size: .8rem; font-weight: 400; color: #d4a84b;
       letter-spacing: .04em; margin-bottom: .45rem;
-      display: flex; align-items: center; gap: .35rem;
+      display: flex; align-items: center; gap: .4rem;
       font-family: 'JetBrains Mono', monospace; text-transform: uppercase;
     }
+    .p-award-badge svg { width: 12px; height: 12px; flex-shrink: 0; color: #d4a84b; }
+    .pm-hero-award svg { width: 13px; height: 13px; flex-shrink: 0; vertical-align: -1px; margin-right: .35rem; }
     .p-title {
       font-family: 'Cormorant Garant', Georgia, serif;
       font-size: 1.25rem; font-weight: 500; color: #eeeef5;
@@ -306,10 +340,10 @@
       margin-top: .75rem;
       font-size: .8rem; font-family: 'JetBrains Mono', monospace;
       color: rgba(255,255,255,.28); letter-spacing: .07em; text-transform: uppercase;
-      opacity: 0; transform: translateX(-5px);
-      transition: opacity .2s, transform .2s;
+      opacity: 0; transform: translateX(-8px);
+      transition: opacity .35s cubic-bezier(.16,1,.3,1), transform .35s cubic-bezier(.16,1,.3,1), color .3s;
     }
-    .p-card:hover .p-open-hint { opacity:1; transform:translateX(0); }
+    .p-card:hover .p-open-hint { opacity:1; transform:translateX(0); color: rgba(255,255,255,.55); }
 
     /* ── Full-screen modal ────────────────────────────────── */
     .pm-wrap {
@@ -317,14 +351,14 @@
       top: var(--nav-h, 60px); left: 0; right: 0; bottom: 0;
       z-index: 150;
       pointer-events: none; opacity: 0;
-      transition: opacity .22s ease;
+      transition: opacity .32s ease;
     }
     .pm-wrap.open { pointer-events: all; opacity: 1; }
 
     .pm-backdrop {
       position: absolute; inset: 0;
       background: rgba(0,0,0,.92);
-      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
     }
 
     /* main box – fills space below nav */
@@ -333,11 +367,12 @@
       inset: 0;
       display: flex; flex-direction: column;
       background: #09090f;
-      transform: translateY(30px);
-      transition: transform .38s cubic-bezier(.22,1,.36,1);
+      transform: translateY(48px) scale(.985);
+      opacity: 0;
+      transition: transform .55s cubic-bezier(.16,1,.3,1), opacity .4s ease;
       overflow: hidden;
     }
-    .pm-wrap.open .pm-box { transform: translateY(0); }
+    .pm-wrap.open .pm-box { transform: translateY(0) scale(1); opacity: 1; }
 
     /* title bar */
     .pm-titlebar {
@@ -425,7 +460,10 @@
 
     .pm-body-inner {
       width: 100%;
-      padding: 2rem clamp(5rem,12vw,11rem) 4rem;
+      padding: 2.4rem clamp(6.5rem,15vw,13rem) 4.5rem;
+    }
+    @media(max-width:720px){
+      .pm-body-inner { padding: 1.8rem clamp(1.4rem,6vw,2.4rem) 3.5rem; }
     }
 
     /* ── Modal body elements ──────────────────────────────── */
@@ -473,6 +511,42 @@
     .embed-wrap.failed .embed-fallback { pointer-events: all; opacity: 1; }
     .embed-note { font-size: .85rem; color: #5a5a7a; font-family: 'JetBrains Mono', monospace; }
 
+    /* embed loading spinner (iframes: PDF viewer / interactive maps) */
+    .embed-loading {
+      position: absolute; inset: 0; z-index: 3;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .95rem;
+      background: #04040a; transition: opacity .45s ease;
+    }
+    .embed-loading.hidden { opacity: 0; pointer-events: none; }
+    .spinner {
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 3px solid rgba(255,255,255,.12);
+      border-top-color: var(--pm-accent, #5585f0);
+      animation: pm-spin .8s linear infinite;
+    }
+    .embed-loading .load-label {
+      font-family: 'JetBrains Mono', monospace; font-size: .72rem;
+      color: #5a5a7a; letter-spacing: .14em;
+    }
+    @keyframes pm-spin { to { transform: rotate(360deg); } }
+
+    /* image skeleton shimmer (card covers + modal hero) */
+    .img-skeleton {
+      position: absolute; inset: 0; z-index: 4; pointer-events: none;
+      background: linear-gradient(100deg,
+        rgba(255,255,255,.015) 28%,
+        rgba(255,255,255,.085) 50%,
+        rgba(255,255,255,.015) 72%);
+      background-size: 220% 100%;
+      animation: pm-skeleton 1.35s ease-in-out infinite;
+      transition: opacity .5s ease;
+    }
+    .img-skeleton.hidden { opacity: 0; }
+    @keyframes pm-skeleton {
+      0%   { background-position: 170% 0; }
+      100% { background-position: -170% 0; }
+    }
+
     /* PDF CTA */
     .pdf-cta {
       display: flex; align-items: center; gap: 1.1rem;
@@ -494,32 +568,133 @@
     .pdf-subtitle { font-size: .85rem; color: #60607a; font-family: 'JetBrains Mono', monospace; letter-spacing: .03em; }
     .pdf-arrow { color: #a07040; font-size: .9rem; flex-shrink: 0; }
 
-    /* CUSP layout */
-    .cusp-info-row { margin: 1.6rem 0; }
-
-    .cusp-desc-photo {
-      display: grid;
-      grid-template-columns: 1fr 260px;
-      gap: 1.5rem;
-      align-items: start;
+    /* Justified photo gallery — equal height, natural widths, no crop distortion */
+    .pg-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: .85rem;
+      margin: .2rem 0 .6rem;
     }
-
-    .cusp-photo-sm {
-      border-radius: 8px; overflow: hidden;
-      aspect-ratio: 4/3;
-      background: #12121e;
-      border: 1px solid rgba(255,255,255,.07);
-      flex-shrink: 0;
+    .pg-item {
+      position: relative;
+      height: 300px;
+      max-width: 100%;
+      flex: 0 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      background: #0c0c14;
+      transition: transform .45s cubic-bezier(.16,1,.3,1), border-color .35s, box-shadow .45s;
     }
-    .cusp-photo-sm img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .cusp-photo-sm .photo-ph {
-      width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      color: rgba(255,255,255,.15); font-size: .88rem; font-family: 'JetBrains Mono', monospace;
+    .pg-item:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,.16);
+      box-shadow: 0 16px 36px rgba(0,0,0,.4);
+    }
+    .pg-item img {
+      height: 100%;
+      width: auto;
+      max-width: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .7s cubic-bezier(.16,1,.3,1);
+    }
+    .pg-item:hover img { transform: scale(1.04); }
+    /* slightly widened portrait — fills a roomier frame for comfort */
+    .pg-item.is-wide { width: 300px; }
+    .pg-item.is-wide img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; }
+    .pg-cap {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 1.6rem .9rem .7rem;
+      font-size: .72rem;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: .04em;
+      color: #dcdcea;
+      line-height: 1.4;
+      background: linear-gradient(to top, rgba(0,0,0,.82), rgba(0,0,0,.35) 55%, transparent);
+      pointer-events: none;
     }
     @media(max-width:640px){
-      .cusp-desc-photo { grid-template-columns: 1fr; }
-      .cusp-photo-sm { aspect-ratio: 16/9; }
+      .pg-item { height: 210px; }
+    }
+
+    /* Two photos, one balanced row — equal height, tidy crop */
+    .pg-duo {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: .85rem;
+      margin: .2rem 0 .6rem;
+    }
+    .pg-duo .pg-item {
+      height: 340px;
+      width: auto;
+      max-width: none;
+    }
+    .pg-duo .pg-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    @media(max-width:640px){
+      .pg-duo { grid-template-columns: 1fr; }
+      .pg-duo .pg-item { height: 240px; }
+    }
+
+    /* Venue / organiser bar — compact, hugs content, links out */
+    .pm-venuebar {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(135deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
+      text-decoration: none;
+      color: inherit;
+      margin: .2rem 0 1rem;
+      transition: border-color .3s ease, background .3s ease, transform .35s cubic-bezier(.16,1,.3,1);
+    }
+    a.pm-venuebar:hover {
+      border-color: rgba(255,255,255,.18);
+      background: linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+      transform: translateY(-2px);
+    }
+    .pm-venuebar-logo {
+      flex: 0 0 auto;
+      width: 56px; height: 56px;
+      border-radius: 10px;
+      background: #fff;
+      padding: .5rem;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 22px rgba(0,0,0,.25);
+    }
+    .pm-venuebar-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .pm-venuebar-text { flex: 1; min-width: 0; }
+    .pm-venuebar-label {
+      font-size: .66rem;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #6a6a88;
+      margin-bottom: .25rem;
+    }
+    .pm-venuebar-name { font-size: 1.02rem; font-weight: 500; color: #ededf2; letter-spacing: -.01em; }
+    .pm-venuebar-org { font-size: .8rem; color: #8a8aa8; margin-top: .18rem; }
+    .pm-venuebar-cta {
+      flex: 0 0 auto;
+      font-size: .72rem;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: .05em;
+      color: #9a9ab8;
+      white-space: nowrap;
+    }
+    a.pm-venuebar:hover .pm-venuebar-cta { color: #c8c8dc; }
+    @media(max-width:560px){
+      .pm-venuebar { flex-wrap: wrap; }
+      .pm-venuebar-cta { width: 100%; }
     }
 
     /* CUSP PDF button — purple accent */
@@ -560,70 +735,90 @@
     }
     .pm-btn.kcl-btn:hover { background: rgba(139,0,0,.1); border-color: rgba(220,30,30,.45); }
 
-    /* KCL article preview card */
+    /* Press citation card — restrained, purple-keyed to the CUSP accent */
     .kcl-card {
-      display: block; text-decoration: none;
-      border-radius: 10px; overflow: hidden;
-      border: 1px solid rgba(255,255,255,.07);
-      background: #0d0d16;
-      transition: border-color .2s, background .2s;
-      margin-bottom: .8rem;
+      display: flex; gap: 1.5rem; align-items: stretch;
+      text-decoration: none;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(167,139,250,.05), rgba(255,255,255,.012));
+      padding: 1.5rem 1.7rem;
+      margin-bottom: 1.2rem;
+      transition: border-color .3s ease, transform .35s cubic-bezier(.16,1,.3,1);
     }
     .kcl-card:hover {
-      border-color: rgba(192,0,30,.28);
-      background: #0f0f1a;
+      border-color: rgba(167,139,250,.3);
+      transform: translateY(-2px);
     }
-    .kcl-card-banner {
-      height: 3px;
-      background: linear-gradient(90deg, #a0001a 0%, #7a0000 100%);
+    .kcl-thumb {
+      flex: 0 0 188px;
+      align-self: stretch;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      background: #0b0b12;
+      min-height: 150px;
     }
-    .kcl-card-body { padding: 1.2rem 1.4rem 1.4rem; }
-    .kcl-card-meta {
-      display: flex; align-items: center; gap: .75rem;
-      font-size: .82rem; font-family: 'JetBrains Mono', monospace;
-      color: #505070; margin-bottom: .75rem; letter-spacing: .03em;
+    .kcl-thumb::after {
+      content: "";
+      position: absolute; inset: 0;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.4);
+      pointer-events: none;
     }
-    .kcl-card-source {
-      display: inline-flex; align-items: center; gap: .35rem;
-      padding: .14rem .55rem; border-radius: 3px;
-      background: rgba(160,0,26,.1); border: 1px solid rgba(160,0,26,.22);
-      color: #c06060; font-weight: 400; letter-spacing: .06em; text-transform: uppercase;
+    .kcl-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: 30% top;
+      display: block;
+      transition: transform .8s cubic-bezier(.16,1,.3,1);
     }
-    .kcl-card-title {
-      font-family: 'Cormorant Garant', Georgia, serif;
-      font-size: 1.3rem; font-weight: 400; color: #dddde8;
-      letter-spacing: -.01em; line-height: 1.4; margin: 0 0 .75rem;
+    .kcl-card:hover .kcl-thumb img { transform: scale(1.04); }
+    .kcl-body { flex: 1; min-width: 0; }
+    @media(max-width:640px){
+      .kcl-card { flex-direction: column; gap: 1.1rem; }
+      .kcl-thumb { flex-basis: auto; aspect-ratio: 16/9; min-height: 0; }
     }
-    .kcl-card-excerpt {
-      font-size: .95rem; color: #60607a; line-height: 1.8; margin: 0 0 .95rem; font-weight: 300;
+    .kcl-eyebrow {
+      display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+      font-size: .68rem; font-family: 'JetBrains Mono', monospace;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: #6f6f8c; margin-bottom: .95rem;
     }
-    .kcl-card-quote {
-      border-left: 2px solid rgba(160,0,26,.35);
-      padding: .6rem 1rem; margin: .75rem 0 .95rem;
-      background: rgba(160,0,26,.04); border-radius: 0 6px 6px 0;
+    .kcl-eyebrow .src { color: #b6a4f0; }
+    .kcl-eyebrow .sep { width: 3px; height: 3px; border-radius: 50%; background: rgba(167,139,250,.5); }
+    .kcl-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.4rem; font-weight: 500; color: #e8e8f2;
+      letter-spacing: -.01em; line-height: 1.35; margin: 0 0 .85rem;
     }
-    .kcl-card-quote p {
-      font-size: .93rem; color: #80809a; line-height: 1.7; margin: 0 0 .35rem;
+    .kcl-excerpt {
+      font-size: .94rem; color: #7a7a92; line-height: 1.75; margin: 0 0 1.05rem; font-weight: 300;
+    }
+    .kcl-quote {
+      border-left: 2px solid rgba(167,139,250,.42);
+      padding: .1rem 0 .1rem 1.05rem; margin: 0 0 1.15rem;
+    }
+    .kcl-quote p {
+      font-size: .92rem; color: #9a9ab4; line-height: 1.7; margin: 0 0 .4rem;
       font-style: italic; font-weight: 300;
     }
-    .kcl-card-quote cite {
-      font-size: .82rem; color: #505070; font-style: normal;
+    .kcl-quote cite {
+      font-size: .77rem; color: #6a6a86; font-style: normal;
       font-family: 'JetBrains Mono', monospace; letter-spacing: .03em;
     }
-    .kcl-card-footer {
-      display: flex; align-items: center; justify-content: space-between;
-      padding-top: .9rem;
-      border-top: 1px solid rgba(255,255,255,.05);
-      font-size: .85rem; color: #505070;
+    .kcl-foot {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding-top: .95rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+      font-size: .76rem; color: #5a5a76;
+      font-family: 'JetBrains Mono', monospace; letter-spacing: .03em;
     }
-    .kcl-card-cta {
-      display: inline-flex; align-items: center; gap: .35rem;
-      padding: .38rem .9rem; border-radius: 5px;
-      background: transparent; border: 1px solid rgba(160,0,26,.25);
-      color: #c06060; font-weight: 400; font-size: .88rem;
-      transition: background .15s, border-color .15s;
+    .kcl-readmore {
+      display: inline-flex; align-items: center; gap: .4rem;
+      color: #b6a4f0;
+      transition: gap .2s ease, color .2s ease;
     }
-    .kcl-card:hover .kcl-card-cta { background: rgba(160,0,26,.1); border-color: rgba(160,0,26,.4); }
+    .kcl-card:hover .kcl-readmore { gap: .6rem; color: #cabbf8; }
 
     /* accent-tinted rule at bottom of hero */
     .pm-hero::after {
@@ -751,6 +946,10 @@
   var pmBox        = pmWrap.querySelector(".pm-box");
 
   function openModal(p) {
+    /* clear any leftover hero skeleton from a previous open */
+    var oldSkel = pmHeroBg.querySelector(".img-skeleton");
+    if (oldSkel) oldSkel.remove();
+
     /* hero banner */
     if (p.image) {
       var pos = p.imagePos || "center center";
@@ -760,6 +959,17 @@
         "url(\"" + encodeURI(p.image) + "\") " + pos + " / cover no-repeat"
       ].join(", ");
       pmHeroBg.style.backgroundSize = "";
+
+      /* skeleton shimmer until the (potentially large) hero image loads */
+      var hSkel = document.createElement("div");
+      hSkel.className = "img-skeleton";
+      pmHeroBg.appendChild(hSkel);
+      var hPre = new Image();
+      hPre.onload = hPre.onerror = function () {
+        hSkel.classList.add("hidden");
+        setTimeout(function () { if (hSkel.parentNode) hSkel.remove(); }, 500);
+      };
+      hPre.src = encodeURI(p.image);
     } else {
       pmHeroBg.style.background = p.coverBg;
       if (p.coverBgSize) pmHeroBg.style.backgroundSize = p.coverBgSize;
@@ -771,10 +981,21 @@
     pmHeroSub.textContent   = p.sub  || "";
 
     pmAwardWrap.innerHTML = p.award
-      ? '<p class="pm-hero-award">' + esc(p.awardLabel || "🏆 Award Winning") + "</p>" : "";
+      ? '<p class="pm-hero-award">' + awardIcon() + esc(p.awardLabel || "Award Winning") + "</p>" : "";
 
     /* body content */
     pmBody.innerHTML = buildModalBody(p);
+
+    /* wire up embed spinners: hide when each iframe finishes (with a safety timeout) */
+    pmBody.querySelectorAll(".embed-wrap").forEach(function (wrap) {
+      var iframe = wrap.querySelector("iframe");
+      var loader = wrap.querySelector(".embed-loading");
+      if (!iframe || !loader) return;
+      var hide = function () { loader.classList.add("hidden"); };
+      iframe.addEventListener("load", hide);
+      setTimeout(hide, 12000);
+    });
+
     /* tint the titlebar with a faint accent */
     var pmBox2 = pmWrap.querySelector(".pm-box");
     pmBox2.style.setProperty("--pm-accent", p.accent || "#5585f0");
@@ -827,49 +1048,55 @@
     var h = "";
 
     /* ① Media Coverage — top */
-    h += '<p class="pm-section-label">Media Coverage</p>';
+    h += '<p class="pm-section-label">In the Press</p>';
     h += '<a class="kcl-card" href="' + esc(kclUrl) + '" target="_blank" rel="noopener">';
-    h +=   '<div class="kcl-card-banner"></div>';
-    h +=   '<div class="kcl-card-body">';
-    h +=     '<div class="kcl-card-meta">' +
-               '<span class="kcl-card-source">King\'s College London</span>' +
+    h +=   '<div class="kcl-thumb">' +
+             '<img src="photo/kcl article.png" alt="King\'s College London article preview" loading="lazy" ' +
+             'onerror="this.closest(\'.kcl-thumb\').style.display=\'none\'">' +
+           '</div>';
+    h +=   '<div class="kcl-body">';
+    h +=     '<div class="kcl-eyebrow">' +
+               '<span class="src">King\'s College London</span>' +
+               '<span class="sep"></span>' +
                '<span>03 March 2025</span>' +
              '</div>';
-    h +=     '<p class="kcl-card-title">Students from around the world develop solutions for greener cities in data competition</p>';
-    h +=     '<p class="kcl-card-excerpt">The <strong style="color:#ededf2">\'Best Overall\' award</strong> went to a team that analysed data on fuel poverty, discovering that urban challenges disproportionately impact low-income communities across London — with policy-informing evidence for tailored regional approaches.</p>';
-    h +=     '<div class="kcl-card-quote">' +
-               '<p>"The CUSP London Data Dive continues to highlight the talent and dedication of participating students as they uncover meaningful insights from urban data in sustainability."</p>' +
-               '<cite>— Dr Yijing Li, Acting Director for CUSP London</cite>' +
-             '</div>';
-    h +=     '<div class="kcl-card-footer">' +
-               '<span>kcl.ac.uk · News</span>' +
-               '<span class="kcl-card-cta">Read full article ' +
-                 '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>' +
+    h +=     '<p class="kcl-title">Students from around the world develop solutions for greener cities in data competition</p>';
+    h +=     '<p class="kcl-excerpt">The <strong style="color:#e6e6f0;font-weight:500">\u2018Best Overall\u2019 award</strong> went to a team that analysed fuel-poverty data, showing that urban challenges disproportionately impact low-income communities across London.</p>';
+    h +=     '<blockquote class="kcl-quote">' +
+               '<p>\u201CThe CUSP London Data Dive continues to highlight the talent and dedication of participating students as they uncover meaningful insights from urban data in sustainability.\u201D</p>' +
+               '<cite>Dr Yijing Li, Acting Director for CUSP London</cite>' +
+             '</blockquote>';
+    h +=     '<div class="kcl-foot">' +
+               '<span>kcl.ac.uk / News</span>' +
+               '<span class="kcl-readmore">Read full article ' +
+                 '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>' +
                '</span>' +
              '</div>';
     h +=   '</div>';
     h += '</a>';
 
-    /* ② Description + small award photo side by side */
+    /* ② Description — full width */
     var detailHtml = p.detail.split('\n\n').map(function(para) {
       return '<p class="pm-detail" style="margin-bottom:.9rem">' + esc(para) + '</p>';
     }).join('');
+    h += '<div style="margin-bottom:.4rem">' + detailHtml + '</div>';
 
-    h += '<div class="cusp-info-row">';
-    h +=   '<div class="cusp-desc-photo">';
-    h +=     '<div style="margin-bottom:0">' + detailHtml + '</div>';
-    h +=     '<div class="cusp-photo-sm">' +
-               '<img src="' + esc(p.photo) + '" alt="Award Winners" ' +
-               'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
-               '<div class="photo-ph" style="display:none">📷 Award Photo</div>' +
-             '</div>';
-    h +=   '</div>';
-    h += '</div>';
+    /* ③ Recognition — award photo + symposium poster, side by side */
+    var moments = [];
+    if (p.photo) moments.push({ src: p.photo, caption: "Best Overall Award · CUSP London Data Dive" });
+    if (p.symposium && p.symposium.photo) {
+      moments.push({ src: p.symposium.photo, caption: p.symposium.caption });
+    }
+    h += buildPhotoRow("Recognition", moments, "duo");
+
+    /* symposium credit + link */
+    if (p.symposium) h += buildVenueBar(p.symposium);
 
     /* ③ Group presentation PDF */
     h += '<p class="pm-section-label" style="margin-top:2rem">Group Presentation</p>';
     h += '<div class="embed-wrap pdf-embed">' +
            '<iframe src="' + pdfUrl + '" loading="lazy" title="CUSP Group 7 Presentation"></iframe>' +
+           embedLoader() +
            '<div class="embed-fallback">' +
              '<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' +
              '<p style="color:#555;font-size:.78rem">PDF preview unavailable — use button below</p>' +
@@ -892,12 +1119,56 @@
     return h;
   }
 
+  function buildPhotoRow(label, items, layout) {
+    if (!items || !items.length) return "";
+    var wrapCls = layout === "duo" ? "pg-duo" : "pg-row";
+    var h = "";
+    if (label) h += '<p class="pm-section-label">' + esc(label) + "</p>";
+    h += '<div class="' + wrapCls + '">';
+    items.forEach(function (g) {
+      if (!g || !g.src) return;
+      var itemCls = "pg-item" + (layout !== "duo" && g.wide ? " is-wide" : "");
+      h += '<figure class="' + itemCls + '">';
+      h +=   '<img src="' + esc(g.src) + '" alt="' + esc(g.caption || "") + '" loading="lazy">';
+      if (g.caption) h += '<figcaption class="pg-cap">' + esc(g.caption) + "</figcaption>";
+      h += "</figure>";
+    });
+    h += "</div>";
+    return h;
+  }
+
+  function buildVenueBar(s) {
+    if (!s || !s.logo) return "";
+    var open = s.url
+      ? 'a class="pm-venuebar" href="' + esc(s.url) + '" target="_blank" rel="noopener"'
+      : 'div class="pm-venuebar"';
+    var close = s.url ? "a" : "div";
+    var h = "<" + open + ">";
+    h +=   '<div class="pm-venuebar-logo"><img src="' + esc(s.logo) + '" alt="' + esc(s.org || s.name || "Venue") + '"></div>';
+    h +=   '<div class="pm-venuebar-text">';
+    if (s.label) h += '<p class="pm-venuebar-label">' + esc(s.label) + "</p>";
+    if (s.name) h += '<p class="pm-venuebar-name">' + esc(s.name) + "</p>";
+    if (s.org) h += '<p class="pm-venuebar-org">' + esc(s.org) + "</p>";
+    h +=   "</div>";
+    if (s.url) {
+      var host = s.url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+      h += '<span class="pm-venuebar-cta">' + esc(host) + " ↗</span>";
+    }
+    h += "</" + close + ">";
+    return h;
+  }
+
   function buildCdrc(p) {
     var url = p.pdfUrl || "#";
     var h = '<p class="pm-detail">' + esc(p.detail) + "</p>";
-    h += '<p class="pm-section-label">Report</p>';
+    var photos = [];
+    if (p.featured) photos.push(p.featured);
+    if (p.gallery) photos = photos.concat(p.gallery);
+    h += buildPhotoRow("Conference", photos);
+    h += '<p class="pm-section-label" style="margin-top:2.2rem">Report</p>';
     h += '<div class="embed-wrap pdf-embed">' +
          '<iframe src="' + esc(url) + '" loading="lazy" title="Research Report"></iframe>' +
+         embedLoader() +
          '<div class="embed-fallback">' +
            '<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' +
            '<p style="color:#666;font-size:.78rem">PDF preview unavailable</p>' +
@@ -909,12 +1180,17 @@
     return h;
   }
 
+  function embedLoader() {
+    return '<div class="embed-loading"><div class="spinner"></div><p class="load-label">LOADING…</p></div>';
+  }
+
   function buildIframe(url, title) {
     return (
       '<div class="embed-wrap">' +
         '<iframe src="' + esc(url) + '" title="' + esc(title) + '" allowfullscreen loading="lazy" ' +
           'sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox">' +
         "</iframe>" +
+        embedLoader() +
         '<div class="embed-fallback">' +
           '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/></svg>' +
           '<p style="color:#555;font-size:.78rem">Preview blocked by site policy</p>' +
@@ -963,6 +1239,18 @@
     cover.appendChild(shimmer);
     cover.appendChild(vignette);
 
+    /* skeleton shimmer until the cover photo loads (only for real images) */
+    if (p.image) {
+      var cSkel = el("div", "img-skeleton");
+      cover.appendChild(cSkel);
+      var cPre = new Image();
+      cPre.onload = cPre.onerror = function () {
+        cSkel.classList.add("hidden");
+        setTimeout(function () { if (cSkel.parentNode) cSkel.remove(); }, 500);
+      };
+      cPre.src = encodeURI(p.image);
+    }
+
     /* tech stack tag chip */
     if (p.tag) {
       var tagChip = el("span", "p-tag");
@@ -971,7 +1259,7 @@
     }
 
     var infoHtml =
-      (p.award ? '<p class="p-award-badge">🏆 ' + esc(p.awardLabel || "Award Winning") + "</p>" : "") +
+      (p.award ? '<p class="p-award-badge">' + awardIcon() + esc(p.awardLabel || "Award Winning") + "</p>" : "") +
       '<h3 class="p-title">' + esc(p.title) + "</h3>" +
       (p.sub ? '<p class="p-sub">' + esc(p.sub) + "</p>" : "") +
       '<span class="p-open-hint">View project →</span>';
@@ -982,20 +1270,25 @@
     card.appendChild(cover);
     card.appendChild(info);
 
-    /* holographic tilt */
+    /* holographic tilt — bolder follow */
     card.addEventListener("mousemove", function (e) {
       var r  = card.getBoundingClientRect();
       var x  = e.clientX - r.left, y = e.clientY - r.top;
-      var rx = ((y - r.height / 2) / (r.height / 2)) * -6;
-      var ry = ((x - r.width  / 2) / (r.width  / 2)) *  8;
-      card.style.transform = "perspective(1000px) rotateX(" + rx + "deg) rotateY(" + ry + "deg) scale(1.025)";
-      card.style.borderColor = "rgba(255,255,255,.15)";
-      card.style.boxShadow = "0 0 0 1px " + p.accent + "44, 0 20px 55px rgba(0,0,0,.5), 0 0 70px " + hexRgba(p.accent,.10);
+      var rx = ((y - r.height / 2) / (r.height / 2)) * -11;
+      var ry = ((x - r.width  / 2) / (r.width  / 2)) *  14;
+      card.style.transition = "box-shadow .2s ease, border-color .2s ease";
+      card.style.transform = "perspective(900px) rotateX(" + rx + "deg) rotateY(" + ry + "deg) translateY(-6px) scale(1.035)";
+      card.style.borderColor = "rgba(255,255,255,.18)";
+      card.style.boxShadow =
+        "0 0 0 1px " + p.accent + "55, 0 28px 70px rgba(0,0,0,.55), 0 0 90px " + hexRgba(p.accent,.16);
       shimmer.style.opacity = "1";
-      shimmer.style.background = "radial-gradient(circle at " + x + "px " + y + "px, rgba(255,255,255,.1) 0%, transparent 65%)";
+      shimmer.style.background =
+        "radial-gradient(circle at " + x + "px " + y + "px, rgba(255,255,255,.22) 0%, transparent 58%)";
     });
     card.addEventListener("mouseleave", function () {
-      card.style.transform = "";
+      card.style.transition =
+        "opacity .65s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, border-color .35s ease";
+      card.style.transform = card.classList.contains("revealed") ? "translateY(0) scale(1)" : "";
       card.style.borderColor = "";
       card.style.boxShadow = "";
       shimmer.style.opacity = "0";
@@ -1012,6 +1305,10 @@
   function el(tag, cls) { var n = document.createElement(tag); if (cls) n.className = cls; return n; }
 
   function injectCSS(str) { var s = document.createElement("style"); s.textContent = str; document.head.appendChild(s); }
+
+  function awardIcon() {
+    return '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3.2l2.35 4.76 5.25.76-3.8 3.7.9 5.24L12 15.9l-4.7 2.46.9-5.24-3.8-3.7 5.25-.76L12 3.2z"/></svg>';
+  }
 
   function esc(s) {
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
