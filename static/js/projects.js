@@ -167,7 +167,7 @@
     }
     .cat-title-wrap { flex: 1; }
     .cat-name {
-      font-family: 'Cormorant Garant', Georgia, serif;
+      font-family: Georgia, 'Times New Roman', serif;
       font-size: clamp(1.8rem, 3.4vw, 2.8rem); font-weight: 400;
       letter-spacing: -.01em; line-height: 1;
       background: linear-gradient(110deg, #eeeef8 0%, #b0b0d8 65%, #8888c0 100%);
@@ -327,7 +327,7 @@
     .p-award-badge svg { width: 12px; height: 12px; flex-shrink: 0; color: #d4a84b; }
     .pm-hero-award svg { width: 13px; height: 13px; flex-shrink: 0; vertical-align: -1px; margin-right: .35rem; }
     .p-title {
-      font-family: 'Cormorant Garant', Georgia, serif;
+      font-family: Georgia, 'Times New Roman', serif;
       font-size: 1.25rem; font-weight: 500; color: #eeeef5;
       letter-spacing: -.01em; line-height: 1.3; margin: 0;
     }
@@ -431,7 +431,7 @@
       padding: 1.2rem clamp(1.5rem,5vw,3rem) 1.8rem;
     }
     .pm-hero-title {
-      font-family: 'Cormorant Garant', Georgia, serif;
+      font-family: Georgia, 'Times New Roman', serif;
       font-size: clamp(1.6rem, 4vw, 2.6rem);
       font-weight: 400; letter-spacing: -.01em;
       color: #fff; line-height: 1.1; margin: 0 0 .3rem;
@@ -787,7 +787,7 @@
     .kcl-eyebrow .src { color: #b6a4f0; }
     .kcl-eyebrow .sep { width: 3px; height: 3px; border-radius: 50%; background: rgba(167,139,250,.5); }
     .kcl-title {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: Georgia, 'Times New Roman', serif;
       font-size: 1.4rem; font-weight: 500; color: #e8e8f2;
       letter-spacing: -.01em; line-height: 1.35; margin: 0 0 .85rem;
     }
@@ -1051,7 +1051,7 @@
     h += '<p class="pm-section-label">In the Press</p>';
     h += '<a class="kcl-card" href="' + esc(kclUrl) + '" target="_blank" rel="noopener">';
     h +=   '<div class="kcl-thumb">' +
-             '<img src="photo/kcl article.png" alt="King\'s College London article preview" loading="lazy" ' +
+             '<img src="' + encodeURI("photo/kcl article.png") + '" alt="King\'s College London article preview" loading="lazy" ' +
              'onerror="this.closest(\'.kcl-thumb\').style.display=\'none\'">' +
            '</div>';
     h +=   '<div class="kcl-body">';
@@ -1129,7 +1129,7 @@
       if (!g || !g.src) return;
       var itemCls = "pg-item" + (layout !== "duo" && g.wide ? " is-wide" : "");
       h += '<figure class="' + itemCls + '">';
-      h +=   '<img src="' + esc(g.src) + '" alt="' + esc(g.caption || "") + '" loading="lazy">';
+      h +=   '<img src="' + encodeURI(g.src) + '" alt="' + esc(g.caption || "") + '" loading="lazy">';
       if (g.caption) h += '<figcaption class="pg-cap">' + esc(g.caption) + "</figcaption>";
       h += "</figure>";
     });
@@ -1144,7 +1144,7 @@
       : 'div class="pm-venuebar"';
     var close = s.url ? "a" : "div";
     var h = "<" + open + ">";
-    h +=   '<div class="pm-venuebar-logo"><img src="' + esc(s.logo) + '" alt="' + esc(s.org || s.name || "Venue") + '"></div>';
+    h +=   '<div class="pm-venuebar-logo"><img src="' + encodeURI(s.logo) + '" alt="' + esc(s.org || s.name || "Venue") + '"></div>';
     h +=   '<div class="pm-venuebar-text">';
     if (s.label) h += '<p class="pm-venuebar-label">' + esc(s.label) + "</p>";
     if (s.name) h += '<p class="pm-venuebar-name">' + esc(s.name) + "</p>";

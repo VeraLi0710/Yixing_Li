@@ -14,7 +14,7 @@
   <title>Yixing Li (Vera) | Urban Data Science</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     /* ── Tokens ───────────────────────────────────────────── */
     :root {
@@ -31,7 +31,7 @@
       --glass:    rgba(255,255,255,.035);
       --glass-b:  rgba(255,255,255,.07);
       --nav-h:    72px;
-      --serif: 'Cormorant Garant', Georgia, serif;
+      --serif: Georgia, 'Times New Roman', serif;
       --sans:  'DM Sans', system-ui, sans-serif;
       --mono:  'JetBrains Mono', monospace;
       --ease: cubic-bezier(.22, 1, .36, 1);
@@ -448,33 +448,6 @@
       box-shadow:
         inset 0 0 0 1px rgba(255,255,255,.16),
         0 34px 64px rgba(0,0,0,.55);
-    }
-
-    /* discovery hint on the front card */
-    .film-hint {
-      position: absolute;
-      left: 50%; bottom: 12px;
-      transform: translateX(-50%);
-      z-index: 50;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 11px;
-      border-radius: 999px;
-      font-family: var(--sans);
-      font-size: .72rem;
-      letter-spacing: .04em;
-      color: rgba(255,255,255,.85);
-      background: rgba(10,10,18,.5);
-      backdrop-filter: blur(6px);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.14);
-      pointer-events: none;
-      opacity: .92;
-      transition: opacity .35s var(--ease), transform .35s var(--ease);
-    }
-    .avatar-film.is-open .film-hint {
-      opacity: 0;
-      transform: translateX(-50%) translateY(8px);
     }
 
     /* ── Scroll indicator ─────────────────────────────────── */
@@ -904,24 +877,20 @@
       { src: "photo/me2.jpg", alt: "Yixing Li" },
       { src: "CUSP/winnnersphoto.png", alt: "CUSP Best Overall Award team" },
       { src: "photo/vmo2 oxford conference.jpg", alt: "Oxford conference with Virgin Media O2" },
-      { src: "photo/vmo2 oxford conference 2.jpg", alt: "Oxford conference presentation" },
-      { src: "photo/vmo2 oxford conference 3.jpg", alt: "Team and partners at Oxford" },
+      { src: "photo/vmo2 oxford conference 3.jpg", alt: "With fellow presenters at Oxford" },
       { src: "photo/empa poster photo.jpg", alt: "Urban Future Symposium at ETH Empa" }
     ];
 
     if (film) {
-      var railHtml = FILM_PHOTOS.map(function (ph, i) {
-        return (
-          '<figure class="film-card" style="--i:' + i + ';--iy:' + (i * i) + '">' +
-            '<img src="' + ph.src + '" alt="' + (ph.alt || "") + '" ' + (i === 0 ? "" : 'loading="lazy" ') + '/>' +
-          "</figure>"
-        );
-      }).join("");
       film.innerHTML =
-        '<div class="film-rail">' + railHtml + "</div>" +
-        '<div class="film-hint">' +
-          '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h10"/></svg>' +
-          "<span>hover to unfold</span>" +
+        '<div class="film-rail">' +
+          FILM_PHOTOS.map(function (ph, i) {
+            return (
+              '<figure class="film-card" style="--i:' + i + ';--iy:' + (i * i) + '">' +
+                '<img src="' + encodeURI(ph.src) + '" alt="' + (ph.alt || "") + '" ' + (i === 0 ? "" : 'loading="lazy" ') + '/>' +
+              "</figure>"
+            );
+          }).join("") +
         "</div>";
     }
 
@@ -962,8 +931,9 @@
     film.addEventListener("focus", function () { setOpen(true); });
     film.addEventListener("blur", function () { setOpen(false); });
 
-    /* touch: tap toggles the fan */
-    film.addEventListener("click", function () {
+    /* touch-only tap toggle — mouse already uses hover */
+    film.addEventListener("pointerup", function (e) {
+      if (e.pointerType !== "touch") return;
       setOpen(!film.classList.contains("is-open"));
     });
   })();
