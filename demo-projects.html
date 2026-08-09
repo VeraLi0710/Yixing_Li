@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — arrangement studies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* Tokens lifted verbatim from index.html so nothing here can drift away
+       from the real site while we are comparing. */
+    :root {
+      --bg:       #07070d;
+      --bg-s:     #0d0d16;
+      --text:     #eeeef5;
+      --muted:    #9a9ab4;
+      --dim:      #6e6e8a;
+      --blue:     #5585f0;
+      --purple:   #9068e4;
+      --amber:    #d4a84b;
+      --glass-b:  rgba(255,255,255,.07);
+      --serif: Georgia, 'Times New Roman', serif;
+      --sans:  'DM Sans', system-ui, sans-serif;
+      --mono:  'JetBrains Mono', monospace;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+
+      --r: 14px;                       /* one radius everywhere */
+      --gap: 1rem;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(ellipse 44% 24% at 18% 2%,  rgba(85,133,240,.07), transparent 58%),
+        radial-gradient(ellipse 48% 26% at 82% 34%, rgba(144,104,228,.07), transparent 56%),
+        radial-gradient(ellipse 40% 22% at 50% 82%, rgba(212,168,75,.04), transparent 60%);
+      background-attachment: fixed;
+    }
+    body::after {
+      content: "";
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none; opacity: .16;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+    }
+
+    /* ── Compare bar ──────────────────────────────────────── */
+    .cmp-nav {
+      position: sticky; top: 0; z-index: 40;
+      background: rgba(7,7,13,.78);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-b);
+    }
+    .cmp-in { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; height: 62px; display: flex; align-items: center; gap: 1.6rem; }
+    .cmp-brand { font-family: var(--serif); font-size: 1.05rem; margin-right: auto; }
+    .cmp-brand span { color: var(--dim); font-family: var(--mono); font-size: .64rem; letter-spacing: .16em; margin-left: .7rem; text-transform: uppercase; }
+    .cmp-link { font-family: var(--mono); font-size: .7rem; letter-spacing: .12em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color .25s var(--ease); }
+    .cmp-link:hover, .cmp-link:focus-visible { color: var(--text); outline: none; }
+
+    /* ── Section chrome ───────────────────────────────────── */
+    .demo { position: relative; z-index: 1; padding: 6rem 0 6.5rem; scroll-margin-top: 62px; }
+    .demo + .demo { border-top: 1px solid rgba(255,255,255,.055); }
+    .demo-in { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
+    .demo-head { display: flex; align-items: baseline; gap: 1.1rem; margin-bottom: 2.6rem; }
+    .demo-key { font-family: var(--mono); font-size: .64rem; font-weight: 500; letter-spacing: .16em; color: var(--dim); }
+    .demo-name { font-size: clamp(1.6rem, 2.8vw, 2.15rem); font-weight: 500; letter-spacing: -.024em; white-space: nowrap; }
+    .demo-note { font-family: var(--mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); white-space: nowrap; }
+    .demo-head::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,.11), transparent 74%); }
+
+    /* ══ ONE CARD LANGUAGE ═════════════════════════════════
+       Held constant across all four studies on purpose. Last round every
+       study invented its own card, so the comparison was between four visual
+       languages instead of four arrangements — which is what read as noise.
+       Arrangement and motion are the only variables below. */
+    .k {
+      position: relative; overflow: hidden;
+      border-radius: var(--r);
+      background: var(--bg-s);
+      border: 1px solid var(--glass-b);
+      cursor: pointer; display: block; width: 100%;
+      padding: 0; color: inherit; font: inherit; text-align: left;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+      transition: border-color .45s var(--ease), box-shadow .5s var(--ease);
+    }
+    .k:hover, .k:focus-visible, .k.is-live {
+      outline: none; border-color: rgba(255,255,255,.17);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 24px 60px rgba(0,0,0,.5);
+    }
+
+    /* Quiet by default, alive on hover. Five saturated dashboard screenshots
+       side by side is the single loudest thing on this page; grading them to
+       one tone is what buys the calm back. */
+    .k-img {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      filter: saturate(.4) brightness(.7) contrast(1.05);
+      transform: scale(1.02);
+      transition: filter .85s var(--ease), transform 1s var(--ease);
+      will-change: filter, transform;
+    }
+    .k-veil {
+      position: absolute; inset: 0;
+      background: rgba(10,10,22,.42);
+      transition: background .85s var(--ease);
+    }
+    .k:hover .k-img, .k:focus-visible .k-img, .k.is-live .k-img { filter: none; transform: scale(1.05); }
+    .k:hover .k-veil, .k:focus-visible .k-veil, .k.is-live .k-veil { background: rgba(10,10,22,.05); }
+
+    /* Text sits on glass, never straight on the photograph — a gradient scrim
+       over a busy screenshot never gets fully crisp. */
+    .k-foot {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 1rem 1.15rem 1.05rem;
+      background: rgba(8,8,15,.74);
+      backdrop-filter: blur(18px) saturate(1.1); -webkit-backdrop-filter: blur(18px) saturate(1.1);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .k-title { font-size: 1.02rem; font-weight: 500; letter-spacing: -.016em; line-height: 1.35; display: block; }
+    /* Slot is always reserved so the reveal cannot shift the layout. */
+    .k-meta {
+      display: block; margin-top: .5rem; height: .9rem;
+      font-family: var(--mono); font-size: .62rem; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(255,255,255,.5);
+      opacity: 0; transform: translateY(5px);
+      transition: opacity .45s var(--ease), transform .5s var(--ease);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .k:hover .k-meta, .k:focus-visible .k-meta, .k.is-live .k-meta { opacity: 1; transform: none; }
+    /* The only colour on the page that is not a photograph. One pill on one
+       card out of five reads as an accent; five accents read as confetti. */
+    .k-aw {
+      display: inline-flex; align-items: center; gap: .34rem;
+      margin-bottom: .55rem; padding: .2rem .62rem;
+      border-radius: 999px; border: 1px solid rgba(212,168,75,.3);
+      background: rgba(212,168,75,.09);
+      font-family: var(--mono); font-size: .6rem; font-weight: 500;
+      letter-spacing: .07em; color: #e0c07a;
+    }
+
+    /* ══ B · Cinematic rail ════════════════════════════════ */
+    /* Cards that reach the measure edge should fade out, not get guillotined —
+       a hard cut reads as a bug, a fade reads as "there is more this way". */
+    .rail {
+      display: flex; gap: var(--gap); overflow-x: auto; scroll-snap-type: x mandatory;
+      padding: .4rem 0 1.5rem; scrollbar-width: none; cursor: grab;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+              mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+    }
+    .rail::-webkit-scrollbar { display: none; }
+    .rail.is-drag { cursor: grabbing; scroll-snap-type: none; }
+    .rail .k {
+      flex: 0 0 336px; height: 470px; scroll-snap-align: center;
+      transform: scale(var(--s, .93));
+      opacity: var(--o, .55);
+      transition: transform .5s var(--ease), opacity .5s var(--ease), border-color .45s var(--ease), box-shadow .5s var(--ease);
+    }
+    .rail-prog { height: 1px; background: rgba(255,255,255,.08); }
+    .rail-prog i { display: block; height: 100%; width: 0; background: rgba(255,255,255,.5); }
+
+    /* ══ C · Asymmetric mosaic ═════════════════════════════ */
+    .mos { display: grid; grid-template-columns: 1.32fr 1fr; gap: var(--gap); }
+    .mos-b { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); margin-top: var(--gap); }
+    .mos .k-hero { grid-row: span 2; min-height: 624px; }
+    .mos .k-sm { min-height: 307px; }
+    .mos-b .k { min-height: 288px; }
+    .k-hero .k-foot { padding: 1.5rem 1.6rem 1.55rem; }
+    .k-hero .k-title { font-size: clamp(1.3rem, 2vw, 1.65rem); letter-spacing: -.024em; }
+    .k-hero .k-meta { font-size: .66rem; height: 1rem; }
+    /* Oversized so the parallax has somewhere to travel without exposing an edge. */
+    .mos .k-img, .mos-b .k-img { top: -8%; bottom: -8%; inset-inline: 0; }
+
+    /* ══ D · In-place accordion ════════════════════════════ */
+    .acc { display: flex; gap: .75rem; height: 500px; }
+    .acc .k { flex: 1 1 0; min-width: 0; transition: flex-grow .85s var(--ease), border-color .45s var(--ease), box-shadow .5s var(--ease); }
+    .acc .k.open { flex-grow: 3.8; border-color: rgba(255,255,255,.17); }
+    /* Collapsed panels go nearly monochrome. The whole point of an accordion is
+       that one thing is open; if the closed four still carry colour they argue
+       with it. */
+    .acc .k:not(.open) .k-img { filter: saturate(.12) brightness(.5) contrast(1.06); }
+    .acc .k:not(.open) .k-veil { background: rgba(10,10,22,.56); }
+    .acc .k.open .k-img { filter: none; }
+    .acc .k.open .k-veil { background: rgba(10,10,22,.06); }
+    .ac-spine {
+      position: absolute; left: 1.1rem; bottom: 1.3rem; z-index: 2;
+      writing-mode: vertical-rl; transform: rotate(180deg);
+      font-size: .95rem; font-weight: 500; letter-spacing: -.01em; white-space: nowrap;
+      transition: opacity .35s var(--ease);
+    }
+    .acc .k.open .ac-spine { opacity: 0; }
+    .acc .k-foot { width: 440px; max-width: 100%; opacity: 0; transform: translateY(12px); transition: opacity .4s .22s var(--ease), transform .5s .22s var(--ease); }
+    .acc .k.open .k-foot { opacity: 1; transform: none; }
+    .acc .k.open .k-meta { opacity: 1; transform: none; }
+
+    /* ══ E · Calm grid, all life in the interaction ════════ */
+    .grid-a { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+    .grid-b { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); margin-top: var(--gap); }
+    .grid-a .k { aspect-ratio: 4 / 3.4; }
+    .grid-b .k { aspect-ratio: 16 / 8.2; }
+    .grid-a .k, .grid-b .k { cursor: none; }
+    .grid-a .k-img, .grid-b .k-img { inset: -7%; }
+    .k-dot {
+      position: absolute; z-index: 6; width: 58px; height: 58px; border-radius: 50%;
+      display: grid; place-items: center; pointer-events: none;
+      border: 1px solid rgba(255,255,255,.5);
+      background: rgba(255,255,255,.1);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.45);
+      color: #fff; font-family: var(--mono); font-size: .55rem; letter-spacing: .14em;
+      opacity: 0; transform: translate(-50%, -50%) scale(.55);
+      transition: opacity .28s var(--ease), transform .42s var(--ease);
+    }
+    .grid-a .k:hover .k-dot, .grid-b .k:hover .k-dot, .k.is-live .k-dot { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+    @media (max-width: 1000px) {
+      .mos, .mos-b, .grid-a, .grid-b { grid-template-columns: 1fr; }
+      .mos .k-hero { grid-row: auto; min-height: 360px; }
+      .acc { flex-direction: column; height: auto; }
+      .acc .k { min-height: 86px; }
+      .acc .k.open { min-height: 400px; }
+      .ac-spine { writing-mode: horizontal-tb; transform: none; }
+      .demo-in, .cmp-in { padding: 0 1.4rem; }
+      .demo-note { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="cmp-nav">
+    <div class="cmp-in">
+      <div class="cmp-brand">Vera.<span>Arrangement studies</span></div>
+      <a class="cmp-link" href="#v-b">B Rail</a>
+      <a class="cmp-link" href="#v-c">C Mosaic</a>
+      <a class="cmp-link" href="#v-d">D Accordion</a>
+      <a class="cmp-link" href="#v-e">E Grid</a>
+    </div>
+  </nav>
+
+  <section class="demo" id="v-b">
+    <div class="demo-in">
+      <div class="demo-head"><span class="demo-key">B</span><h2 class="demo-name">Cinematic rail</h2><span class="demo-note">Centre focus · drag to scroll</span></div>
+      <div class="rail" data-rail></div>
+      <div class="rail-prog"><i data-prog></i></div>
+    </div>
+  </section>
+
+  <section class="demo" id="v-c">
+    <div class="demo-in">
+      <div class="demo-head"><span class="demo-key">C</span><h2 class="demo-name">Asymmetric mosaic</h2><span class="demo-note">Everything visible · scroll parallax</span></div>
+      <div data-mos></div>
+    </div>
+  </section>
+
+  <section class="demo" id="v-d">
+    <div class="demo-in">
+      <div class="demo-head"><span class="demo-key">D</span><h2 class="demo-name">In-place accordion</h2><span class="demo-note">One row · opens where it stands</span></div>
+      <div class="acc" data-acc></div>
+    </div>
+  </section>
+
+  <section class="demo" id="v-e">
+    <div class="demo-in">
+      <div class="demo-head"><span class="demo-key">E</span><h2 class="demo-name">Calm grid</h2><span class="demo-note">Still layout · all life in the hover</span></div>
+      <div data-grid></div>
+    </div>
+  </section>
+
+<script>
+(function () {
+  "use strict";
+
+  var REDUCE = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var P = [
+    { title: "Predictive Intelligence x Virgin Media O2", tag: "Predictive ML · 100M+ records",
+      image: "photo/VMO2cover.png", pos: "center top" },
+    { title: "Spatial AI for Fuel Poverty & Energy", tag: "Spatial AI · Resource optimisation",
+      image: "photo/CUSP.png", pos: "center center", award: "Hackathon Best Overall" },
+    { title: "The Brexit Trade Network", tag: "Graph analytics · D3.js",
+      image: "photo/Brexit_trade.png", pos: "center center" },
+    { title: "Navigating New Horizons: Brexit & Education", tag: "Data storytelling · React",
+      image: "photo/Brexit_edu.png", pos: "center center" },
+    { title: "Watershed: 2021 Central Europe Flood", tag: "Geospatial product · Mapbox",
+      image: "photo/2021 Central Europe Flood.png", pos: "center top" }
+  ];
+
+  /* Single quotes inside: these land in double-quoted style="" attributes and
+     an inner double quote closes the attribute early. */
+  var bg = function (p) { return "background-image:url('" + encodeURI(p.image) + "');background-position:" + p.pos; };
+  var esc = function (s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); };
+  var lerp = function (a, b, t) { return a + (b - a) * t; };
+  var clamp01 = function (v) { return v < 0 ? 0 : v > 1 ? 1 : v; };
+
+  /* One card, four arrangements. `extra` only ever adds arrangement-specific
+     furniture (the accordion spine, the grid's cursor disc). */
+  function card(p, cls, extra) {
+    return '<button class="k ' + (cls || "") + '" type="button">' +
+      '<span class="k-img" style="' + bg(p) + '"></span>' +
+      '<span class="k-veil"></span>' +
+      (extra || "") +
+      '<span class="k-foot">' +
+        (p.award ? '<span class="k-aw">★ ' + esc(p.award) + "</span>" : "") +
+        '<span class="k-title">' + esc(p.title) + "</span>" +
+        '<span class="k-meta">' + esc(p.tag) + "</span>" +
+      "</span>" +
+    "</button>";
+  }
+
+  /* ══ B · Cinematic rail ════════════════════════════════ */
+  (function () {
+    var rail = document.querySelector("[data-rail]");
+    var prog = document.querySelector("[data-prog]");
+    if (!rail) return;
+
+    rail.innerHTML = P.map(function (p) { return card(p); }).join("");
+    var cards = rail.querySelectorAll(".k");
+
+    function paint() {
+      var box = rail.getBoundingClientRect();
+      var mid = box.left + box.width / 2;
+      cards.forEach(function (c) {
+        var r = c.getBoundingClientRect();
+        var f = clamp01(1 - Math.abs(r.left + r.width / 2 - mid) / (box.width / 2));
+        c.style.setProperty("--s", (.93 + f * .07).toFixed(3));
+        c.style.setProperty("--o", (.55 + f * .45).toFixed(3));
+        c.classList.toggle("is-live", f > .82);
+      });
+      var max = rail.scrollWidth - rail.clientWidth;
+      if (prog) prog.style.width = (max > 0 ? (rail.scrollLeft / max) * 100 : 0) + "%";
+    }
+    rail.addEventListener("scroll", function () { requestAnimationFrame(paint); }, { passive: true });
+    window.addEventListener("resize", paint);
+    paint();
+    requestAnimationFrame(function () { rail.scrollLeft = 176; paint(); });
+
+    /* Snapping is switched off mid-drag or the pointer fights the snap points
+       the whole way across. */
+    var down = false, sx = 0, sl = 0;
+    rail.addEventListener("pointerdown", function (e) {
+      down = true; sx = e.clientX; sl = rail.scrollLeft;
+      rail.classList.add("is-drag"); rail.setPointerCapture(e.pointerId);
+    });
+    rail.addEventListener("pointermove", function (e) {
+      if (down) rail.scrollLeft = sl - (e.clientX - sx);
+    });
+    function up(e) {
+      if (!down) return;
+      down = false; rail.classList.remove("is-drag");
+      try { rail.releasePointerCapture(e.pointerId); } catch (err) {}
+    }
+    rail.addEventListener("pointerup", up);
+    rail.addEventListener("pointercancel", up);
+  })();
+
+  /* ══ C · Asymmetric mosaic ═════════════════════════════ */
+  (function () {
+    var host = document.querySelector("[data-mos]");
+    if (!host) return;
+
+    host.innerHTML =
+      '<div class="mos">' + card(P[1], "k-hero") + card(P[0], "k-sm") + card(P[2], "k-sm") + "</div>" +
+      '<div class="mos-b">' + card(P[3]) + card(P[4]) + "</div>";
+
+    if (REDUCE) return;
+    var imgs = host.querySelectorAll(".k-img");
+    var queued = false;
+    function paint() {
+      queued = false;
+      var vh = window.innerHeight;
+      imgs.forEach(function (m) {
+        var r = m.parentNode.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200) return;
+        var t = ((r.top + r.height / 2) - vh / 2) / (vh / 2 + r.height / 2);
+        m.style.transform = "translate3d(0," + (t * -26).toFixed(1) + "px,0) scale(1.02)";
+      });
+    }
+    window.addEventListener("scroll", function () {
+      if (!queued) { queued = true; requestAnimationFrame(paint); }
+    }, { passive: true });
+    window.addEventListener("resize", paint);
+    paint();
+  })();
+
+  /* ══ D · In-place accordion ════════════════════════════ */
+  (function () {
+    var host = document.querySelector("[data-acc]");
+    if (!host) return;
+
+    host.innerHTML = P.map(function (p, i) {
+      return card(p, i === 1 ? "open" : "", '<span class="ac-spine">' + esc(p.title) + "</span>");
+    }).join("");
+
+    var panels = host.querySelectorAll(".k");
+    panels.forEach(function (a) {
+      function open() {
+        panels.forEach(function (x) { x.classList.remove("open"); });
+        a.classList.add("open");
+      }
+      a.addEventListener("click", open);
+      a.addEventListener("focus", open);
+      a.addEventListener("pointerenter", open);
+    });
+  })();
+
+  /* ══ E · Calm grid ═════════════════════════════════════ */
+  (function () {
+    var host = document.querySelector("[data-grid]");
+    if (!host) return;
+
+    var disc = '<span class="k-dot">OPEN</span>';
+    host.innerHTML =
+      '<div class="grid-a">' + card(P[0], "", disc) + card(P[1], "", disc) + card(P[2], "", disc) + "</div>" +
+      '<div class="grid-b">' + card(P[3], "", disc) + card(P[4], "", disc) + "</div>";
+
+    host.querySelectorAll(".k").forEach(function (k) {
+      var img = k.querySelector(".k-img");
+      var dot = k.querySelector(".k-dot");
+      var tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
+
+      /* The disc lags the pointer instead of pinning to it — a dot welded to
+         the cursor reads as a bug, a dot that catches up reads as weight. */
+      function tick() {
+        cx = lerp(cx, tx, .18); cy = lerp(cy, ty, .18);
+        dot.style.left = cx + "px";
+        dot.style.top  = cy + "px";
+        raf = requestAnimationFrame(tick);
+      }
+
+      k.addEventListener("pointerenter", function (e) {
+        var r = k.getBoundingClientRect();
+        cx = tx = e.clientX - r.left; cy = ty = e.clientY - r.top;
+        if (!raf) raf = requestAnimationFrame(tick);
+      });
+      k.addEventListener("pointermove", function (e) {
+        var r = k.getBoundingClientRect();
+        var x = e.clientX - r.left, y = e.clientY - r.top;
+        tx = x; ty = y;
+        if (REDUCE) return;
+        /* Cover moves against the pointer. Same-direction movement reads as a
+           sticker; opposing movement is what the eye reads as depth. */
+        var nx = (x / r.width) * 2 - 1, ny = (y / r.height) * 2 - 1;
+        img.style.transform =
+          "translate3d(" + (-nx * 13).toFixed(1) + "px," + (-ny * 13).toFixed(1) + "px,0) scale(1.05)";
+      });
+      k.addEventListener("pointerleave", function () {
+        img.style.transform = "";
+        if (raf) { cancelAnimationFrame(raf); raf = 0; }
+      });
+    });
+  })();
+})();
+</script>
+</body>
+</html>
