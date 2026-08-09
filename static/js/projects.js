@@ -50,7 +50,7 @@
           sub: "Optimising urban resource allocation and energy efficiency through high-resolution spatial-temporal modelling.",
           tag: "Spatial AI / Resource Optimisation",
           cat: "AI & Predictive Analytics",
-          award: true, awardLabel: "Best Overall Award",
+          award: true, awardLabel: "Hackathon Best Overall Award",
           accent: "#a78bfa",
           image: "photo/CUSP.png",
           imagePos: "center center",
@@ -157,43 +157,69 @@
   /* ─── Inject CSS ─────────────────────────────────────────── */
   injectCSS(`
     /* ── Category header ──────────────────────────────────── */
-    .cat-block { margin-bottom: 5rem; }
+    .cat-block { position: relative; margin-bottom: 4.5rem; }
+    .cat-block:last-child { margin-bottom: 0; }
+    /* One rule per boundary, drawn at the boundary. The old design put a
+       hairline under every category header, which stacked a second rule
+       directly beneath the section eyebrow and marked nothing. */
+    .cat-block + .cat-block { padding-top: 4.5rem; }
+    .cat-block + .cat-block::before {
+      content: "";
+      position: absolute; left: 0; right: 0; top: 0; height: 1px;
+      background: linear-gradient(90deg, rgba(255,255,255,.13), rgba(255,255,255,.03) 62%, transparent);
+    }
 
+    /* One line, one job. The two-line description under each category was
+       restating what the title already said and what the cards show — three
+       chances to read the same thing, in the smallest type on the page. */
     .cat-header {
-      display: flex; align-items: center; gap: 2rem;
-      margin-bottom: 2.2rem;
-      padding-bottom: 1.6rem;
-      border-bottom: 1px solid rgba(255,255,255,.06);
+      display: flex; align-items: baseline; gap: 1.4rem;
+      margin-bottom: 1.9rem;
     }
-    .cat-title-wrap { flex: 1; }
+    /* Matches .ai-title downpage — one display size, one weight, one colour.
+       The violet gradient this used to carry was the only place on the page
+       tinting a heading, which is what made the section read as bolted on. */
     .cat-name {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: clamp(1.8rem, 3.4vw, 2.8rem); font-weight: 400;
-      letter-spacing: -.01em; line-height: 1;
-      background: linear-gradient(110deg, #eeeef8 0%, #b0b0d8 65%, #8888c0 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-family: var(--sans);
+      font-size: clamp(1.8rem, 3.4vw, 2.75rem); font-weight: 500;
+      letter-spacing: -.022em; line-height: 1.1;
+      color: #f7f8ff;
+      white-space: nowrap;
     }
-    .cat-desc { margin-top: .55rem; font-size: .95rem; color: #55556e; font-weight: 300; line-height: 1.65; max-width: 56ch; }
-
-    /* subtle accent accent mark to the left of the title */
-    .cat-rule { display: none; }
+    /* Carries the rule out to the measure edge so a short title does not leave
+       the header hanging in empty space. */
+    .cat-header::after {
+      content: "";
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, rgba(255,255,255,.12), transparent 72%);
+    }
+    @media (max-width: 700px) {
+      .cat-name { white-space: normal; }
+      .cat-header::after { display: none; }
+    }
 
     /* ── Card row: horizontal scroll ─────────────────────── */
     .card-row-wrap {
       position: relative;
     }
-    /* right-edge fade is handled by .scroll-hint-btn */
+    /* Ends fade instead of getting guillotined at the measure edge. Both stops
+       are driven from JS so the fade only exists on the side that actually has
+       more content — a permanent fade over a row that does not scroll is a lie.
+       Vertical padding buys room for the hover lift, which the scroll container
+       would otherwise clip off at the top. */
     .card-row {
+      --fade-l: 0px;
+      --fade-r: 0px;
       display: flex; gap: 1.1rem;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
-      padding-bottom: 14px;
-      /* thin scrollbar */
+      padding: 18px 0 14px;
+      margin-top: -18px;
       scrollbar-width: thin;
       scrollbar-color: rgba(255,255,255,.1) transparent;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%);
+              mask-image: linear-gradient(90deg, transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%);
     }
     .card-row::-webkit-scrollbar { height: 3px; }
     .card-row::-webkit-scrollbar-track { background: transparent; }
@@ -206,16 +232,21 @@
       border-radius: 16px; overflow: hidden;
       cursor: pointer;
       position: relative;
-      border: 1px solid rgba(255,255,255,.08);
-      background: #0d0d16;
+      border: 1px solid rgba(255,255,255,.07);
+      background: var(--bg-s);
       scroll-snap-align: start;
       display: flex; flex-direction: column;
       transform-style: preserve-3d; will-change: transform;
       opacity: 0; transform: translateY(36px) scale(.97);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
       transition:
         opacity .65s cubic-bezier(.16,1,.3,1),
         transform .65s cubic-bezier(.16,1,.3,1),
         box-shadow .35s ease, border-color .35s ease;
+    }
+    /* The pointer becomes the affordance, so the arrow has to go. */
+    @media (hover: hover) and (pointer: fine) {
+      .p-card { cursor: none; }
     }
     .p-card.award { width: 400px; }
     .p-card.award::after {
@@ -227,12 +258,14 @@
     }
 
     /* ── Scroll-right hint button ──────────────────────────── */
+    /* The dark gradient this used to paint was a smear of flat black laid over
+       a tinted band; the row's own mask does the fading now, so all that is
+       left here is the button. */
     .scroll-hint-btn {
       position: absolute; right: 0; top: 0; bottom: 16px;
-      width: 88px; z-index: 6;
+      width: 62px; z-index: 6;
       display: flex; align-items: center; justify-content: flex-end;
-      padding-right: 14px;
-      background: linear-gradient(90deg, transparent, #07070d 60%);
+      padding-right: 6px;
       pointer-events: none;
       transition: opacity .3s;
     }
@@ -257,7 +290,16 @@
     .p-card.revealed { opacity:1; transform:translateY(0) scale(1); }
     .p-card:hover {
       border-color: rgba(255,255,255,.16);
-      box-shadow: 0 22px 60px rgba(0,0,0,.6);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 22px 60px rgba(0,0,0,.6);
+    }
+    /* Cards are the only way into a project, so they have to be reachable and
+       visibly focused without a mouse. Ring is offset outward so it survives
+       the card's own overflow:hidden. */
+    .p-card:focus { outline: none; }
+    .p-card:focus-visible {
+      outline: none;
+      border-color: rgba(255,255,255,.28);
+      box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px rgba(212,168,75,.55), 0 22px 60px rgba(0,0,0,.6);
     }
 
     /* cover – top 60% */
@@ -275,12 +317,22 @@
       transition: transform .55s cubic-bezier(.16,1,.3,1);
     }
     .p-card:hover .p-cover::before { transform: scaleX(1); }
+    /* Graded down at rest, full colour on hover. Five saturated dashboard
+       screenshots sitting in a row is the loudest thing in this section;
+       holding them to one quiet tone until they are asked for is what buys
+       the calm back — and it makes the hover feel like it did something.
+       Inset rather than inset:0 so the parallax has somewhere to travel
+       without dragging a bare edge into frame. */
     .p-cover-inner {
-      position: absolute; inset: 0;
-      transition: transform .85s cubic-bezier(.16,1,.3,1);
+      position: absolute; inset: -6%;
+      transition: transform .85s cubic-bezier(.16,1,.3,1), filter .8s cubic-bezier(.16,1,.3,1);
       background-size: cover;
+      filter: saturate(.6) brightness(.87) contrast(1.03);
+      will-change: transform, filter;
     }
-    .p-card:hover .p-cover-inner { transform: scale(1.1); }
+    .p-card:hover .p-cover-inner,
+    .p-card:focus-visible .p-cover-inner { filter: none; }
+    .p-card:hover .p-cover-inner { transform: scale(1.06); }
 
     /* shimmer (mouse-following) */
     .p-shimmer {
@@ -295,55 +347,105 @@
       background: linear-gradient(180deg, transparent 45%, rgba(13,13,22,.95) 100%);
     }
 
-    /* tech stack tag chip — glassmorphism, top-left corner */
-    .p-tag {
-      position: absolute; top: 12px; left: 12px; z-index: 10;
-      padding: .22rem .6rem;
-      border-radius: 5px;
-      background: rgba(7,7,18,.55);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,.14);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .8rem; font-weight: 400;
-      color: rgba(220,220,245,.85);
-      letter-spacing: .03em;
-      white-space: nowrap;
+    /* One line of context that rides up out of the cover's own shadow on
+       hover. It used to be a chip pinned to the corner all the time, which
+       meant five of them competing before you had shown any interest in any
+       of them. */
+    .p-meta {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
+      padding: .7rem 1.2rem .8rem;
+      display: flex; align-items: center; gap: .55rem;
+      font-family: var(--mono); font-size: .68rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(238,238,245,.72);
       pointer-events: none;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity .4s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1);
     }
+    .p-meta::before {
+      content: ""; width: 14px; height: 1px; flex-shrink: 0;
+      background: var(--card-accent, rgba(255,255,255,.4));
+    }
+    .p-card:hover .p-meta,
+    .p-card:focus-visible .p-meta { opacity: 1; transform: translateY(0); }
+
+    /* Follows the pointer with a frame of lag so it reads as a physical thing
+       being dragged rather than a label stapled to the cursor. Outer node only
+       ever carries the translate that JS writes each frame; the disc itself is
+       a child so its entrance scale is a plain CSS transition instead of
+       something the animation loop has to fight over. */
+    .p-dot {
+      position: absolute; z-index: 20; top: 0; left: 0;
+      pointer-events: none; will-change: transform;
+    }
+    .p-dot i {
+      display: flex; align-items: center; justify-content: center;
+      width: 74px; height: 74px; margin: -37px 0 0 -37px;
+      border-radius: 50%;
+      color: rgba(255,255,255,.94);
+      background: rgba(12,12,22,.34);
+      border: 1px solid rgba(255,255,255,.26);
+      box-shadow: 0 10px 30px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.18);
+      backdrop-filter: blur(9px) saturate(1.35);
+      -webkit-backdrop-filter: blur(9px) saturate(1.35);
+      opacity: 0; transform: scale(.5);
+      transition: opacity .26s ease, transform .45s cubic-bezier(.16,1,.3,1);
+    }
+    /* An arrow, not the word "open" — the info panel already says that, and
+       two labels for one action is one too many. */
+    .p-dot svg { width: 17px; height: 17px; }
+    .p-card:hover .p-dot i { opacity: 1; transform: scale(1); }
+    .p-card:active .p-dot i { transform: scale(.86); }
 
     /* info panel – bottom 40% */
     .p-info {
       flex: 1; padding: 1rem 1.2rem 1.25rem;
       display: flex; flex-direction: column; justify-content: flex-end;
-      background: #0d0d16;
+      background: var(--bg-s);
       border-top: 1px solid rgba(255,255,255,.05);
     }
+    /* Same gold pill as the timeline honours — an award is an award wherever
+       it appears, and it should not need a second visual language. */
     .p-award-badge {
-      font-size: .8rem; font-weight: 400; color: #d4a84b;
-      letter-spacing: .04em; margin-bottom: .45rem;
-      display: flex; align-items: center; gap: .4rem;
-      font-family: 'JetBrains Mono', monospace; text-transform: uppercase;
+      align-self: flex-start;
+      display: inline-flex; align-items: center; gap: .38rem;
+      margin-bottom: .55rem;
+      padding: .22rem .7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(212,168,75,.28);
+      background: rgba(212,168,75,.08);
+      font-family: var(--mono);
+      font-size: .68rem; font-weight: 500;
+      letter-spacing: .04em; color: #e0c07a;
     }
-    .p-award-badge svg { width: 12px; height: 12px; flex-shrink: 0; color: #d4a84b; }
+    .p-award-badge svg { width: 11px; height: 11px; flex-shrink: 0; color: #e0c07a; }
     .pm-hero-award svg { width: 13px; height: 13px; flex-shrink: 0; vertical-align: -1px; margin-right: .35rem; }
+    /* Sans, like every other title on the page. The serif here was Georgia at
+       1.25rem — the site's serif only earns its keep at display size (the
+       wordmark, the contact headline); shrunk down it just read as a different
+       website. */
     .p-title {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 1.25rem; font-weight: 500; color: #eeeef5;
-      letter-spacing: -.01em; line-height: 1.3; margin: 0;
+      font-family: var(--sans);
+      font-size: 1.12rem; font-weight: 500; color: var(--text);
+      letter-spacing: -.015em; line-height: 1.35; margin: 0;
+      transition: color .35s ease;
     }
+    .p-card:hover .p-title,
+    .p-card:focus-visible .p-title { color: #fff; }
     .p-sub {
-      margin: .35rem 0 0; font-size: .88rem;
-      color: #5a5a78; font-weight: 300; letter-spacing: .005em;
-      line-height: 1.55;
+      margin: .38rem 0 0; font-size: .88rem;
+      color: var(--muted); font-weight: 300; letter-spacing: .005em;
+      line-height: 1.6;
     }
     .p-open-hint {
       margin-top: .75rem;
-      font-size: .8rem; font-family: 'JetBrains Mono', monospace;
-      color: rgba(255,255,255,.28); letter-spacing: .07em; text-transform: uppercase;
+      font-size: .72rem; font-family: var(--mono);
+      color: var(--dim); letter-spacing: .12em; text-transform: uppercase;
       opacity: 0; transform: translateX(-8px);
       transition: opacity .35s cubic-bezier(.16,1,.3,1), transform .35s cubic-bezier(.16,1,.3,1), color .3s;
     }
-    .p-card:hover .p-open-hint { opacity:1; transform:translateX(0); color: rgba(255,255,255,.55); }
+    .p-card:hover .p-open-hint,
+    .p-card:focus-visible .p-open-hint { opacity:1; transform:translateX(0); color: var(--muted); }
 
     /* ── Full-screen modal ────────────────────────────────── */
     .pm-wrap {
@@ -367,6 +469,13 @@
       inset: 0;
       display: flex; flex-direction: column;
       background: #09090f;
+      /* One column for the whole drill-down. Masthead, prose and media all
+         measure themselves against these two numbers, which is what stops
+         each section from picking its own edge. */
+      --pm-measure: 1120px;
+      --pm-gutter: clamp(1.4rem, 5vw, 3.5rem);
+      --pm-text: 70ch;
+      --pm-gap: clamp(2.6rem, 5vw, 4rem);
       transform: translateY(48px) scale(.985);
       opacity: 0;
       transition: transform .55s cubic-bezier(.16,1,.3,1), opacity .4s ease;
@@ -388,31 +497,51 @@
       display: inline-flex; align-items: center; gap: .4rem;
       padding: .38rem .9rem; border-radius: 6px;
       border: 1px solid rgba(255,255,255,.09); background: transparent;
-      color: #80809a; cursor: pointer; font-size: .9rem;
+      color: var(--muted); cursor: pointer; font-size: .9rem;
       transition: color .15s, border-color .15s, background .15s;
     }
     .pm-tb-back:hover { color: #eeeef5; border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.04); }
     .pm-tb-back svg { width: 15px; height: 15px; }
     .pm-tb-cat {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .82rem; color: #5a5a7a; letter-spacing: .08em; text-transform: uppercase;
+      min-width: 0;
+      padding: 0 1rem;
+      font-size: .85rem;
+      color: #8a8aa8;
+      letter-spacing: -.005em;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
     .pm-tb-close {
       width: 32px; height: 32px; border-radius: 6px;
       border: 1px solid rgba(255,255,255,.09); background: transparent;
-      color: #60607a; cursor: pointer;
+      color: var(--muted); cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       transition: color .15s, border-color .15s, background .15s;
     }
     .pm-tb-close:hover { color: #eeeef5; border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.04); }
     .pm-tb-close svg { width: 15px; height: 15px; }
 
-    /* hero banner under titlebar */
+    /* ── Masthead ─────────────────────────────────────────────
+       Every project opens the same way: category, title, one line of
+       standfirst, then the facts. The height comes from the content, not
+       from a number — this used to carry a fixed flex basis while sitting
+       inside .pm-scroll rather than the flex column, so the basis was
+       ignored, and with every child absolutely positioned the whole
+       masthead collapsed to nothing on all five pages. */
     .pm-hero {
-      flex: 0 0 175px; position: relative; overflow: hidden;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,.06);
     }
     .pm-hero-bg {
       position: absolute; inset: 0;
+      /* The cover art is a screenshot of the project itself, so at cover size
+         behind the masthead it lands as a legible crop of somebody else's
+         headline. Blurred it becomes what it is meant to be — a tint with a
+         bit of weather in it. The scale hides the blur's soft edges, and the
+         damping is what brings five different accents to one brightness. */
+      opacity: .5;
+      filter: saturate(.7) blur(22px);
+      transform: scale(1.15);
       transition: transform 10s linear;
     }
     .pm-hero-bg-texture {
@@ -424,29 +553,45 @@
     }
     .pm-hero-vignette {
       position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(9,9,15,.92) 100%);
+      background:
+        radial-gradient(120% 90% at 12% 0%, rgba(9,9,15,.35) 0%, rgba(9,9,15,.88) 62%, #09090f 100%),
+        linear-gradient(180deg, rgba(9,9,15,.55) 0%, rgba(9,9,15,.86) 100%);
     }
+    /* In flow, not absolute: the masthead is as tall as what it contains. */
     .pm-hero-content {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 1.2rem clamp(1.5rem,5vw,3rem) 1.8rem;
+      position: relative;
+      max-width: var(--pm-measure);
+      margin: 0 auto;
+      padding: clamp(2.4rem, 5.5vw, 4rem) var(--pm-gutter) clamp(2rem, 4vw, 2.8rem);
+    }
+    .pm-hero-eyebrow {
+      margin: 0 0 1.1rem;
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #7a7a96;
     }
     .pm-hero-title {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: clamp(1.6rem, 4vw, 2.6rem);
-      font-weight: 400; letter-spacing: -.01em;
-      color: #fff; line-height: 1.1; margin: 0 0 .3rem;
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 3.6vw, 3.1rem);
+      font-weight: 400; letter-spacing: -.015em;
+      color: #fff; line-height: 1.08;
+      margin: 0 0 .7rem;
+      max-width: 20ch;
     }
     .pm-hero-sub {
-      font-size: 1rem; color: rgba(255,255,255,.5);
+      font-size: 1.02rem; color: rgba(238,238,245,.62);
       font-weight: 300; margin: 0; line-height: 1.6;
+      max-width: 56ch;
     }
     .pm-hero-award {
       display: inline-flex; align-items: center; gap: .4rem;
-      padding: .3rem .85rem; border-radius: 4px;
-      background: rgba(212,168,75,.1); border: 1px solid rgba(212,168,75,.25);
-      color: #d4a84b; font-size: .85rem; font-weight: 400;
+      padding: .26rem .8rem; border-radius: 999px;
+      background: rgba(212,168,75,.1); border: 1px solid rgba(212,168,75,.28);
+      color: #e0c07a; font-size: .72rem; font-weight: 500;
       margin-bottom: .75rem; letter-spacing: .04em;
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--mono);
     }
 
     /* scrollable body */
@@ -460,48 +605,82 @@
 
     .pm-body-inner {
       width: 100%;
-      padding: 2.4rem clamp(6.5rem,15vw,13rem) 4.5rem;
-    }
-    @media(max-width:720px){
-      .pm-body-inner { padding: 1.8rem clamp(1.4rem,6vw,2.4rem) 3.5rem; }
+      max-width: var(--pm-measure);
+      margin: 0 auto;
+      padding: clamp(2.4rem, 4vw, 3.4rem) var(--pm-gutter) clamp(3.5rem, 7vw, 5.5rem);
     }
 
     /* ── Modal body elements ──────────────────────────────── */
-    .pm-tag {
-      display: inline-flex; align-items: center;
-      padding: .3rem .9rem; border-radius: 4px;
-      background: transparent; border: 1px solid rgba(255,255,255,.09);
-      color: #7070a0; font-size: .85rem; font-family: 'JetBrains Mono', monospace;
-      margin-bottom: 1.1rem; letter-spacing: .04em; text-transform: uppercase;
-    }
     .pm-divider { border: none; border-top: 1px solid rgba(255,255,255,.06); margin: 1rem 0 1.5rem; }
-    .pm-detail { font-size: 1rem; color: #8080a0; line-height: 1.9; margin-bottom: 1.6rem; font-weight: 300; }
-    /* editorial section label: thin rule + text */
+    /* Prose keeps its own, narrower measure. The media below it is allowed the
+       full column, which is the whole reason the two are separated. */
+    .pm-detail {
+      max-width: var(--pm-text);
+      font-size: 1.02rem;
+      color: var(--muted);
+      line-height: 1.85;
+      margin: 0 0 1.15rem;
+      font-weight: 300;
+    }
+    .pm-detail:last-child { margin-bottom: 0; }
+    .pm-prose { margin-bottom: var(--pm-gap); }
+    /* One section label, one spacing step. Callers no longer patch margins
+       inline, which is what made the gaps between blocks arbitrary. */
     .pm-section-label {
       display: flex; align-items: center; gap: .9rem;
-      font-size: .8rem; font-family: 'JetBrains Mono', monospace;
-      color: #5a5a7a; letter-spacing: .12em; text-transform: uppercase;
-      margin: 2.2rem 0 1.1rem;
+      font-size: .7rem; font-family: var(--mono);
+      color: #7a7a96; letter-spacing: .18em; text-transform: uppercase;
+      margin: var(--pm-gap) 0 1.2rem;
     }
-    .pm-section-label::before {
-      content: ''; display: block; height: 1px;
-      width: 28px; background: rgba(255,255,255,.08); flex-shrink: 0;
+    /* The body already opens with its own padding; a section that happens to
+       come first must not add the between-sections gap on top of it. */
+    .pm-body-inner > .pm-section-label:first-child { margin-top: 0; }
+    .pm-section-label::after {
+      content: ''; display: block; height: 1px; flex: 1;
+      background: linear-gradient(90deg, rgba(255,255,255,.1), rgba(255,255,255,0));
     }
+
+    /* One frame around anything embedded, with the source and the way out
+       attached to it rather than floating underneath as a loose button. */
+    .pm-frame {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      background: #06060d;
+      box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    }
+    .pm-frame-foot {
+      display: flex; align-items: center; justify-content: flex-end;
+      padding: .7rem 1.1rem;
+      border-top: 1px solid rgba(255,255,255,.07);
+      background: rgba(255,255,255,.015);
+    }
+    .pm-frame-open {
+      display: inline-flex; align-items: center; gap: .45rem;
+      flex-shrink: 0;
+      font-family: var(--mono);
+      font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+      color: #9a9ab4; text-decoration: none;
+      transition: color .3s var(--ease, ease);
+    }
+    .pm-frame-open svg { width: 12px; height: 12px; transition: transform .35s var(--ease, ease); }
+    .pm-frame-open:hover { color: #eeeef5; }
+    .pm-frame-open:hover svg { transform: translate(2px, -2px); }
 
     /* embed iframe */
     .embed-wrap {
       position: relative; width: 100%;
-      height: 76svh;
-      min-height: 600px;
-      border-radius: 10px; overflow: hidden;
-      border: 1px solid rgba(255,255,255,.07);
-      box-shadow: 0 6px 30px rgba(0,0,0,.4);
-      background: #04040a; margin-bottom: .8rem;
+      /* Was 76svh with a 600px floor, which on a laptop handed a single
+         preview more height than the whole rest of the page. */
+      height: 62svh;
+      min-height: 420px;
+      max-height: 720px;
+      background: #04040a;
     }
     .embed-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .embed-wrap.pdf-embed {
-      height: 82svh;
-      min-height: 680px;
+      height: 68svh;
+      min-height: 460px;
     }
     .embed-fallback {
       position: absolute; inset: 0;
@@ -509,12 +688,12 @@
       background: rgba(4,4,10,.9); pointer-events: none; opacity: 0; transition: opacity .3s;
     }
     .embed-wrap.failed .embed-fallback { pointer-events: all; opacity: 1; }
-    .embed-note { font-size: .85rem; color: #5a5a7a; font-family: 'JetBrains Mono', monospace; }
+    .embed-note { font-size: .85rem; color: #8a8aa8; font-family: var(--mono); }
 
     /* embed loading spinner (iframes: PDF viewer / interactive maps) */
     .embed-loading {
       position: absolute; inset: 0; z-index: 3;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .95rem;
+      display: flex; align-items: center; justify-content: center;
       background: #04040a; transition: opacity .45s ease;
     }
     .embed-loading.hidden { opacity: 0; pointer-events: none; }
@@ -523,10 +702,6 @@
       border: 3px solid rgba(255,255,255,.12);
       border-top-color: var(--pm-accent, #5585f0);
       animation: pm-spin .8s linear infinite;
-    }
-    .embed-loading .load-label {
-      font-family: 'JetBrains Mono', monospace; font-size: .72rem;
-      color: #5a5a7a; letter-spacing: .14em;
     }
     @keyframes pm-spin { to { transform: rotate(360deg); } }
 
@@ -547,47 +722,39 @@
       100% { background-position: -170% 0; }
     }
 
-    /* PDF CTA */
-    .pdf-cta {
-      display: flex; align-items: center; gap: 1.1rem;
-      padding: .95rem 1.2rem; border-radius: 8px;
-      background: transparent; border: 1px solid rgba(251,146,60,.18);
-      text-decoration: none;
-      transition: background .15s, border-color .15s;
-      margin: 1.1rem 0;
-    }
-    .pdf-cta:hover { background: rgba(251,146,60,.06); border-color: rgba(251,146,60,.32); }
-    .pdf-icon {
-      flex-shrink: 0; width: 38px; height: 38px; border-radius: 7px;
-      background: rgba(251,146,60,.08);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .pdf-icon svg { width: 18px; height: 18px; color: #e08040; }
-    .pdf-info { flex: 1; }
-    .pdf-title { font-size: 1rem; font-weight: 400; color: #ccccdc; margin-bottom: .2rem; }
-    .pdf-subtitle { font-size: .85rem; color: #60607a; font-family: 'JetBrains Mono', monospace; letter-spacing: .03em; }
-    .pdf-arrow { color: #a07040; font-size: .9rem; flex-shrink: 0; }
-
-    /* Justified photo gallery — equal height, natural widths, no crop distortion */
+    /* A grid, not centred flex wrap. Wrapping left the last photograph
+       floating in the middle of its own row and none of them lining up with
+       the column everything else is measured against. */
     .pg-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: .85rem;
-      margin: .2rem 0 .6rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.4rem 1.1rem;
+      margin: 0;
     }
+    .pg-row .pg-shot { height: 260px; }
+    .pg-row .pg-item img { width: 100%; height: 100%; object-fit: cover; }
+    .pg-row .pg-item.is-wide .pg-shot { width: auto; }
+    /* The figure is frame + caption stacked. Captions used to be laid over the
+       bottom of the photograph, where they landed on whatever happened to be
+       there and were clipped by the frame's own rounding. */
     .pg-item {
-      position: relative;
-      height: 300px;
+      margin: 0;
       max-width: 100%;
       flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+    }
+    .pg-shot {
+      position: relative;
+      height: 300px;
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid rgba(255,255,255,.08);
       background: #0c0c14;
       transition: transform .45s cubic-bezier(.16,1,.3,1), border-color .35s, box-shadow .45s;
     }
-    .pg-item:hover {
+    .pg-item:hover .pg-shot {
       transform: translateY(-3px);
       border-color: rgba(255,255,255,.16);
       box-shadow: 0 16px 36px rgba(0,0,0,.4);
@@ -598,36 +765,38 @@
       max-width: 100%;
       object-fit: cover;
       display: block;
-      transition: transform .7s cubic-bezier(.16,1,.3,1);
+      /* Five photographs shot in five rooms under five different lights. The
+         same grading at rest is what lets them sit on one page together; the
+         full colour comes back when one is actually being looked at. */
+      filter: saturate(.72) brightness(.9) contrast(1.02);
+      transition: transform .7s cubic-bezier(.16,1,.3,1), filter .5s ease;
     }
-    .pg-item:hover img { transform: scale(1.04); }
+    .pg-item:hover img { transform: scale(1.04); filter: none; }
     /* slightly widened portrait — fills a roomier frame for comfort */
-    .pg-item.is-wide { width: 300px; }
+    .pg-item.is-wide .pg-shot { width: 300px; }
     .pg-item.is-wide img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; }
     .pg-cap {
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      padding: 1.6rem .9rem .7rem;
       font-size: .72rem;
-      font-family: 'JetBrains Mono', monospace;
-      letter-spacing: .04em;
-      color: #dcdcea;
-      line-height: 1.4;
-      background: linear-gradient(to top, rgba(0,0,0,.82), rgba(0,0,0,.35) 55%, transparent);
-      pointer-events: none;
+      font-family: var(--mono);
+      letter-spacing: .05em;
+      color: #7a7a96;
+      line-height: 1.5;
+      max-width: 42ch;
+      transition: color .35s ease;
     }
+    .pg-item:hover .pg-cap { color: #a8a8c0; }
     @media(max-width:640px){
-      .pg-item { height: 210px; }
+      .pg-shot { height: 210px; }
     }
 
     /* Two photos, one balanced row — equal height, tidy crop */
     .pg-duo {
       display: grid;
       grid-template-columns: 1.5fr 1fr;
-      gap: .85rem;
-      margin: .2rem 0 .6rem;
+      gap: 1.4rem 1.1rem;
+      margin: 0;
     }
-    .pg-duo .pg-item {
+    .pg-duo .pg-shot {
       height: 340px;
       width: auto;
       max-width: none;
@@ -640,13 +809,14 @@
     }
     @media(max-width:640px){
       .pg-duo { grid-template-columns: 1fr; }
-      .pg-duo .pg-item { height: 240px; }
+      .pg-duo .pg-shot { height: 240px; }
     }
 
     /* Venue / organiser bar — compact, hugs content, links out */
     .pm-venuebar {
       display: flex;
       align-items: center;
+      margin-top: 1.6rem;
       gap: 1.1rem;
       padding: 1rem 1.25rem;
       border-radius: 12px;
@@ -675,7 +845,7 @@
     .pm-venuebar-text { flex: 1; min-width: 0; }
     .pm-venuebar-label {
       font-size: .66rem;
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--mono);
       letter-spacing: .14em;
       text-transform: uppercase;
       color: #6a6a88;
@@ -685,55 +855,33 @@
     .pm-venuebar-org { font-size: .8rem; color: #8a8aa8; margin-top: .18rem; }
     .pm-venuebar-cta {
       flex: 0 0 auto;
-      font-size: .72rem;
-      font-family: 'JetBrains Mono', monospace;
-      letter-spacing: .05em;
-      color: #9a9ab8;
-      white-space: nowrap;
+      display: inline-flex;
+      color: #7a7a96;
+      transition: color .3s ease, transform .35s ease;
     }
-    a.pm-venuebar:hover .pm-venuebar-cta { color: #c8c8dc; }
-    @media(max-width:560px){
-      .pm-venuebar { flex-wrap: wrap; }
-      .pm-venuebar-cta { width: 100%; }
-    }
+    .pm-venuebar-cta svg { width: 14px; height: 14px; }
+    a.pm-venuebar:hover .pm-venuebar-cta { color: #e6e6f0; transform: translate(2px, -2px); }
 
-    /* CUSP PDF button — purple accent */
-    .pm-btn.cusp-pdf-btn {
-      background: transparent; border: 1px solid rgba(192,132,252,.25);
-      color: #b080e8;
-    }
-    .pm-btn.cusp-pdf-btn:hover {
-      background: rgba(192,132,252,.08); border-color: rgba(192,132,252,.42);
-    }
-
-    /* buttons */
+    /* One button. Four differently-coloured variants — blue, orange, purple,
+       red — were being chosen per project, which is most of why no two pages
+       looked related. */
     .btn-row { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.1rem; }
     .pm-btn {
-      display: inline-flex; align-items: center; gap: .45rem;
-      padding: .55rem 1.25rem; border-radius: 6px;
-      font-size: .93rem; font-weight: 400; text-decoration: none;
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .6rem 1.15rem; border-radius: 999px;
+      font-size: .84rem; font-weight: 400; text-decoration: none;
       letter-spacing: .01em;
-      transition: background .15s, border-color .15s, color .15s;
+      background: rgba(255,255,255,.02);
+      border: 1px solid rgba(255,255,255,.1);
+      color: #a8a8c0;
+      transition: background .25s, border-color .25s, color .25s;
       white-space: nowrap;
     }
-    .pm-btn.primary {
-      background: transparent; border: 1px solid rgba(85,133,240,.3); color: #7aa8f8;
+    .pm-btn:hover {
+      background: rgba(255,255,255,.055);
+      border-color: rgba(255,255,255,.2);
+      color: #eeeef5;
     }
-    .pm-btn.primary:hover { background: rgba(85,133,240,.08); border-color: rgba(85,133,240,.5); }
-    .pm-btn.ghost {
-      background: transparent; border: 1px solid rgba(255,255,255,.09); color: #80809a;
-    }
-    .pm-btn.ghost:hover { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.16); color: #eeeef5; }
-    .pm-btn.newtab {
-      background: transparent; border: 1px solid rgba(255,255,255,.07);
-      color: #5a5a7a; font-size: .88rem;
-    }
-    .pm-btn.newtab:hover { color: #80809a; border-color: rgba(255,255,255,.12); }
-    .pm-btn.kcl-btn {
-      background: transparent; border: 1px solid rgba(180,0,0,.28);
-      color: #e07070;
-    }
-    .pm-btn.kcl-btn:hover { background: rgba(139,0,0,.1); border-color: rgba(220,30,30,.45); }
 
     /* Press citation card — restrained, purple-keyed to the CUSP accent */
     .kcl-card {
@@ -780,14 +928,14 @@
     }
     .kcl-eyebrow {
       display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
-      font-size: .68rem; font-family: 'JetBrains Mono', monospace;
+      font-size: .68rem; font-family: var(--mono);
       letter-spacing: .14em; text-transform: uppercase;
       color: #6f6f8c; margin-bottom: .95rem;
     }
     .kcl-eyebrow .src { color: #b6a4f0; }
     .kcl-eyebrow .sep { width: 3px; height: 3px; border-radius: 50%; background: rgba(167,139,250,.5); }
     .kcl-title {
-      font-family: Georgia, 'Times New Roman', serif;
+      font-family: var(--serif);
       font-size: 1.4rem; font-weight: 500; color: #e8e8f2;
       letter-spacing: -.01em; line-height: 1.35; margin: 0 0 .85rem;
     }
@@ -804,14 +952,14 @@
     }
     .kcl-quote cite {
       font-size: .77rem; color: #6a6a86; font-style: normal;
-      font-family: 'JetBrains Mono', monospace; letter-spacing: .03em;
+      font-family: var(--mono); letter-spacing: .03em;
     }
     .kcl-foot {
-      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      display: flex; align-items: center; justify-content: flex-end; gap: 1rem;
       padding-top: .95rem;
       border-top: 1px solid rgba(255,255,255,.06);
       font-size: .76rem; color: #5a5a76;
-      font-family: 'JetBrains Mono', monospace; letter-spacing: .03em;
+      font-family: var(--mono); letter-spacing: .03em;
     }
     .kcl-readmore {
       display: inline-flex; align-items: center; gap: .4rem;
@@ -823,9 +971,22 @@
     /* accent-tinted rule at bottom of hero */
     .pm-hero::after {
       content: '';
-      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--pm-accent, #5585f0), transparent 80%);
-      opacity: .5;
+      position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      /* The one place a project's colour is allowed to speak, and quietly:
+         five accents at full strength gave five pages five temperaments. */
+      background: linear-gradient(90deg, var(--pm-accent, #5585f0), transparent 55%);
+      opacity: .35;
+    }
+
+    /* Reduced motion keeps the state changes — you still need to see which
+       card you are on — and drops the travel. */
+    @media (prefers-reduced-motion: reduce) {
+      .p-card { transition: opacity .01ms, box-shadow .2s ease, border-color .2s ease; transform: none !important; }
+      .p-card:not(.revealed) { opacity: 1; }
+      .p-cover-inner { transition: filter .2s ease; transform: none !important; }
+      .p-meta, .p-open-hint { transition: opacity .2s ease; transform: none !important; }
+      .p-dot { display: none; }
+      .p-card { cursor: pointer !important; }
     }
 
     /* responsive */
@@ -847,12 +1008,7 @@
 
     /* header */
     var hdr = el("div", "cat-header");
-    hdr.innerHTML =
-      '<div class="cat-title-wrap">' +
-        '<h2 class="cat-name">' + cat.name + "</h2>" +
-        '<p class="cat-desc">' + cat.desc + "</p>" +
-      "</div>" +
-      '<div class="cat-rule"></div>';
+    hdr.innerHTML = '<h2 class="cat-name">' + cat.name + "</h2>";
     block.appendChild(hdr);
 
     /* card row */
@@ -872,16 +1028,18 @@
     arrowBtn.addEventListener("click", function () {
       row.scrollBy({ left: 380, behavior: "smooth" });
     });
-    /* only show if content actually overflows; hide when scrolled to end */
-    requestAnimationFrame(function () {
-      if (row.scrollWidth <= row.clientWidth + 10) {
-        hintWrap.classList.add("hidden");
-      }
-    });
-    row.addEventListener("scroll", function () {
+    /* Arrow and edge fades both track the real scroll position, so a row that
+       fits shows neither and a row scrolled to the end stops advertising more. */
+    function syncEdges() {
+      var overflow = row.scrollWidth > row.clientWidth + 10;
       var atEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 10;
-      hintWrap.classList.toggle("hidden", atEnd);
-    });
+      hintWrap.classList.toggle("hidden", !overflow || atEnd);
+      row.style.setProperty("--fade-l", row.scrollLeft > 8 ? "72px" : "0px");
+      row.style.setProperty("--fade-r", overflow && !atEnd ? "104px" : "0px");
+    }
+    requestAnimationFrame(syncEdges);
+    row.addEventListener("scroll", syncEdges, { passive: true });
+    window.addEventListener("resize", syncEdges);
     wrap.appendChild(row);
     wrap.appendChild(hintWrap);
     block.appendChild(wrap);
@@ -919,11 +1077,13 @@
       '<div class="pm-scroll">' +
         /* hero banner */
         '<div class="pm-hero" id="pm-hero">' +
-          '<div class="pm-hero-bg" id="pm-hero-bg">' +
-            '<div class="pm-hero-bg-texture"></div>' +
-          '</div>' +
+          '<div class="pm-hero-bg" id="pm-hero-bg"></div>' +
+          /* Outside the tint layer, which is blurred — nested in it, the grid
+             was being smeared out of existence. */
+          '<div class="pm-hero-bg-texture"></div>' +
           '<div class="pm-hero-vignette"></div>' +
           '<div class="pm-hero-content">' +
+            '<p class="pm-hero-eyebrow" id="pm-hero-eyebrow"></p>' +
             '<div id="pm-award-wrap"></div>' +
             '<h1 class="pm-hero-title" id="pm-hero-title"></h1>' +
             '<p  class="pm-hero-sub"   id="pm-hero-sub"></p>' +
@@ -941,6 +1101,7 @@
   var pmHeroBg     = document.getElementById("pm-hero-bg");
   var pmHeroTitle  = document.getElementById("pm-hero-title");
   var pmHeroSub    = document.getElementById("pm-hero-sub");
+  var pmHeroEyebrow = document.getElementById("pm-hero-eyebrow");
   var pmAwardWrap  = document.getElementById("pm-award-wrap");
   var pmBody       = document.getElementById("pm-body");
   var pmBox        = pmWrap.querySelector(".pm-box");
@@ -976,9 +1137,13 @@
       else               pmHeroBg.style.backgroundSize = "";
     }
 
-    pmTbCat.textContent     = p.tag || p.cat || "";
-    pmHeroTitle.textContent = p.title;
-    pmHeroSub.textContent   = p.sub  || "";
+    /* The title, not the tag. The bar is the only thing still on screen once
+       the masthead has scrolled away, so it should say which project you are
+       in rather than repeat a descriptor that is already on the card. */
+    pmTbCat.textContent       = p.title;
+    pmHeroEyebrow.textContent = p.cat || "";
+    pmHeroTitle.textContent   = p.title;
+    pmHeroSub.textContent     = p.sub  || "";
 
     pmAwardWrap.innerHTML = p.award
       ? '<p class="pm-hero-award">' + awardIcon() + esc(p.awardLabel || "Award Winning") + "</p>" : "";
@@ -1018,26 +1183,24 @@
 
   /* ─── Modal body builders ────────────────────────────────── */
   function buildModalBody(p) {
-    var h = "";
-    if (p.tag) h += '<span class="pm-tag">' + esc(p.tag) + "</span>";
-    h += '<hr class="pm-divider">';
-
     switch (p.id) {
-      case "cusp-dive":   return h + buildCusp(p);
-      case "cdrc-virgin": return h + buildCdrc(p);
-      default:            return h + buildStandard(p);
+      case "cusp-dive":   return buildCusp(p);
+      case "cdrc-virgin": return buildCdrc(p);
+      default:            return buildStandard(p);
     }
   }
 
+  /* Paragraphs, at the prose measure, as one block with one gap after it. */
+  function buildProse(text) {
+    if (!text) return "";
+    return '<div class="pm-prose">' + String(text).split("\n\n").map(function (para) {
+      return '<p class="pm-detail">' + esc(para) + "</p>";
+    }).join("") + "</div>";
+  }
+
   function buildStandard(p) {
-    var h = '<p class="pm-detail">' + esc(p.detail) + "</p>";
-    if (p.embed) {
-      h += '<p class="pm-section-label">Interactive Preview</p>';
-      h += buildIframe(p.embed, p.title);
-      h += '<div class="btn-row"><a class="pm-btn newtab" href="' + esc(p.embed) + '" target="_blank" rel="noopener">Open in new tab  ↗</a>';
-      if (p.buttons) p.buttons.forEach(function (b) { h += btnHtml(b); });
-      h += "</div>";
-    }
+    var h = buildProse(p.detail);
+    if (p.embed) h += buildEmbedSection("Interactive build", p.embed, p.title, p.buttons);
     return h;
   }
 
@@ -1066,8 +1229,9 @@
                '<p>\u201CThe CUSP London Data Dive continues to highlight the talent and dedication of participating students as they uncover meaningful insights from urban data in sustainability.\u201D</p>' +
                '<cite>Dr Yijing Li, Acting Director for CUSP London</cite>' +
              '</blockquote>';
+    /* The masthead of the card already says King's College London; repeating
+       the domain underneath it was the same fact in smaller type. */
     h +=     '<div class="kcl-foot">' +
-               '<span>kcl.ac.uk / News</span>' +
                '<span class="kcl-readmore">Read full article ' +
                  '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>' +
                '</span>' +
@@ -1076,10 +1240,7 @@
     h += '</a>';
 
     /* ② Description — full width */
-    var detailHtml = p.detail.split('\n\n').map(function(para) {
-      return '<p class="pm-detail" style="margin-bottom:.9rem">' + esc(para) + '</p>';
-    }).join('');
-    h += '<div style="margin-bottom:.4rem">' + detailHtml + '</div>';
+    h += buildProse(p.detail);
 
     /* ③ Recognition — award photo + symposium poster, side by side */
     var moments = [];
@@ -1093,28 +1254,11 @@
     if (p.symposium) h += buildVenueBar(p.symposium);
 
     /* ③ Group presentation PDF */
-    h += '<p class="pm-section-label" style="margin-top:2rem">Group Presentation</p>';
-    h += '<div class="embed-wrap pdf-embed">' +
-           '<iframe src="' + pdfUrl + '" loading="lazy" title="CUSP Group 7 Presentation"></iframe>' +
-           embedLoader() +
-           '<div class="embed-fallback">' +
-             '<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' +
-             '<p style="color:#555;font-size:.78rem">PDF preview unavailable — use button below</p>' +
-           '</div>' +
-         '</div>';
-    h += '<div class="btn-row" style="margin-top:.75rem">' +
-           '<a class="pm-btn cusp-pdf-btn" href="' + pdfRaw + '" target="_blank" rel="noopener">' +
-             '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' +
-             'Open PDF Full Screen' +
-           '</a>' +
-         '</div>';
+    h += buildEmbedSection("Written report", pdfUrl, "CUSP Group 7 Presentation", null,
+                           { pdf: true, linkUrl: pdfRaw });
 
     /* ④ Interactive website — last */
-    h += '<p class="pm-section-label" style="margin-top:2.5rem">Interactive Map</p>';
-    h += buildIframe(p.embed, p.title);
-    h += '<div class="btn-row">' +
-           '<a class="pm-btn newtab" href="' + esc(p.embed) + '" target="_blank" rel="noopener">Open in new tab ↗</a>' +
-         '</div>';
+    h += buildEmbedSection("Interactive build", p.embed, p.title);
 
     return h;
   }
@@ -1129,7 +1273,7 @@
       if (!g || !g.src) return;
       var itemCls = "pg-item" + (layout !== "duo" && g.wide ? " is-wide" : "");
       h += '<figure class="' + itemCls + '">';
-      h +=   '<img src="' + encodeURI(g.src) + '" alt="' + esc(g.caption || "") + '" loading="lazy">';
+      h +=   '<div class="pg-shot"><img src="' + encodeURI(g.src) + '" alt="' + esc(g.caption || "") + '" loading="lazy"></div>';
       if (g.caption) h += '<figcaption class="pg-cap">' + esc(g.caption) + "</figcaption>";
       h += "</figure>";
     });
@@ -1150,38 +1294,68 @@
     if (s.name) h += '<p class="pm-venuebar-name">' + esc(s.name) + "</p>";
     if (s.org) h += '<p class="pm-venuebar-org">' + esc(s.org) + "</p>";
     h +=   "</div>";
-    if (s.url) {
-      var host = s.url.replace(/^https?:\/\//, "").replace(/\/$/, "");
-      h += '<span class="pm-venuebar-cta">' + esc(host) + " ↗</span>";
-    }
+    /* The organiser is named two lines to the left; the domain repeated it. */
+    if (s.url) h += '<span class="pm-venuebar-cta">' + openIcon() + "</span>";
     h += "</" + close + ">";
     return h;
   }
 
   function buildCdrc(p) {
     var url = p.pdfUrl || "#";
-    var h = '<p class="pm-detail">' + esc(p.detail) + "</p>";
+    var h = buildProse(p.detail);
     var photos = [];
     if (p.featured) photos.push(p.featured);
     if (p.gallery) photos = photos.concat(p.gallery);
     h += buildPhotoRow("Conference", photos);
-    h += '<p class="pm-section-label" style="margin-top:2.2rem">Report</p>';
-    h += '<div class="embed-wrap pdf-embed">' +
-         '<iframe src="' + esc(url) + '" loading="lazy" title="Research Report"></iframe>' +
-         embedLoader() +
-         '<div class="embed-fallback">' +
-           '<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' +
-           '<p style="color:#666;font-size:.78rem">PDF preview unavailable</p>' +
-         "</div></div>";
-    h += '<a class="pdf-cta" href="' + esc(url) + '" target="_blank" rel="noopener">' +
-         '<div class="pdf-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>' +
-         '<div class="pdf-info"><p class="pdf-title">Read Full Report</p><p class="pdf-subtitle">Predictive Modelling · Telecom Field Service Optimisation</p></div>' +
-         '<span class="pdf-arrow">↗</span></a>';
+    h += buildEmbedSection("Written report", url, "Research Report", null, { pdf: true });
     return h;
   }
 
   function embedLoader() {
-    return '<div class="embed-loading"><div class="spinner"></div><p class="load-label">LOADING…</p></div>';
+    /* The spinner is the message; the word underneath it was not adding one. */
+    return '<div class="embed-loading"><div class="spinner"></div></div>';
+  }
+
+  function hostOf(url) {
+    return String(url || "").replace(/^https?:\/\//, "").replace(/\/.*$/, "");
+  }
+
+  /* Label, frame, source line, actions — in that order, on every page that
+     embeds anything. The three builders used to each assemble this by hand
+     with their own inline margins and their own button wording. */
+  function buildEmbedSection(label, url, title, extraButtons, opts) {
+    opts = opts || {};
+    var h = '<p class="pm-section-label">' + esc(label) + "</p>";
+    h += '<div class="pm-frame">';
+    h +=   opts.pdf ? buildPdfIframe(url, title) : buildIframe(url, title);
+    h +=   '<div class="pm-frame-foot">' +
+             '<a class="pm-frame-open" href="' + esc(opts.linkUrl || url) + '" target="_blank" rel="noopener">' +
+               "Open full screen" + openIcon() +
+             "</a>" +
+           "</div>";
+    h += "</div>";
+    if (extraButtons && extraButtons.length) {
+      h += '<div class="btn-row">';
+      extraButtons.forEach(function (b) { h += btnHtml(b); });
+      h += "</div>";
+    }
+    return h;
+  }
+
+  function openIcon() {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg>';
+  }
+
+  function buildPdfIframe(url, title) {
+    return (
+      '<div class="embed-wrap pdf-embed">' +
+        '<iframe src="' + esc(url) + '" loading="lazy" title="' + esc(title) + '"></iframe>' +
+        embedLoader() +
+        '<div class="embed-fallback">' +
+          '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#55556a" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' +
+          '<p class="embed-note">Preview unavailable — open it full screen below</p>' +
+        "</div></div>"
+    );
   }
 
   function buildIframe(url, title) {
@@ -1192,8 +1366,8 @@
         "</iframe>" +
         embedLoader() +
         '<div class="embed-fallback">' +
-          '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/></svg>' +
-          '<p style="color:#555;font-size:.78rem">Preview blocked by site policy</p>' +
+          '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#55556a" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/></svg>' +
+          '<p class="embed-note">Preview blocked by the source site — open it full screen below</p>' +
         "</div></div>"
     );
   }
@@ -1239,6 +1413,12 @@
     cover.appendChild(shimmer);
     cover.appendChild(vignette);
 
+    if (p.tag) {
+      var meta = el("div", "p-meta");
+      meta.textContent = p.tag;
+      cover.appendChild(meta);
+    }
+
     /* skeleton shimmer until the cover photo loads (only for real images) */
     if (p.image) {
       var cSkel = el("div", "img-skeleton");
@@ -1251,13 +1431,6 @@
       cPre.src = encodeURI(p.image);
     }
 
-    /* tech stack tag chip */
-    if (p.tag) {
-      var tagChip = el("span", "p-tag");
-      tagChip.textContent = p.tag;
-      cover.appendChild(tagChip);
-    }
-
     var infoHtml =
       (p.award ? '<p class="p-award-badge">' + awardIcon() + esc(p.awardLabel || "Award Winning") + "</p>" : "") +
       '<h3 class="p-title">' + esc(p.title) + "</h3>" +
@@ -1267,32 +1440,83 @@
     var info = el("div", "p-info");
     info.innerHTML = infoHtml;
 
+    var dot = el("div", "p-dot");
+    dot.innerHTML =
+      '<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></svg></i>';
+
     card.appendChild(cover);
     card.appendChild(info);
+    card.appendChild(dot);
 
-    /* holographic tilt — bolder follow */
-    card.addEventListener("mousemove", function (e) {
-      var r  = card.getBoundingClientRect();
-      var x  = e.clientX - r.left, y = e.clientY - r.top;
-      var rx = ((y - r.height / 2) / (r.height / 2)) * -11;
-      var ry = ((x - r.width  / 2) / (r.width  / 2)) *  14;
-      card.style.transition = "box-shadow .2s ease, border-color .2s ease";
-      card.style.transform = "perspective(900px) rotateX(" + rx + "deg) rotateY(" + ry + "deg) translateY(-6px) scale(1.035)";
-      card.style.borderColor = "rgba(255,255,255,.18)";
-      card.style.boxShadow =
-        "0 0 0 1px " + p.accent + "55, 0 28px 70px rgba(0,0,0,.55), 0 0 90px " + hexRgba(p.accent,.16);
-      shimmer.style.opacity = "1";
+    /* Pointer response.
+       Everything visual is interpolated toward the pointer inside one rAF loop
+       rather than snapped to each pointermove event: the tilt, the cover's
+       counter-drift, the disc and the sheen all lag by the same amount, which
+       is what makes the card read as a single object with weight instead of
+       four effects that happen to share a hover state. The tilt is also much
+       shallower than it was — a card that swings 14 degrees is a toy. */
+    var accent = p.accent || "#ffffff";
+    var tX = 0, tY = 0, cX = 0, cY = 0, boxW = 1, boxH = 1;
+    var raf = 0, live = false;
+
+    function tick() {
+      cX += (tX - cX) * .16;
+      cY += (tY - cY) * .16;
+      var nx = cX / boxW - .5;
+      var ny = cY / boxH - .5;
+      card.style.transform =
+        "perspective(1000px) rotateX(" + (-ny * 7).toFixed(3) + "deg) rotateY(" +
+        (nx * 9).toFixed(3) + "deg) translateY(-8px) scale(1.014)";
+      coverInner.style.transform =
+        "scale(1.06) translate3d(" + (-nx * 15).toFixed(2) + "px," + (-ny * 11).toFixed(2) + "px,0)";
+      dot.style.transform = "translate3d(" + cX.toFixed(2) + "px," + cY.toFixed(2) + "px,0)";
       shimmer.style.background =
-        "radial-gradient(circle at " + x + "px " + y + "px, rgba(255,255,255,.22) 0%, transparent 58%)";
+        "radial-gradient(circle at " + cX.toFixed(0) + "px " + cY.toFixed(0) +
+        "px, rgba(255,255,255,.15) 0%, transparent 56%)";
+      raf = requestAnimationFrame(tick);
+    }
+
+    card.addEventListener("pointermove", function (e) {
+      if (e.pointerType !== "mouse" || reducedMotion()) return;
+      var r = card.getBoundingClientRect();
+      tX = e.clientX - r.left; tY = e.clientY - r.top;
+      boxW = r.width || 1; boxH = r.height || 1;
+      if (!live) {
+        live = true;
+        /* Start the disc where the pointer entered so it fades in on the spot
+           instead of skating in from the corner. */
+        cX = tX; cY = tY;
+        card.style.transition = "box-shadow .3s ease, border-color .3s ease";
+        coverInner.style.transition = "filter .8s cubic-bezier(.16,1,.3,1)";
+        card.style.borderColor = "rgba(255,255,255,.18)";
+        /* A neutral shadow with only a hint of the project's accent. The old
+           one ringed the card in 33% accent and threw a 90px coloured glow,
+           which lit five different colours across one row. */
+        card.style.boxShadow =
+          "0 0 0 1px " + hexRgba(accent, .16) +
+          ", 0 30px 70px rgba(0,0,0,.62), inset 0 1px 0 rgba(255,255,255,.09)";
+        shimmer.style.opacity = "1";
+        raf = requestAnimationFrame(tick);
+      }
     });
-    card.addEventListener("mouseleave", function () {
+
+    function release() {
+      if (raf) { cancelAnimationFrame(raf); raf = 0; }
+      live = false;
       card.style.transition =
-        "opacity .65s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, border-color .35s ease";
+        "opacity .65s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1), box-shadow .45s ease, border-color .45s ease";
       card.style.transform = card.classList.contains("revealed") ? "translateY(0) scale(1)" : "";
       card.style.borderColor = "";
       card.style.boxShadow = "";
+      coverInner.style.transition = "";
+      coverInner.style.transform = "";
       shimmer.style.opacity = "0";
-    });
+    }
+    card.addEventListener("pointerleave", release);
+    card.addEventListener("pointercancel", release);
+
     card.addEventListener("click", function () { openModal(p); });
     card.addEventListener("keydown", function (e) {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(p); }
@@ -1303,6 +1527,9 @@
 
   /* ─── Utils ──────────────────────────────────────────────── */
   function el(tag, cls) { var n = document.createElement(tag); if (cls) n.className = cls; return n; }
+
+  var motionQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+  function reducedMotion() { return !!(motionQuery && motionQuery.matches); }
 
   function injectCSS(str) { var s = document.createElement("style"); s.textContent = str; document.head.appendChild(s); }
 
